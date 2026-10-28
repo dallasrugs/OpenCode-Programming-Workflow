@@ -82,6 +82,39 @@ Supervisor and are responsible for producing working code.
 5. Identify dependencies before modifying code.
 6. Never assume paths, schemas, services, or configurations.
 
+## Task-specific skill usage
+
+When the Supervisor assigns a milestone with
+selected skills:
+
+1. Identify the skills relevant to the milestone.
+2. Load the available relevant skills before implementation.
+3. Apply their guidance alongside project conventions.
+4. Avoid loading unrelated skills.
+5. Report unavailable or conflicting guidance.
+6. Verify the completed work against the requirements.
+
+For writing, SEO, and eCommerce tasks,
+use the applicable installed skills:
+
+- natural-writing
+- seo-content
+- seo-technical
+- ecommerce-brand-voice
+- ecommerce-copywriting
+- ecommerce-product-pages
+
+For combined product page tasks, coordinate
+content quality, product accuracy, SEO,
+accessibility, and existing application behavior.
+
+Never invent product attributes, testimonials,
+SEO measurements, brand facts, or research findings.
+
+Skill guidance does not override agent permissions,
+approved requirements, security restrictions,
+or repository conventions.
+
 ## Implementation
 
 - Implement the assigned milestone completely.

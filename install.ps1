@@ -42,18 +42,24 @@ $agents = @(
     'coder'
 )
 
+# Discover bundled skills automatically.
+# Install only SKILL.md files from valid skill directories.
+$skillsRoot = Join-Path $sourceRoot 'skills'
+
+if (-not (Test-Path -LiteralPath $skillsRoot -PathType Container)) {
+    throw "Skills directory not found: $skillsRoot"
+}
+
 $skills = @(
-    'codebase-understanding',
-    'requirements-grilling',
-    'domain-modeling',
-    'specification-design',
-    'task-decomposition',
-    'milestone-coordination',
-    'completion-audit',
-    'test-driven-development',
-    'systematic-debugging',
-    'code-quality',
-    'verification'
+    Get-ChildItem -LiteralPath $skillsRoot -Directory |
+        Where-Object {
+            $_.Name -match '^[a-z0-9][a-z0-9-]*$' -and
+            (Test-Path -LiteralPath (
+                Join-Path $_.FullName 'SKILL.md'
+            ) -PathType Leaf)
+        } |
+        Sort-Object -Property Name |
+        ForEach-Object { $_.Name }
 )
 
 $files = @('opencode.json')

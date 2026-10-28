@@ -31,6 +31,7 @@ No implementation begins before explicit approval.
 
 - Four agent definitions
 - Eleven engineering skills
+- Six writing, SEO, and eCommerce skills
 - OpenCode v2 project configuration
 - Approval-gated implementation
 - Risk-adaptive TDD
@@ -57,8 +58,34 @@ Check available models with: opencode models
 
 ## Installation
 
-Installation instructions and a safe installer will be added
-before the first public release.
+Clone the repository:
+
+    git clone https://github.com/dallasrugs/opencode-multi-agent-starter.git
+    cd opencode-multi-agent-starter
+
+### Linux and macOS
+
+Preview global installation:
+
+    ./install.sh --global --dry-run
+
+Install globally:
+
+    ./install.sh --global
+
+Install into an existing project:
+
+    ./install.sh --project /path/to/project
+
+The installer preserves existing configuration files.
+Existing files must be updated or merged manually.
+
+### Verification
+
+    opencode debug agents
+    opencode api skill.list
+
+For native Windows setup, see the Windows installation section below.
 
 ## Security
 

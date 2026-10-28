@@ -37,6 +37,37 @@ implementation through the Coder.
 6. Identify deviations, blockers, and missing requirements.
 7. Produce a final implementation report for the Planner.
 
+## Skill-aware coordination
+
+The Planner may include selected skills in an
+approved implementation handoff.
+
+For each milestone:
+
+1. Preserve the Planner's selected skill names.
+2. Identify which skills apply to that milestone.
+3. Include relevant skill names in the Coder assignment.
+4. Ask the Coder to load and apply those skills.
+5. Verify that the final result meets their requirements.
+6. Report missing or unavailable skills to the Planner.
+
+Common combinations:
+
+- Natural writing: natural-writing
+- SEO content: seo-content
+- Technical SEO: seo-technical
+- Brand consistency: ecommerce-brand-voice
+- Commerce copy: ecommerce-copywriting
+- Product pages: ecommerce-product-pages
+
+Combined tasks may require several skills.
+
+Do not load skills outside the Supervisor's
+existing permitted coordination skills.
+
+Do not expand the approved scope or bypass
+the Planner's approval gate.
+
 ## Execution
 
 - Create a logical roadmap before delegating.
