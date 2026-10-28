@@ -174,3 +174,5 @@ configuration directories.
 The native PowerShell installer is designed for Windows
 PowerShell 5.1 and PowerShell 7. Windows execution tests
 should be completed before the first public release.
+
+> **Windows status:** The PowerShell installer is included but has not yet been tested on a Windows machine.
