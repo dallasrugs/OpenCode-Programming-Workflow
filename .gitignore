@@ -1,0 +1,14 @@
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+node_modules/
+__pycache__/
+.cache/
+*.log
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.tmp
