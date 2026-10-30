@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "policy": {
+    "tests": {
+      "image": "bdfl-python-tests:local",
+      "commands": [
+        [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        [
+          "node",
+          "--test",
+          "tests/test_workspace_plugin.mjs"
+        ]
+      ],
+      "timeout_seconds": 120
+    }
+  },
+  "sandbox": {
+    "docker": "docker",
+    "build": {
+      "dockerfile": "# Default test environment for this starter; customize it for your project.\n# For reproducible environments replace the base tag with an approved image digest.\nFROM python:3.13-slim\nRUN apt-get update \\\n    && apt-get install -y --no-install-recommends git bash tar nodejs \\\n    && rm -rf /var/lib/apt/lists/*\nENV PYTHONDONTWRITEBYTECODE=1\n",
+      "timeout_seconds": 900
+    },
+    "memory": "2g",
+    "cpus": 2,
+    "pids_limit": 512,
+    "tmpfs_size": "2g",
+    "environment": {},
+    "prepare_commands": [],
+    "shm_size": "256m"
+  }
+}

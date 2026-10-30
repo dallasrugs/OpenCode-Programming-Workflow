@@ -1,274 +1,165 @@
-# BDFL-Governed OpenCode Coding Team
+# OpenCode Programming Workflow
 
-Four functional roles backed by a persistent controller, scoped edit permissions,
-isolated Git worktrees, independent review, and a deterministic container test runner.
-The user is the BDFL. Team Lead is the default OpenCode contact.
+This project turns OpenCode into a small programming team. You describe what you
+want to build or fix, and talk to **Poseidon**, the coordinating agent. Poseidon brings in
+other agents to plan the work, write code, check the design and review the result.
+You stay in one conversation and make the final decisions.
 
-| Role | Model | Authority |
+The agents do the reasoning. A few small Python helpers manage Docker test
+sandboxes, project settings and test logs. There is no separate controller to
+start and no request file or authorization token to prepare.
+
+## Meet the team
+
+| Agent | What it does | Model |
 |---|---|---|
-| Team Lead | `openai/gpt-6-sol` | Requirements, specification negotiations, final report |
-| Maintainer | `openai/gpt-6-sol` | Architecture, invariants, ADRs, integration decision |
-| Coder | `openai/gpt-6-sol` | Edits only explicitly approved file paths |
-| Reviewer & Tester | `openrouter/nvidia/nemotron-3-ultra-550b-a55b:free` | Read-only rubric and independent review |
+| **Poseidon** | Your main contact; coordinates the work and reports the result | OpenAI GPT-6 Sol |
+| **Team Lead** | Turns requirements into a practical plan | OpenAI GPT-6 Sol |
+| **Maintainer** | Checks architecture, compatibility and maintainability | OpenAI GPT-6 Sol |
+| **Coder** | Makes the code changes and addresses feedback | OpenAI GPT-6 Sol |
+| **Reviewer** | Independently reviews the changes and test evidence | NVIDIA Nemotron via OpenRouter |
 
-There is no fifth LLM agent. Python controls transitions; Docker executes tests.
-All 17 previous skills were audited. The native catalog now contains 18 verified
-upstream originals/dependencies plus six unchanged, explicitly unverified local
-adaptations. See [skill provenance](docs/SKILL_PROVENANCE.md) for authors, exact
-restorations, licensing blockers and compatibility limits.
+Poseidon decides how much planning and review a task needs. A small fix can stay small;
+a larger change can involve all four specialists. Delegation appears directly in
+OpenCode, so you can see which agent is working.
 
-## Requirements
+The definitions live in [.opencode/agents](.opencode/agents). Poseidon is the default
+agent. The first four use `openai/gpt-6-sol`; Reviewer uses
+`openrouter/nvidia/nemotron-3-ultra-550b-a55b:free`. To change a model, edit its
+agent's `model` field. OpenCode uses your existing provider connections; this
+project adds no login system and stores no model credentials.
 
-- OpenCode **v2**, configuration loading verified with installed **v2.2.3**.
-- Python 3.10+, Git, and credentials for the configured providers.
-- Docker Engine or Docker Desktop for governed test execution; a preloaded Linux
-  image containing the project's test dependencies and `/bin/sh`.
-- A clean Git checkout. Agent-visible source must contain no symlinks or submodules.
+## Set it up
 
-Model availability depends on the provider/account. Run `opencode models`, then
-set `models.reviewer` in your runner policy to the actual provider/model ID.
-Set the other three models there as needed. For interactive sessions, also edit
-`model` in the corresponding `.opencode/agents/*.md`. The controller passes an
-explicit `--model` on each call so session defaults cannot select a different model.
+You need:
 
-## Install
+- **OpenCode v2** and connections for the configured OpenAI/OpenRouter models.
+- **Git** and **Python 3.10 or newer** for the workspace helpers.
+- A running **Docker engine** for sandbox tests. On macOS, start Docker Desktop.
 
-macOS/Linux:
+For a project installation, run these commands from this starter's directory:
 
 ```sh
-./install.sh --project /path/to/project --dry-run
-./install.sh --project /path/to/project
-# Or install the bundle globally:
+./install.sh --project /path/to/your/project --dry-run
+./install.sh --project /path/to/your/project
+```
+
+Or install globally, so the team is available in all your repositories:
+
+```sh
 ./install.sh --global
 ```
 
-Windows PowerShell 5.1 or 7:
+On Windows, use `./install.ps1 -Project 'C:\Projects\MyApp'` or
+`./install.ps1 -Global`. Add `-DryRun` to preview the changes.
 
-```powershell
-.\install.ps1 -Project 'C:\Projects\MyApp' -DryRun
-.\install.ps1 -Project 'C:\Projects\MyApp'
-# Or:
-.\install.ps1 -Global
-```
+Installers preserve existing files. They do not overwrite an older installation
+or remove its files automatically. Review an existing installed bundle before
+replacing it. Restart OpenCode after deliberately updating its configuration.
 
-Both installers preserve existing files. They install agents, skills, configuration,
-and the Python controller, example policy and test-image Dockerfile. Complete
-reference trees, original licenses, preserved source snapshots, compatibility patches
-and the provenance/synchronization utilities are installed together. Existing JSONC prevents creation of
-competing JSON. The native Windows installer has not been executed on Windows;
-WSL can use the Linux installation.
+## Give it a task
 
-For global installation, invoke the controller at
-`~/.config/opencode/governance/bdfl.py --repo /path/to/project ...` instead of the
-project-local path below. No Python packages need installation.
-
-## Start work from chat
-
-Open OpenCode in your repository and send your implementation request to the
-Team Lead. That request authorizes ordinary implementation within its scope.
-The Team Lead inspects the project, builds its test policy, and calls the bundled
-`bdfl_controller` tool to save the full request and policy and start the controller.
-You do not need to create files or run a command yourself. For example:
-
-> Implement the UI refinement described below. Preserve the current API, run the
-> frontend and browser tests, and report the result. [Your requirements here.]
-
-The tool returns a run ID immediately; execution continues in the background.
-Ask the Team Lead for status or to resume an interrupted run. It can also convey
-your explicit approval or rejection of a pending architecture/breaking-change
-escalation using the exact specification hash. Ordinary task authorization never
-approves such an escalation. Finished candidates remain uncommitted for your review.
-
-Docker and a preloaded project-specific test image are still required. If those
-or essential requirements are missing, the Team Lead explains what is needed;
-it must not invent an image or substitute the starter's tests for your tests.
-The bridge uses OpenCode's native [V2 plugin API](https://opencode.ai/v2/docs/build/plugins/server/).
-Existing installations need the updated Team Lead, governance files and
-`plugins/bdfl-chat/` directory; the installer preserves existing files. Restart
-OpenCode after updating. Controller-managed sessions cannot launch nested runs.
-
-## Start work from the terminal (optional)
-
-Copy `policy.example.json` to a BDFL-controlled location **outside the target
-repository**. Set its test image, fixed argv commands, timeouts and retry limits.
-The example policy runs this starter's own unittest suite; replace it for other
-projects. Build the supplied image with Python, Git and Bash before running it:
+Open a new OpenCode chat in your repository:
 
 ```sh
-docker build -t bdfl-python-tests:local -f .opencode/governance/Dockerfile.tests .opencode/governance
+cd /path/to/your/project
+opencode
 ```
 
-Use an image pinned by digest for reproducible dependencies. Runs cannot pull images,
-install dependencies over the network, or fall back to executing candidate tests on
-the host.
+Then send a normal request, for example:
 
-```sh
-python3 .opencode/governance/bdfl.py start \
-  --request 'Fix the timeout regression while preserving the public API' \
-  --policy /absolute/path/to/my-policy.json \
-  --authorize-task
-```
+> Refine the notebook layout for desktop and mobile. Preserve autosave and the
+> existing API. Run the frontend and browser tests, then explain what changed.
 
-`--authorize-task` is the BDFL's authorization for ordinary implementation within
-this task. After Maintainer approval, the controller prepares the rubric, invokes
-the Coder, runs tests, gets independent review, handles fixes, obtains the
-Maintainer's integration decision, and asks Team Lead to report the result. No
-manual agent switching is needed. The Reviewer prepares its rubric before coding.
+Poseidon inspects the project, delegates the appropriate work, and brings back the
+changes, actual test results and any unresolved issues. You do not need to switch
+agents manually or supply a controller run ID. Agents should preserve unrelated
+changes and commit or publish only when you ask them to.
 
-Omit `--authorize-task` to inspect the specification before any implementation.
-Breaking changes, major architectural decisions and Maintainer `ESCALATE` always
-pause at `AWAITING_BDFL`, even when the task was authorized. Inspect `state.json`,
-including the specification, rationale, migration and risks, then use the displayed
-run ID and exact specification hash:
+## What Docker is for
 
-```sh
-python3 .opencode/governance/bdfl.py authorize RUN_ID \
-  --spec SPEC_SHA256 --reason 'Approve the migration and compatibility tradeoff'
-python3 .opencode/governance/bdfl.py status RUN_ID
-python3 .opencode/governance/bdfl.py resume RUN_ID
-python3 .opencode/governance/bdfl.py reject RUN_ID --reason 'Choose a different approach'
-```
+Docker provides an isolated place to run your project's tests. The container image
+contains the tools those tests need: for example Python, Node and a browser.
+The image is specific to the project; it is not an AI agent.
 
-The CLI and the chat bridge both use the same controller. The default interactive
-Team Lead can save and launch tasks only through `bdfl_controller`; its shell,
-source writes and direct subagent launches remain denied. The controller calls
-each role in a fresh private OpenCode session, without recursive agent delegation.
-The CLI also accepts `--request-file /path/to/request.txt` instead of `--request`.
+On first use, Poseidon inspects the project and saves its test setup. It can reuse an
+existing image or build one from a saved Dockerfile recipe. Once configured, the
+sandbox starts when you send a request and is reused during that chat. Delegated
+agents share their parent chat's sandbox.
 
-## Outcomes and recovery
+For each test run, the helpers copy the current source into the container and run
+the configured commands. Tests run without network access or host mounts; image
+building can download dependencies. Results include real command output and a
+source fingerprint. If the code changes during validation, the result is marked
+stale instead of being reported as a pass.
 
-State lives under the repository's Git common directory:
+The agents still edit your repository through native OpenCode tools. The Docker
+sandbox isolates tests; it does not enclose every agent action. Standard OpenCode
+permissions in the agent definitions control tool access. Coder has native edit
+and shell access. Reviewer also has shell access for inspection and tests, with
+instructions to leave application source unchanged.
+
+## Logs, settings and cleanup
+
+Ask Poseidon to show test output in OpenCode's shell. Structured workspace tool calls
+also report progress. Full helper logs and test evidence are saved with the project:
 
 ```text
 .git/bdfl/
-  architecture.json            # Maintainer map, invariants, ADRs across runs
-  controller.lock             # repository-wide exclusive lock
-  runs/RUN_ID/state.json      # spec, decisions, authorization, rubric, test logs, events
-  runs/RUN_ID/request.txt     # original task text
-  runs/RUN_ID/policy.json     # frozen input policy
-  runs/RUN_ID/controller.log # background chat run output/errors
-  runs/RUN_ID/candidate.patch # includes additions and deletions; no commit required
-  worktrees/RUN_ID/           # isolated bdfl/RUN_ID branch, candidate remains uncommitted
+  settings.json       # Docker setup and test commands
+  image-cache.json    # Reusable image build information
+  sessions/           # Which sandbox belongs to each chat
+  operations/         # Setup and test logs
+  evidence/           # Test results tied to the source that was tested
 ```
 
-`READY` means tests and independent review passed and the Maintainer approved the
-exact candidate for integration. The controller does **not** commit, merge, push or
-deploy. Review the patch and integrate it yourself. The original checkout and its
-index stay untouched. Run `resume RUN_ID` before integration: any subsequent source
-or executable-bit change invalidates tests, review, integration approval and report.
-`status` reports staleness but does not execute anything.
+The `bdfl` storage-directory name is retained so existing project settings, logs
+and sandbox ownership continue to work. These files are local to the project
+and survive OpenCode restarts. They are
+outside the application working tree, so saving settings does not create source
+changes. Git worktrees share their Git common directory's settings.
 
-Provider errors, malformed responses and missing Docker stop with no approval.
-Use `resume` after restoring infrastructure. Interrupted planning/coding attempts
-consume the persisted retry budget; tests and review can be safely rerun. Plan and
-implementation retries default to three each. `EXHAUSTED` and implementation/final
-`ESCALATED` need a new task with revised scope or policy, rather than an implicit
-retry-budget or scope override. A BDFL plan escalation can be explicitly authorized
-by its hash. Rejected runs cannot resume.
+Two commands are available in OpenCode:
 
-After a killed controller, inspect the PID in `controller.lock`; remove it only when
-that process has exited. Worktrees are retained for investigation. Never remove a
-worktree containing wanted changes. Architecture memory is advisory and is checked
-against source on demand; it is not an approval or authorization token.
+- `/poseidon-logs LOG_ID` asks Poseidon to show a saved workspace operation's log.
+- `/poseidon-end` removes the current chat's sandbox and keeps its settings and work.
 
-## Enforcement and limitations
+Archiving or deleting the parent chat also removes its container. Deleting a
+worker agent's session does not remove the parent's sandbox. A later request can
+recreate the sandbox from the saved configuration. Closing the UI alone does not
+end a saved chat. Docker must be reachable for container cleanup to succeed.
 
-- Only the controller grants exact file edit permissions after authorization.
-  A directly invoked Coder has no write tools. All roles deny unrestricted shell,
-  subagents, Code Mode, MCP and external directories. Reviewer has only native
-  read/discovery/skill tools; it cannot execute tests or delegate mutations.
-- Every model call sees a disposable source mirror, without Git metadata, secrets,
-  project OpenCode configs/plugins, or other agent configuration. Global user
-  configuration is isolated via `XDG_CONFIG_HOME`; provider authentication remains
-  in OpenCode's normal data location. Managed system policy still applies.
-- Source scope is a list of exact relative files. Secret files, symlinks, Git and
-  agent-control paths are prohibited. Changing `.opencode` or root/nested
-  `opencode.json(c)` through this workflow is deliberately unsupported. Review such
-  infrastructure changes separately. Ignored/untracked local files are not supplied
-  unless Git tracks them. Agent snapshots cannot use host dependency directories.
-- The test runner mounts source read-only, executes a copy under `/tmp`, disables
-  networking, drops capabilities, uses a non-root UID and limits CPU, memory, PIDs
-  and runtime. It receives no provider keys, Docker socket or host credentials.
-  Build test dependencies into the preloaded image. This is container isolation,
-  not a promise to withstand a hostile kernel/container-runtime exploit.
-- The BDFL controls the CLI, state directory and trusted installation. The interactive
-  Team Lead may generate a runner policy for a requested task through the chat bridge;
-  the controller validates and freezes it before execution. The bridge is trusted
-  host code with fixed controller actions, not an unrestricted shell tool.
-  A host user able to rewrite those files can change governance. Permissions and
-  fingerprints protect against model tool misuse, not a malicious host owner.
-- Sending a task authorizes the configured providers to process the eligible
-  source context. Use only providers approved for that repository's confidentiality
-  requirements; configure all four roles accordingly.
+The [example settings](.opencode/runtime/settings.example.json) show the available
+test and sandbox options. Poseidon can configure these through `poseidon_workspace`; you
+do not have to write the file yourself. Existing version 1 project settings remain
+readable, but their old model/retry fields do not control the native agents.
 
-## Native author skills
+## What's in this repository
 
-Skills load lazily through OpenCode's native `skill` tool. Agent frontmatter has
-explicit ID allowlists; the controller copies only that role's permitted skill
-directories into its mirror. Bodies and supporting references are not preloaded.
-The original author text is kept separate from the execution compatibility notes.
+| Location | Purpose |
+|---|---|
+| `.opencode/agents/` | The five agents, their models, permissions and instructions |
+| `.opencode/plugins/poseidon-workspace/` | OpenCode integration for sandbox lifecycle and workspace tools |
+| `.opencode/runtime/` | Small sandbox, settings, logging and source-validation helpers |
+| `.opencode/skills/` | Skills available to the agents |
+| `.opencode/skill-sources/` | Pinned originals, licenses and audit records for those skills |
+| `.opencode/skill-resources/` | Supporting material required by imported skills |
+| `tests/` | Checks for the current agents, helpers, plugin and installers |
 
-The two minimal SEO compatibility patches replace the Claude plugin-root path.
-Other imported skill bodies are unchanged. Some original procedures require
-extra agents, tracker publication, inline writes or network tools; these remain
-explicitly unsupported where the four-role permissions cannot provide them. A
-loaded skill never grants new permissions or makes an unsupported procedure valid.
+Skill source snapshots and original licenses are intentionally retained. They are
+used to verify provenance, not loaded as duplicate agents or skills. See
+[skill provenance](docs/SKILL_PROVENANCE.md) and [attribution](ATTRIBUTION.md).
 
-For TDD/debugging, the Coder can return `CHECKPOINT` to yield its current approved
-patch to the existing deterministic runner. The controller resumes that same role
-with actual results. `max_test_checkpoints` defaults to 24 per run; implementation
-retry limits still apply. Checkpoints support real red/green evidence and never
-replace final tests, independent review or integration approval. No extra LLM or
-unrestricted shell is used. Docker must be available for any checkpoint to run.
+## Check the starter
 
-Validate or update original sources without silently rewriting them:
+These checks do not invoke models or require model credits:
 
 ```sh
-python3 .opencode/governance/skillctl.py validate
-python3 .opencode/governance/skillctl.py check tdd --ref main --report /tmp/tdd-update.json
-# Inspect the diff, source pins, licensing status and changed-program list first:
-python3 .opencode/governance/skillctl.py apply /tmp/tdd-update.json --reviewed REPORT_SHA256
-# Optional actual native skill-load checks using the configured providers:
-python3 .opencode/governance/verify_skills.py --live --report /tmp/native-skills.json
-```
-
-Update checks use temporary bare HTTPS Git fetches and never execute upstream
-programs. Local edits, license changes and compatibility-patch conflicts block
-application. Imported scripts remain source-only and non-executable. Every run
-pins its skill manifest; start a new authorized run after a catalog update.
-Read [SKILL_PROVENANCE.md](docs/SKILL_PROVENANCE.md) for the complete audit, safe
-update/add-source procedure, role matrix and unsupported upstream capabilities.
-
-## Migration and validation
-
-Previous Planner, Consultant and Supervisor agent files are removed from this
-repository. Installers never delete existing user files: remove obsolete copies
-from an existing installation yourself, merge the new configuration, and start a
-new session. Existing sessions retain their selected agent. Old adapted skill directories must
-be backed up and reviewed before removal; installers never delete them. Task #1
-runs need a fresh start after the skill-ID/catalog migration. Keep unrelated local
-agents only if you deliberately want them; the bundled coding lifecycle has four.
-
-```sh
-opencode --version
-opencode --standalone debug agents
-opencode --standalone debug config
-python3 .opencode/governance/skillctl.py validate
 python3 -m unittest discover -s tests -v
-node --test tests/test_chat_plugin.mjs
+node --test tests/test_workspace_plugin.mjs
+python3 .opencode/runtime/skillctl.py validate
 bash -n install.sh
 ```
 
-The offline suite uses real temporary Git repositories and deterministic model and
-runner doubles. It covers authorization, negotiations, escalation, retries, scope,
-read-only enforcement, failure handling, review invalidation, persistence, locks,
-new-file patches and container invocation. See [validation notes](docs/validation.md)
-for checks performed here and remaining live-environment coverage.
-
-Configuration follows the current [v2 agents](https://opencode.ai/v2/docs/agents),
-[v2 permissions](https://opencode.ai/v2/docs/permissions),
-[v2 config](https://opencode.ai/v2/docs/config), and
-[v2 tools](https://opencode.ai/v2/docs/tools) documentation. V1 field names and
-permission syntax are not interchangeable with v2.
-
-See [ATTRIBUTION.md](ATTRIBUTION.md) for skill provenance.
+[Validation notes](docs/validation.md) record what has actually been checked and
+what still needs live-environment testing.

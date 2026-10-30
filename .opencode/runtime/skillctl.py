@@ -18,7 +18,7 @@ import tempfile
 
 BUNDLE = Path(__file__).resolve().parent.parent
 MANIFEST = 'skills/SOURCES.json'
-ROLES = {'team-lead', 'maintainer', 'coder', 'reviewer'}
+ROLES = {'poseidon', 'team-lead', 'maintainer', 'coder', 'reviewer'}
 
 
 class SkillError(RuntimeError):
@@ -135,17 +135,6 @@ def patched(files, patches):
     return result
 
 
-def allowed_skills(role, manifest=None):
-    manifest = manifest or load_manifest()
-    need(role in ROLES, 'Unknown functional role')
-    return manifest['agents'][role]
-
-
-def compatibility_notes(selected, manifest=None):
-    manifest = manifest or load_manifest()
-    return {s: manifest['compatibility'][s] for s in selected if s in manifest['compatibility']}
-
-
 def native_ids(manifest):
     return {u['skill'] for u in manifest['skills']} | {
         a['skill'] for a in manifest['audit'] if a['resolution'] == 'PRESERVED_UNCHANGED'}
@@ -157,14 +146,18 @@ def validate(bundle=BUNDLE):
     need(len(manifest['skills']) == len({u['skill'] for u in manifest['skills']}), 'Duplicate native skill ID')
     actual = {p.parent.name for p in (bundle / 'skills').glob('*/SKILL.md')}
     need(actual == ids, f'Native catalog differs from manifest: {actual ^ ids}')
-    need(set(manifest['agents']) == ROLES, 'Role skill matrix must contain exactly four roles')
+    need(set(manifest['agents']) == ROLES, 'Role skill matrix must contain the five native agents')
     for role, selected in manifest['agents'].items():
         need(len(selected) == len(set(selected)) and set(selected) <= ids, f'Unknown/duplicate role skill: {role}')
         front, _, = read_agent(bundle, role)
         grants = {r['resource'] for r in front['permissions'] if r['action'] == 'skill' and r['effect'] == 'allow'}
         need(grants == set(selected), f'Agent skill permissions differ from manifest: {role}')
         for action in ('shell', 'subagent', 'execute', 'external_directory', 'edit'):
-            need(permission(front['permissions'], action, '*') == 'deny', f'Role has ambient mutation authority: {role}/{action}')
+            expected = 'allow' if (role in ('poseidon', 'coder') and action in ('edit', 'shell')) or (role == 'reviewer' and action == 'shell') else 'deny'
+            need(permission(front['permissions'], action, '*') == expected, f'Unexpected native role capability: {role}/{action}')
+        if role == 'poseidon':
+            for child in ROLES - {'poseidon'}:
+                need(permission(front['permissions'], 'subagent', child) == 'allow', f'Poseidon cannot delegate to {child}')
     for skill in ids:
         need(re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', skill), f'Unstable native ID: {skill}')
         frontmatter(local(bundle, 'skills/' + skill + '/SKILL.md').read_bytes())
@@ -241,7 +234,7 @@ def check_references(bundle, manifest):
 def installation_files(bundle=BUNDLE):
     validate(bundle)
     names = ['opencode.json']
-    for directory in ('agents', 'skills', 'governance', 'plugins', 'skill-sources', 'skill-resources'):
+    for directory in ('agents', 'skills', 'runtime', 'plugins', 'skill-sources', 'skill-resources'):
         for path in (bundle / directory).rglob('*'):
             name = path.relative_to(bundle).as_posix()
             if '__pycache__' in path.parts or path.suffix == '.pyc' or '/staged/' in name:

@@ -42,9 +42,9 @@ if (-not $pythonCommand) {
     $pythonCommand = Get-Command python -ErrorAction SilentlyContinue
 }
 if (-not $pythonCommand) {
-    throw 'Python 3.10+ is required for the controller and provenance validation.'
+    throw 'Python 3.10+ is required for sandbox tools and provenance validation.'
 }
-$skillControl = Join-Path $sourceRoot 'governance/skillctl.py'
+$skillControl = Join-Path $sourceRoot 'runtime/skillctl.py'
 & $pythonCommand.Source $skillControl validate | Out-Null
 if ($LASTEXITCODE -ne 0) { throw 'Skill provenance validation failed.' }
 $files = @(& $pythonCommand.Source $skillControl install-files)

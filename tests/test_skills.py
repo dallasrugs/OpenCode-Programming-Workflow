@@ -1,19 +1,14 @@
-import base64
-import importlib.util
-import io
 import json
 from pathlib import Path
 import shutil
-import subprocess
 import sys
 import tempfile
 import unittest
 from unittest.mock import patch
 
-GOVERNANCE = Path(__file__).resolve().parents[1] / '.opencode/governance'
-sys.path.insert(0, str(GOVERNANCE))
+SUPPORT = Path(__file__).resolve().parents[1] / '.opencode/runtime'
+sys.path.insert(0, str(SUPPORT))
 import skillctl as s
-import bdfl
 
 
 class ProvenanceTests(unittest.TestCase):
@@ -107,8 +102,9 @@ class ProvenanceTests(unittest.TestCase):
             for skill in s.native_ids(self.manifest):
                 self.assertEqual(s.permission(front['permissions'], 'skill', skill),
                                  'allow' if skill in self.manifest['agents'][role] else 'deny')
-            for action in ('edit', 'shell', 'subagent', 'execute', 'bdfl_tests_run_tests', 'random_mcp_tool'):
-                self.assertEqual(s.permission(front['permissions'], action, '*'), 'deny')
+            for action in ('edit', 'shell', 'subagent', 'execute', 'unknown_tool', 'random_mcp_tool'):
+                expected = 'allow' if (role in ('poseidon', 'coder') and action in ('edit', 'shell')) or (role == 'reviewer' and action == 'shell') else 'deny'
+                self.assertEqual(s.permission(front['permissions'], action, '*'), expected)
             # Definitions explain integration, not embedded author methodologies.
             self.assertNotIn('NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST', body)
         self.assertNotIn('grilling', self.manifest['agents']['reviewer'])
@@ -182,35 +178,9 @@ class ProvenanceTests(unittest.TestCase):
         files = s.installation_files(self.bundle)
         for name in ('skills/tdd/tests.md', 'skills/tdd/LICENSE', 'skills/SOURCES.json',
                      'skill-sources/upstream/tdd/SKILL.md', 'skill-sources/patches/seo-content.json',
-                     'skill-resources/claude-seo/scripts/content_humanize.py', 'governance/skillctl.py'):
+                     'skill-resources/claude-seo/scripts/content_humanize.py', 'runtime/skillctl.py'):
             self.assertIn(name, files)
         self.assertFalse(any('__pycache__' in f for f in files))
-
-    def test_role_snapshots_are_filtered_and_skill_bodies_not_preloaded(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            bdfl.execute(['git', 'init', '-q', str(root)])
-            bdfl.git(root, 'config', 'user.name', 'Fixture')
-            bdfl.git(root, 'config', 'user.email', 'fixture@example.invalid')
-            (root / 'app.py').write_text('value = 1\n')
-            bdfl.git(root, 'add', '.')
-            bdfl.git(root, 'commit', '-qm', 'fixture')
-            adapter = object.__new__(bdfl.OpenCode)
-            adapter.policy = json.loads((s.BUNDLE / 'governance/policy.example.json').read_text())
-            real_execute = bdfl.execute
-            for role in s.ROLES:
-                def fake_execute(argv, cwd=None, **kwargs):
-                    if argv[0] != 'opencode':
-                        return real_execute(argv, cwd=cwd, **kwargs)
-                    native = {p.parent.name for p in (cwd / '.opencode/skills').glob('*/SKILL.md')}
-                    self.assertEqual(native, set(self.manifest['agents'][role]))
-                    self.assertNotIn('NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST', argv[-1])
-                    self.assertNotIn('One seam, one test, one minimal implementation', argv[-1])
-                    config = json.loads((cwd / '.opencode/opencode.json').read_text())
-                    self.assertNotIn('mcp', config)  # No checkpoint for read-only or unauthorized sessions.
-                    return json.dumps({'type': 'text', 'part': {'text': '{"checked":true}'}}).encode()
-                with self.subTest(role=role), patch.object(bdfl, 'execute', side_effect=fake_execute):
-                    adapter.call(role, 'metadata-check', {}, root)
 
 
 if __name__ == '__main__':

@@ -1,5 +1,9 @@
 # Skill provenance and native OpenCode integration
 
+The role matrix includes Poseidon plus four native worker agents. Agent Markdown
+files define capabilities; the README describes the current workflow. Upstream
+source hashes, licenses and imported bodies are unchanged.
+
 Audit date: October 30, 2026. Development CLI: **OpenCode v2.2.3**.
 
 All 17 pre-restoration skills were inspected along with the three local history
@@ -121,12 +125,11 @@ no dependencies, hooks, installers, browser tools or upstream programs were run.
 The SEO launcher can create a managed environment and install packages: it remains
 inert. Future source updates list changed scripts for renewed inspection.
 
-The patched SEO resource root is relative to the governed workspace. Project-local
-installations have that tree, and the controller materializes it even when the
-bundle is installed globally. A global-only interactive TUI does not materialize
-that project tree; use the controller/project installation for shared references.
-Supporting references outside the active workspace also remain subject to the
-existing external-directory denial, rather than granting broad host access.
+The patched SEO resource root remains project-relative. Project-local installations
+include those resources. With a global-only installation, use an explicit global
+resource path or install into the project when a skill expects project-local
+supporting files. The removed controller no longer creates source mirrors for
+agent conversations. Readable global references are limited by native permissions.
 
 The copied `agents/openai.yaml` files are inert upstream harness metadata inside
 skills, not new OpenCode agents. Source snapshots and legacy inputs live outside
@@ -143,112 +146,52 @@ skills, not new OpenCode agents. Source snapshots and legacy inputs live outside
   skill-sources/patches/<id>.json            # minimal compatibility replacements
   skill-sources/SCRIPT_INSPECTION.json       # static, source-only inspection record
   skill-resources/claude-seo/                # original shared tree and inert programs
-  governance/skillctl.py                    # local validator / updater
-  governance/verify_skills.py               # native CLI and live loading checks
+  runtime/skillctl.py                    # local validator / updater
 ```
 
-## Execution compatibility and honest limitations
+## Native execution and role assignment
 
-Compatibility notes are separate from author-authored bodies. Each governed
-session receives a role-filtered native catalog; the model can read a small
-compatibility index only when needed. Skill bodies and references enter context
-only through native loading or explicit reads. Upstream `disable-model-invocation`
-flags are preserved (`to-spec`, `to-tickets`, `grill-with-docs`); name those IDs
-explicitly when using them. Their manual-only behavior is not silently removed.
+Skills load through OpenCode's native skill tool. Their source text and licenses
+remain unchanged; loading a skill does not grant additional permissions. Manual-only
+invocation flags remain intact. OpenCode is responsible for the full YAML parser;
+the local validator checks the discovery fields used by the pinned sources.
 
-Native `Read`, `Glob`, `Grep` and `Skill` references map to OpenCode's
-`read`, `glob`, `grep` and `skill`. Other host-specific capabilities remain explicit
-limitations unless the controller can actually provide them:
+The five agent definitions and `skills/SOURCES.json` contain matching allowlists:
 
-- `how`'s multiple explorer/explainer/critic models and `code-review`'s parallel
-  Standards/Spec subagents are unsupported under the four-role, no-delegation
-  policy. Their full original prompts are preserved. A normal controller review
-  must not be represented as having performed those exact parallel methodologies.
-- `grilling` requires real user decisions and fresh-context fact-finding delegation;
-  interactive rounds require BDFL replies, and unsupported delegation must be
-  reported. `grill-with-docs` retains both original dependencies.
-- `domain-modeling` requires inline glossary/ADR writes. Team Lead and Maintainer
-  cannot write source; proposed artifacts can go through an authorized Coder, but
-  an inline-authoring session in those read-only roles remains limited.
-- `to-spec`/`to-tickets` tracker setup, publication and explicit human checkpoints
-  are not inferred or bypassed. `writing-plans`' file writes, automatic commits and
-  extra execution-agent dispatch are not enabled. No skill grants publication or
-  Git authority.
-- TDD and debugging can obtain real fixed-policy validation through a Coder
-  `CHECKPOINT` handoff. The controller executes tests in its isolated deterministic
-  runner and resumes the same functional Coder role with actual results. It does
-  not execute command strings supplied by the model. The Coder can yield after a
-  red test and again after the minimal implementation. Checkpoints persist their
-  source fingerprint, spec/rubric hashes, outputs and exit codes; they never replace
-  mandatory final tests, independent review or the Maintainer's integration gate.
-  The default budget is 24 checkpoints plus the existing implementation retry
-  budget. Upstream seam-confirmation requirements still require actual BDFL
-  confirmation; task authorization alone is not that confirmation.
-- Shell repro scripts, HITL loops, debugger/bisect/network/browser operations and
-  `/seo` sibling command dispatch are not enabled. Shared SEO resources are
-  preserved at their original relative layout, but API access and live audits
-  require separately authorized infrastructure. Never claim an unmeasured audit.
-- Reviewer remains strictly read-only. It can consult testing/verification
-  methodology and fresh runner evidence; it cannot execute tests, request Coder
-  mutations on its behalf, modify Git or delegate. Loading a skill cannot change
-  permissions. If a procedure needs an unavailable capability, stop that procedure
-  and report the limitation instead of substituting a different method.
-
-An attempted direct MCP checkpoint bridge was not exposed by the installed v2
-runtime even though its configuration was readable. It was removed. The implemented
-checkpoint protocol uses the existing controller state machine and fixed Docker
-runner, not a nonfunctional tool or a fifth LLM agent. Docker execution remains
-unavailable on the development host and is explicitly reported as unverified.
-
-## Role assignment
-
-The complete allowlists are in `SOURCES.json` and native agent frontmatter, checked
-for agreement. Defaults deny all skills, then allow only the selected IDs:
-
-| Role | Skill responsibilities |
+| Agent | Skill responsibilities |
 |---|---|
-| Team Lead | Requirements interviews, domain/spec planning, decomposition, and relevant content planning |
-| Maintainer | Architecture, codebase understanding, risk, maintainability, review and verification |
-| Coder | The authors' separate TDD/debugging procedures, implementation quality, verification and scoped content work |
-| Reviewer & Tester | Read-only review, test strategy, code/content quality and verification |
+| Poseidon | Coordination, planning and verification |
+| Team Lead | Requirements, decomposition and content planning |
+| Maintainer | Architecture, compatibility and code review |
+| Coder | Implementation, TDD, debugging and code/content quality |
+| Reviewer | Independent review, test strategy and verification |
 
-The controller copies only that role's permitted skill directories into its source
-mirror. It never embeds author bodies into prompts or agent definitions. References
-load on demand. No extra skill-selector LLM or additional functional role exists.
-Every run pins the complete provenance manifest hash; updating the catalog requires
-a new authorized run rather than silently changing methodology mid-run.
+Poseidon delegates to the four worker agents. Worker agents do not recursively delegate.
+Coder uses native edit/shell tools. Reviewer has native shell access for inspection and tests, while its instructions
+prohibit application source edits. It can also run the configured sandbox tests. A skill requiring unsupported delegation,
+external publication or other unavailable tools must report that limitation; an
+agent must not claim to have completed those steps.
 
 ## Validate and inspect
 
 ```sh
-python3 .opencode/governance/skillctl.py validate
+python3 .opencode/runtime/skillctl.py validate
 python3 -m unittest discover -s tests -v
-python3 .opencode/governance/verify_skills.py
-# Makes real configured-provider requests against a disposable fixture:
-python3 .opencode/governance/verify_skills.py --live --report /tmp/native-skills.json
+node --test tests/test_workspace_plugin.mjs
 ```
 
-The live check verifies actual native `skill` tool events, not a model's claim to
-have loaded a skill. On v2.2.3, cold `api skill.list` returned an empty experimental
-catalog even though native loading worked; the verifier records that result and
-uses native tool events as the positive loading evidence. The configured models
-were used for all four representative probes without a provider override.
-
-`skillctl validate` checks discovery fields, unique IDs, every original input,
-required resources and licenses, hashes, patch application, native role permissions,
-read-only restrictions and explicit project/example link exceptions. The upstream
-glossary template's three example project links are recorded as illustrative;
-they are not silently treated as missing shipped references. Native OpenCode is
-the authoritative full YAML parser; the local parser handles and checks the
-restricted discovery-field forms present in the pinned sources.
+Validation checks source hashes, original inputs, licenses, patch application,
+resource references, native discovery fields and role allowlists. It does not invoke
+models or execute imported programs. The removed live controller verifier and its
+historical output are not part of the native workflow.
 
 ## Safe updates
 
 ```sh
 # Read-only HTTPS Git inspection; produces a diff and report, changes no installed files.
-python3 .opencode/governance/skillctl.py check tdd --ref main --report /tmp/tdd-update.json
+python3 .opencode/runtime/skillctl.py check tdd --ref main --report /tmp/tdd-update.json
 # Read the full diff, pins, changed-program list and any blockedReasons in that report.
-python3 .opencode/governance/skillctl.py apply /tmp/tdd-update.json --reviewed REPORT_SHA256
+python3 .opencode/runtime/skillctl.py apply /tmp/tdd-update.json --reviewed REPORT_SHA256
 ```
 
 The displayed fingerprint binds application to the exact reviewed report. Updating
@@ -295,7 +238,7 @@ rewrite. Preserve a diff against the author source for review.
    decision requiring dependency, permission and license review.
 
 Both installers carry complete skills, support trees, notices, source snapshots,
-patches and governance utilities while preserving existing files. For an existing
+patches and runtime utilities while preserving existing files. For an existing
 installation, back up and inspect obsolete adapted directories before removing
 them; the installer never deletes user files or silently merges local changes.
 Old Task #1 runs should be restarted because the canonical skill IDs and catalog

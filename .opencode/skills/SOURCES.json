@@ -730,7 +730,7 @@
       "compatibilityChanges": [
         {
           "file": null,
-          "reason": "Native directory ID is namespaced to distinguish Jesse Vincent’s dependency from the former Matt Pocock-derived test-driven-development alias; upstream display name and bytes are unchanged."
+          "reason": "Native directory ID is namespaced to distinguish Jesse Vincent\u2019s dependency from the former Matt Pocock-derived test-driven-development alias; upstream display name and bytes are unchanged."
         }
       ],
       "files": [
@@ -1830,7 +1830,7 @@
       "functionality": "Produce simple, maintainable, well-structured software using pragmatic Clean Code principles, clear domain boundaries, and restrained refactoring.",
       "status": "SOURCE_UNVERIFIED",
       "resolution": "PRESERVED_UNCHANGED",
-      "reason": "The header names Uncle Bob’s UB Mode, but no redistribution license exists in the inspected master history. Preserve the local adaptation; do not import UB Mode.",
+      "reason": "The header names Uncle Bob\u2019s UB Mode, but no redistribution license exists in the inspected master history. Preserve the local adaptation; do not import UB Mode.",
       "candidates": [
         {
           "upstreamRepository": "https://github.com/unclebob/ub-mode",
@@ -2354,99 +2354,15 @@
       "seo-content",
       "seo-technical",
       "ecommerce-product-pages"
+    ],
+    "poseidon": [
+      "grilling",
+      "how",
+      "codebase-design",
+      "writing-plans",
+      "verification-before-completion",
+      "milestone-coordination"
     ]
-  },
-  "compatibility": {
-    "how": {
-      "notes": [
-        "The upstream parallel explorers, explainer and multi-model critics are unsupported by the four-role/no-delegation policy. Preserve all prompts, but report this limitation rather than pretending that a single-role analysis implements that methodology."
-      ]
-    },
-    "domain-modeling": {
-      "notes": [
-        "Team Lead and Maintainer cannot perform the required inline glossary/ADR writes. Return proposed artifacts; only an authorized Coder can write approved files. Inline-authoring sessions remain limited under those roles."
-      ]
-    },
-    "grilling": {
-      "notes": [
-        "Interactive frontier rounds require actual BDFL replies. Fresh-context exploration delegation is denied; report the missing capability, do not silently replace it."
-      ]
-    },
-    "grill-with-docs": {
-      "notes": [
-        "Requires grilling and domain-modeling, both bundled; their interaction and write limitations still apply."
-      ]
-    },
-    "to-spec": {
-      "notes": [
-        "Upstream manual-only discovery flag is preserved. Explicitly invoke by native ID. Tracker setup/publication and seam confirmation require BDFL-provided context; no tracker mutation capability is granted."
-      ]
-    },
-    "to-tickets": {
-      "notes": [
-        "Upstream manual-only discovery flag is preserved. User approval of the breakdown and tracker setup are not implied. Team Lead cannot publish tracker tickets or write local tickets; these capabilities are unsupported in that role."
-      ]
-    },
-    "writing-plans": {
-      "notes": [
-        "Saving plan files, automatic commits, executing-plans and subagent-driven-development dispatch are not authorized. Preserve the source, report unsupported steps, and use only controller-approved execution."
-      ]
-    },
-    "code-review": {
-      "notes": [
-        "Upstream Standards and Spec reviews require parallel subagents and commit-based Git inspection. Delegation/shell are denied; full parallel methodology is unsupported. Do not label the controller’s normal review as this exact upstream procedure."
-      ]
-    },
-    "tdd": {
-      "notes": [
-        "Requires user-confirmed seams; task authorization alone is not a confirmation. Coder may run only fixed deterministic test-runner commands through its CHECKPOINT controller handoff, not shell. Reviewer may consult the rubric but cannot run the loop."
-      ]
-    },
-    "superpowers-test-driven-development": {
-      "notes": [
-        "Native ID is namespaced to preserve the distinction from Matt Pocock’s tdd. Only the Coder CHECKPOINT controller handoff can execute fixed policy tests; Reviewer uses this as read-only assessment guidance."
-      ]
-    },
-    "systematic-debugging": {
-      "notes": [
-        "superpowers:test-driven-development resolves to superpowers-test-driven-development; superpowers:verification-before-completion resolves to verification-before-completion. Shell examples and find-polluter.sh are preserved as source but not enabled; deterministic checkpoints run only fixed policy commands."
-      ]
-    },
-    "diagnosing-bugs": {
-      "notes": [
-        "HITL shell loops, network replay, debugger and git-bisect operations are not enabled. The script template is preserved and inert; fixed isolated test checkpoints are available to the Coder. Report unavailable reproduction capabilities."
-      ]
-    },
-    "verification-before-completion": {
-      "notes": [
-        "Fresh verification must come from actual deterministic runner evidence. Reviewer cannot execute commands; it reads fresh supplied results and must report stale/missing results. No automatic commits or PR creation."
-      ]
-    },
-    "seo-content": {
-      "notes": [
-        "Only CLAUDE_PLUGIN_ROOT resource locations are patched. Shared original scripts/references/dependency metadata are bundled. Scripts are not auto-executed or enabled: launcher setup can install dependencies; browser/network/API/issue tooling requires separate BDFL-controlled infrastructure and remains unavailable here."
-      ]
-    },
-    "seo-technical": {
-      "notes": [
-        "Only CLAUDE_PLUGIN_ROOT resource locations are patched. Network, browser, Google/DataForSEO APIs and sibling /seo command dispatch are not enabled. Original tools are preserved inert; do not claim unmeasured live audits."
-      ]
-    },
-    "humanizer": {
-      "notes": [
-        "Upstream prose and examples are unchanged. This is the cited author’s skill, not the old synthetic natural-writing instructions."
-      ]
-    },
-    "human-writing": {
-      "notes": [
-        "All seven reference files and eval examples are preserved. External detector APIs are unavailable; upstream factual claims are preserved as source, not independently endorsed or validated."
-      ]
-    },
-    "codebase-design": {
-      "notes": [
-        "Imported as the exact dependency named by tdd, not as a guessed replacement for code-quality. Source writes still require Coder scope authorization."
-      ]
-    }
   },
   "research": [
     {

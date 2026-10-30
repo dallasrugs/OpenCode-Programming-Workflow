@@ -1,5 +1,5 @@
 {
-  "name": "bdfl-chat",
+  "name": "poseidon-workspace",
   "private": true,
   "type": "module",
   "exports": "./index.js"

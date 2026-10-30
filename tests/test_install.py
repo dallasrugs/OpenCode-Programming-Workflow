@@ -21,11 +21,14 @@ class InstallerTests(unittest.TestCase):
             self.install(target)
             bundle = target / '.opencode'
             self.assertEqual(set(x.stem for x in (bundle / 'agents').glob('*.md')),
-                             {'team-lead', 'maintainer', 'coder', 'reviewer'})
-            self.assertTrue((bundle / 'governance/bdfl.py').is_file())
-            self.assertTrue((bundle / 'governance/policy.example.json').is_file())
-            self.assertTrue((bundle / 'governance/chat.py').is_file())
-            self.assertTrue((bundle / 'plugins/bdfl-chat/index.js').is_file())
+                             {'poseidon', 'team-lead', 'maintainer', 'coder', 'reviewer'})
+            self.assertTrue((bundle / 'runtime/runtime.py').is_file())
+            self.assertFalse((bundle / 'governance').exists())
+            self.assertTrue((bundle / 'runtime/sandbox.py').is_file())
+            self.assertTrue((bundle / 'runtime/workspace.py').is_file())
+            self.assertTrue((bundle / 'runtime/logs.py').is_file())
+            self.assertTrue((bundle / 'runtime/settings.example.json').is_file())
+            self.assertTrue((bundle / 'plugins/poseidon-workspace/index.js').is_file())
             self.assertEqual(len(list((bundle / 'skills').glob('*/SKILL.md'))), 24)
             self.assertTrue((bundle / 'skills/tdd/tests.md').is_file())
             self.assertTrue((bundle / 'skills/tdd/LICENSE').is_file())
@@ -33,7 +36,7 @@ class InstallerTests(unittest.TestCase):
             self.assertTrue((bundle / 'skill-sources/patches/seo-content.json').is_file())
             self.assertTrue((bundle / 'skill-resources/claude-seo/scripts/url_safety.py').is_file())
             config = bundle / 'opencode.json'
-            self.assertEqual(json.loads(config.read_text())['default_agent'], 'team-lead')
+            self.assertEqual(json.loads(config.read_text())['default_agent'], 'poseidon')
             config.write_text('preserve existing user config')
             self.install(target)
             self.assertEqual(config.read_text(), 'preserve existing user config')
@@ -54,7 +57,7 @@ class InstallerTests(unittest.TestCase):
             subprocess.run(['bash', str(ROOT / 'install.sh'), '--global'], env=env,
                            check=True, capture_output=True, text=True)
             bundle = Path(tmp) / '.config/opencode'
-            subprocess.run(['python3', str(bundle / 'governance/skillctl.py'), 'validate'],
+            subprocess.run(['python3', str(bundle / 'runtime/skillctl.py'), 'validate'],
                            check=True, capture_output=True, text=True)
 
     def test_symlink_existing_file_preserved(self):

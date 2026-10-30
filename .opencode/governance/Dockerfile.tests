@@ -1,7 +1,0 @@
-# Build this trusted image before a governed run; tests execute with networking off.
-# For reproducible environments replace the base tag with an approved image digest.
-FROM python:3.13-slim
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends git bash \
-    && rm -rf /var/lib/apt/lists/*
-ENV PYTHONDONTWRITEBYTECODE=1

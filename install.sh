@@ -71,16 +71,16 @@ copied=0
 skipped=0
 
 if ! command -v python3 >/dev/null 2>&1; then
-  echo "Error: Python 3.10+ is required for the controller and provenance validation."
+  echo "Error: Python 3.10+ is required for sandbox tools and provenance validation."
   exit 1
 fi
 
 # Validate before any writes, then enumerate the complete bundle (Bash 3.2 compatible).
-python3 "$SOURCE/governance/skillctl.py" validate >/dev/null
+python3 "$SOURCE/runtime/skillctl.py" validate >/dev/null
 files=()
 while IFS= read -r relative; do
   files+=("$SOURCE/$relative")
-done < <(python3 "$SOURCE/governance/skillctl.py" install-files)
+done < <(python3 "$SOURCE/runtime/skillctl.py" install-files)
 
 for src in "${files[@]}"; do
   if [[ ! -f "$src" ]]; then
@@ -128,5 +128,5 @@ fi
 if [[ -e "$DEST/opencode.json" && $skipped -gt 0 ]]; then
   echo
   echo "Note: existing configuration files were not merged."
-  echo "Merge default_agent=team-lead and the disabled built-ins. See README.md migration guidance."
+  echo "Merge default_agent=poseidon and the disabled built-ins. See README.md migration guidance."
 fi
