@@ -1,7 +1,26 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "default_agent": "planner",
-  "experimental": {
-    "subagent_depth": 2
-  }
+  "default_agent": "team-lead",
+  "snapshots": false,
+  "agents": {
+    "build": {
+      "disabled": true
+    },
+    "plan": {
+      "disabled": true
+    },
+    "general": {
+      "disabled": true
+    },
+    "explore": {
+      "disabled": true
+    }
+  },
+  "permissions": [
+    {
+      "action": "*",
+      "resource": "*",
+      "effect": "deny"
+    }
+  ]
 }

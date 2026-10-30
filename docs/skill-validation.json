@@ -1,0 +1,80 @@
+{
+  "offlineValidation": {
+    "nativeSkills": 24,
+    "verifiedImports": 18,
+    "unverifiedPreserved": 6,
+    "importedFiles": 170
+  },
+  "roles": [
+    {
+      "role": "team-lead",
+      "skill": "grilling",
+      "model": "openai/gpt-6-sol",
+      "result": "PASS",
+      "nativeToolEvents": 1,
+      "sourceSha256": "a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b82242d4e2"
+    },
+    {
+      "role": "maintainer",
+      "skill": "codebase-design",
+      "model": "openai/gpt-6-sol",
+      "result": "PASS",
+      "nativeToolEvents": 1,
+      "sourceSha256": "2c20617f87ec8af6a434859f381b2f061a69b530444e74eb39e78bb016a6d1e2"
+    },
+    {
+      "role": "coder",
+      "skill": "tdd",
+      "model": "openai/gpt-6-sol",
+      "result": "PASS",
+      "nativeToolEvents": 1,
+      "sourceSha256": "5505d25bbaa8fc14a79e4d20163936958992a2995b7f1dd1d6197edc9ed722e0"
+    },
+    {
+      "role": "reviewer",
+      "skill": "verification-before-completion",
+      "model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+      "result": "PASS",
+      "nativeToolEvents": 1,
+      "sourceSha256": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3"
+    }
+  ],
+  "executedUpstreamScripts": [],
+  "openCodeVersion": "opencode v2.2.3",
+  "nativeAgents": [
+    "coder",
+    "maintainer",
+    "reviewer",
+    "team-lead"
+  ],
+  "nativeAgentPermissions": "PASS",
+  "coldApiSkillCatalogCount": 0,
+  "auditDate": "2026-10-30",
+  "automatedTests": {
+    "count": 49,
+    "result": "PASS"
+  },
+  "checkpointProtocol": {
+    "response": {
+      "decision": "CHECKPOINT",
+      "rationale": "Wrote one unittest; the runner has not executed yet.",
+      "changed_files": [
+        "test_app.py"
+      ],
+      "evidence": "The test asserts app.greeting == \"hello\". app.py remains unchanged.",
+      "limitations": "No test results are available yet."
+    },
+    "testFileCreated": true,
+    "implementationUnchanged": true,
+    "upstreamScriptsExecuted": [],
+    "runner": "BLOCKED",
+    "runnerReason": "Docker test runner unavailable; no host fallback: [Errno 2] No such file or directory: 'docker'"
+  },
+  "upstreamUpdateCheck": {
+    "repository": "https://github.com/mattpocock/skills",
+    "ref": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+    "result": "NO_IMPORTED_FILE_CONTENT_CHANGED",
+    "applied": false,
+    "executedUpstreamScripts": []
+  }
+}

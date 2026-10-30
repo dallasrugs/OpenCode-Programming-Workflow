@@ -1,0 +1,9 @@
+[
+  {
+    "file": "SKILL.md",
+    "old": "${CLAUDE_PLUGIN_ROOT}",
+    "new": ".opencode/skill-resources/claude-seo",
+    "count": 7,
+    "reason": "Replace Claude plugin-root placeholder with the bundled OpenCode resource root; methodology unchanged."
+  }
+]

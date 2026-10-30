@@ -70,17 +70,34 @@ echo
 copied=0
 skipped=0
 
-shopt -s nullglob
+if ! command -v python3 >/dev/null 2>&1; then
+  echo "Error: Python 3.10+ is required for the controller and provenance validation."
+  exit 1
+fi
 
-files=(
-  "$SOURCE/opencode.json"
-  "$SOURCE/agents/"*.md
-  "$SOURCE/skills/"*/SKILL.md
-)
+# Validate before any writes, then enumerate the complete bundle (Bash 3.2 compatible).
+python3 "$SOURCE/governance/skillctl.py" validate >/dev/null
+files=()
+while IFS= read -r relative; do
+  files+=("$SOURCE/$relative")
+done < <(python3 "$SOURCE/governance/skillctl.py" install-files)
+
+for src in "${files[@]}"; do
+  if [[ ! -f "$src" ]]; then
+    echo "Error: missing bundle file: $src"
+    exit 1
+  fi
+done
 
 for src in "${files[@]}"; do
   relative="${src#"$SOURCE/"}"
   target="$DEST/$relative"
+
+  if [[ "$relative" == opencode.json && ( -e "$DEST/opencode.jsonc" || -L "$DEST/opencode.jsonc" ) ]]; then
+    echo "SKIP: opencode.json (existing JSONC config)"
+    ((skipped+=1))
+    continue
+  fi
 
   if [[ -e "$target" || -L "$target" ]]; then
     echo "SKIP: $relative (already exists)"
@@ -111,5 +128,5 @@ fi
 if [[ -e "$DEST/opencode.json" && $skipped -gt 0 ]]; then
   echo
   echo "Note: existing configuration files were not merged."
-  echo "Verify default_agent=planner and subagent_depth=2."
+  echo "Merge default_agent=team-lead and the disabled built-ins. See README.md migration guidance."
 fi

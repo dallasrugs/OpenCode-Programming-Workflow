@@ -1,146 +1,74 @@
 ---
 name: domain-modeling
-description: Establish consistent domain terminology, investigate business rules, identify domain boundaries, and propose architectural decision records during software design.
+description: Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a GLOSSARY.md, or recording or editing an ADR.
 ---
 
 # Domain Modeling
 
-Adapted from Matt Pocock's domain-modeling skill.
+Actively build and sharpen the project's domain model as you design. This is the *active* discipline: challenging terms, inventing edge-case scenarios, and writing the glossary and decisions down the moment they crystallise. (Merely *reading* `GLOSSARY.md` for vocabulary is not this skill: that's a one-line habit any skill can do. This skill is for when you're changing the model, not just consuming it.)
 
-## Purpose
+## File structure
 
-Establish a precise shared understanding of the domain
-before implementation.
+Most repos have a single context:
 
-Use when designing features, resolving ambiguous concepts,
-modifying domain models, or evaluating architectural decisions.
+```
+/
+├── GLOSSARY.md
+├── docs/
+│   └── adr/
+│       ├── 0001-event-sourced-orders.md
+│       └── 0002-postgres-for-write-model.md
+└── src/
+```
 
-## 1. Discover existing terminology
+If a `GLOSSARY-MAP.md` exists at the root, the repo has multiple contexts. The map points to where each one lives:
 
-Inspect available sources:
+```
+/
+├── GLOSSARY-MAP.md
+├── docs/
+│   └── adr/                          ← system-wide decisions
+├── src/
+│   ├── ordering/
+│   │   ├── GLOSSARY.md
+│   │   └── docs/adr/                 ← context-specific decisions
+│   └── billing/
+│       ├── GLOSSARY.md
+│       └── docs/adr/
+```
 
-- GLOSSARY.md
-- AGENTS.md
-- Existing ADRs
-- Architecture documentation
-- Domain models and schemas
-- API contracts
-- Relevant source code and tests
+Create files lazily: only when you have something to write. If no `GLOSSARY.md` exists, create one when the first term is resolved. If no `docs/adr/` exists, create it when the first ADR is needed.
 
-Prefer established repository terminology.
+## During the session
 
-Do not invent new names for existing concepts.
+### Challenge against the glossary
 
-## 2. Establish ubiquitous language
+When the user uses a term that conflicts with the existing language in `GLOSSARY.md`, call it out immediately. "Your glossary defines 'cancellation' as X, but you seem to mean Y. Which is it?"
 
-Identify:
-- Domain entities and value objects
-- Business processes and operations
-- Important states and transitions
-- Relationships and constraints
-- Ownership and responsibility boundaries
-- Terms with multiple meanings
+### Sharpen fuzzy language
 
-Challenge vague or overloaded terminology.
+When the user uses vague or overloaded terms, propose a precise canonical term. "You're saying 'account': do you mean the Customer or the User? Those are different things."
 
-When terminology conflicts with existing definitions,
-identify the contradiction and ask for clarification.
+### Discuss concrete scenarios
 
-## 3. Stress-test the domain model
+When domain relationships are being discussed, stress-test them with specific scenarios. Invent scenarios that probe edge cases and force the user to be precise about the boundaries between concepts.
 
-Construct concrete scenarios involving:
+### Cross-reference with code
 
-- Normal operation
-- Edge cases
-- Invalid states
-- Concurrent operations
-- Partial failures
-- Recovery and retries
-- Data consistency
-- Authorization boundaries
+When the user states how something works, check whether the code agrees. If you find a contradiction, surface it: "Your code cancels entire Orders, but you just said partial cancellation is possible. Which is right?"
 
-Determine whether the proposed domain model handles
-these scenarios correctly.
+### Update GLOSSARY.md inline
 
-Prefer designs that make invalid states difficult
-or impossible to represent.
+When a term is resolved, update `GLOSSARY.md` right there. Don't batch these up: capture them as they happen. Use the format in [GLOSSARY-FORMAT.md](./GLOSSARY-FORMAT.md).
 
-## 4. Validate against implementation
+`GLOSSARY.md` should be totally devoid of implementation details. Do not treat `GLOSSARY.md` as a spec, a scratch pad, or a repository for implementation decisions. It is a glossary and nothing else.
 
-Compare proposed terminology and behavior against:
-- Actual database structures
-- Existing domain classes
-- Public interfaces
-- Business logic
-- Existing tests
+### Offer ADRs sparingly
 
-Distinguish:
-- Current implementation
-- Confirmed business requirements
-- Proposed architectural changes
+Only offer to create an ADR when all three are true:
 
-Never assume documentation is authoritative when
-source code contradicts it.
+1. **Hard to reverse**: the cost of changing your mind later is meaningful
+2. **Surprising without context**: a future reader will wonder "why did they do it this way?"
+3. **The result of a real trade-off**: there were genuine alternatives and you picked one for specific reasons
 
-## 5. Maintain glossary proposals
-
-When a domain term is resolved, propose a glossary entry:
-
-Term:
-Canonical name
-
-Definition:
-Precise domain meaning
-
-Distinguishing characteristics:
-How it differs from similar concepts
-
-Related terms:
-Other relevant domain concepts
-
-The Planner must not directly modify repository files.
-
-Include proposed glossary changes in the approved
-implementation handoff when necessary.
-
-## 6. Architecture Decision Records
-
-Propose an ADR only when the decision:
-
-1. Is costly or difficult to reverse.
-2. Would be surprising without historical context.
-3. Involves a meaningful architectural tradeoff.
-
-An ADR proposal should contain:
-
-- Title
-- Context
-- Decision
-- Alternatives considered
-- Consequences
-- Compatibility implications
-- Status: Proposed
-
-Do not create ADRs for trivial implementation choices.
-
-## 7. Planning handoff
-
-Provide the Planner with:
-
-- Confirmed domain vocabulary
-- Domain invariants
-- Relevant business rules
-- Current implementation discrepancies
-- Proposed model changes
-- Architectural decisions requiring approval
-
-## Principles
-
-- Model the business domain, not arbitrary code structure.
-- Reuse established terminology.
-- Avoid speculative abstractions.
-- Prefer explicit invariants.
-- Preserve existing architectural decisions unless
-  there is a justified reason to reconsider them.
-- Never modify source code or documentation directly.
-- Never silently change agreed business rules.
+If any of the three is missing, skip the ADR. Use the format in [ADR-FORMAT.md](./ADR-FORMAT.md).

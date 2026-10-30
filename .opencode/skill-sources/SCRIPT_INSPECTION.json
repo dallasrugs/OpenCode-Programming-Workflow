@@ -1,0 +1,1400 @@
+{
+  "date": "2026-10-30",
+  "scope": "Static inventory of preserved source and declared dependencies; not an execution authorization or a complete security audit. No upstream programs were run. Re-review changed programs before ever enabling them.",
+  "files": [
+    {
+      "file": "skills/diagnosing-bugs/scripts/hitl-loop.template.sh",
+      "sha256": "35103539fc36873eea36074769ad454f9379d6fc8b2dc0e26ce987fd3bfe5503",
+      "upstreamCommit": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "staticOperationIndicators": [
+        "network"
+      ]
+    },
+    {
+      "file": "skills/systematic-debugging/condition-based-waiting-example.ts",
+      "sha256": "40ae5ebe497fdf310200e43fe986552546d0a22837c0d39e855db1cfd33eb88e",
+      "upstreamCommit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "staticOperationIndicators": []
+    },
+    {
+      "file": "skills/systematic-debugging/find-polluter.sh",
+      "sha256": "dd7b8f13c4cc2a24b33ff87b18da9248f3e1c80a085c3316224f69ff0fa5c43c",
+      "upstreamCommit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "staticOperationIndicators": [
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/agent_ux_check.py",
+      "sha256": "78ee10a25551728f820ff9c5e3e7c2f17473f868207aa2218a4471c898caf6da",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "bs4",
+        "json",
+        "os",
+        "re",
+        "render_page",
+        "sys",
+        "typing"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/agentic_check.py",
+      "sha256": "b770f949dd8d00c56b2a72c3233f0663a2c37944afed3d48b3c5207450ad6cbd",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "bs4",
+        "datetime",
+        "json",
+        "os",
+        "re",
+        "sys",
+        "typing",
+        "url_safety",
+        "urllib.parse"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/agentic_fix.py",
+      "sha256": "a25ba5c56d4bf85ddb78f81ae2a3c66a059f909a98fe426d4a02351cec43c294",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "agentic_check",
+        "argparse",
+        "bs4",
+        "json",
+        "os",
+        "re",
+        "sys",
+        "urllib.parse"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "filesystem-write"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/analyze_visual.py",
+      "sha256": "03e930f7813775abb5992da85db3d8eb23577bbce00e1bb33c38255db98e9757",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "json",
+        "os",
+        "playwright.sync_api",
+        "sys",
+        "url_safety",
+        "urllib.parse"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/backlinks_auth.py",
+      "sha256": "d0a82c941bdc5ce8b4c5fb67eda2392f5f38805da82cdcacdeb7329d74e672d9",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "google_auth",
+        "json",
+        "os",
+        "subprocess",
+        "sys",
+        "typing",
+        "url_safety"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "subprocess",
+        "network",
+        "filesystem-write",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/bing_webmaster.py",
+      "sha256": "eb9d30b3e99e3baa7dba8816da0092838bb1d843c905ca72efce9dd9a80983e9",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "backlinks_auth",
+        "google_auth",
+        "json",
+        "os",
+        "requests",
+        "sys",
+        "time",
+        "typing",
+        "urllib.parse"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/capture_screenshot.py",
+      "sha256": "6888c89afceb3102e885da0b47bd83ea86bed73c4029b02c53dd10c96b5cd926",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "os",
+        "playwright.sync_api",
+        "sys",
+        "url_safety",
+        "urllib.parse"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/claude-seo",
+      "sha256": "ff87975206a143084486c9e381be29b78cf28af4deab6c510abb611d230deb30",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "staticOperationIndicators": [
+        "subprocess"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/commoncrawl_graph.py",
+      "sha256": "33b21f9873407371e98da96f9a0a2c96e1dd7e07fd6319dc506de695b9b6d8a5",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "backlinks_auth",
+        "google_auth",
+        "json",
+        "os",
+        "re",
+        "requests",
+        "sys",
+        "time",
+        "typing",
+        "urllib.parse",
+        "zlib"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "filesystem-write",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/consistency_check.py",
+      "sha256": "f83fc0220d5b83f0eb7b66c8da5b584f3a492abd37ea696a8ea34e5595803b0f",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "glob",
+        "hashlib",
+        "json",
+        "os",
+        "re",
+        "subprocess",
+        "sys"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "subprocess"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/content_humanize.py",
+      "sha256": "8a2b262042ec3b2b3b13d7f1e9072526787cda14e981fb67896ea31e94dbfe8c",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "json",
+        "pathlib",
+        "re",
+        "sys",
+        "unicodedata"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "filesystem-write"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/content_quality.py",
+      "sha256": "7ffa979fef4ef3311ed5693b094ef3f6bf677dd0d2cf0a1379be1a11a0535945",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "collections",
+        "json",
+        "pathlib",
+        "re",
+        "sys",
+        "typing"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": []
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/content_verify.py",
+      "sha256": "f16f94d17d9556bf6e847b9abd0a28b0ddf6deef0af0cc2fd277489a0e83b913",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "json",
+        "pathlib",
+        "re",
+        "sys"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/crux_history.py",
+      "sha256": "3a6e0bdaea0d9e39bff410672f262eb66ca4a7ac0aee2eb08afd2328d51099c6",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "google_auth",
+        "json",
+        "os",
+        "requests",
+        "sys",
+        "typing",
+        "urllib.parse"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/dataforseo_costs.py",
+      "sha256": "001d086ea778ec3412455d9a14e7a12eba7688851d079403d40ecb5a6f8763c9",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "contextlib",
+        "datetime",
+        "fcntl",
+        "json",
+        "msvcrt",
+        "os",
+        "pathlib",
+        "sys",
+        "tempfile"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "filesystem-write"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/dataforseo_merchant.py",
+      "sha256": "461ad8329668720cfd6d90c2aac5d195db35ae5ec758537a8fef10797bd9d2c1",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "base64",
+        "json",
+        "os",
+        "requests",
+        "sys",
+        "time",
+        "typing"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/dataforseo_normalize.py",
+      "sha256": "588d87b6efb0dfef3b4ba9206655959b2218208d7cbb0d39c953ac12e0859974",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "json",
+        "math",
+        "sys",
+        "typing"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": []
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/domain_history.py",
+      "sha256": "f94d6b02100a978a792c060345785e07f01a5005add1732dcf5023c05222afc1",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "datetime",
+        "json",
+        "os",
+        "re",
+        "shutil",
+        "socket",
+        "subprocess",
+        "sys",
+        "typing",
+        "url_safety"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "subprocess",
+        "network"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/drift_baseline.py",
+      "sha256": "416cc3a39fba37933fc87facfe95887c0db1809c6d0ec0011ad8517c7f22738f",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "datetime",
+        "google_auth",
+        "hashlib",
+        "json",
+        "os",
+        "re",
+        "sqlite3",
+        "subprocess",
+        "sys",
+        "tempfile",
+        "urllib.parse"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "subprocess",
+        "network",
+        "filesystem-write"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/drift_compare.py",
+      "sha256": "2e493900b27b540126650a433f9509ef59adc82e69e961a7eb7b3eb47315e739",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "datetime",
+        "difflib",
+        "drift_baseline",
+        "google_auth",
+        "json",
+        "os",
+        "sqlite3",
+        "sys"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": []
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/drift_history.py",
+      "sha256": "d31e35b1cc86748535411b2bb39f5d66a909c7b1ddac97f26aa3acc8187b27a1",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "drift_baseline",
+        "json",
+        "os",
+        "sys"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": []
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/drift_report.py",
+      "sha256": "d1b522100ef9a3d4b4572e6966a376fabd47faf4d769acd47de6985486d3f540",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "datetime",
+        "html",
+        "json",
+        "os",
+        "sys"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "filesystem-write"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/fetch_page.py",
+      "sha256": "57404eb918e31fb11676a5d698d94c5ae5086aacdb978514eea2eec76bb7d9a7",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "json",
+        "os",
+        "render_page",
+        "requests",
+        "sys",
+        "typing",
+        "url_safety"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "filesystem-write",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/ga4_report.py",
+      "sha256": "0cf748ece7580043066ef462183a7d0c30c0a9b787905971fbb3861cd0ddc773",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "datetime",
+        "google.analytics.data_v1beta",
+        "google.analytics.data_v1beta.types",
+        "google_auth",
+        "json",
+        "os",
+        "sys"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/gbp_deprecation_lint.py",
+      "sha256": "cec4d1c5bc102cbf280861b080a6214e8fe48ceb6c4430be3e07241cf7cdd053",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "json",
+        "os",
+        "pathlib",
+        "re",
+        "sys",
+        "url_safety"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/google_auth.py",
+      "sha256": "2a0548cc66869902b40922c3f26e8182299e17302850d6a283068d429ed9d9d8",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "base64",
+        "google.oauth2",
+        "google.oauth2.credentials",
+        "googleapiclient.discovery",
+        "hashlib",
+        "hmac",
+        "http.server",
+        "json",
+        "os",
+        "re",
+        "secrets",
+        "sys",
+        "tempfile",
+        "time",
+        "typing",
+        "url_safety",
+        "urllib.parse",
+        "urllib.request",
+        "webbrowser"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "filesystem-write",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/google_report.py",
+      "sha256": "db0917afe02a852c31061cd1d9816a15668e72ecb84e9ef1cc571f519ade2aa6",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "datetime",
+        "html",
+        "json",
+        "matplotlib",
+        "matplotlib.patches",
+        "matplotlib.pyplot",
+        "numpy",
+        "openpyxl",
+        "openpyxl.styles",
+        "openpyxl.utils",
+        "os",
+        "pathlib",
+        "pypdf",
+        "re",
+        "sys",
+        "weasyprint"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "filesystem-write",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/gsc_inspect.py",
+      "sha256": "6782618db25496e915540714f8bb768a603ede3c199b25d9b0938755b990f161",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "google_auth",
+        "googleapiclient.discovery",
+        "json",
+        "os",
+        "sys",
+        "time"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/gsc_query.py",
+      "sha256": "6397c8c7b26a92fe3c69add1718efa995f0ffb38822d5f20a5e5dbe714ff5732",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "datetime",
+        "google_auth",
+        "googleapiclient.discovery",
+        "json",
+        "os",
+        "sys",
+        "typing"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/indexing_notify.py",
+      "sha256": "94b5feeaf8ae3e454f3bcc98a96c80f091ed3dde63b65606a147d28e2709bb7c",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "google_auth",
+        "googleapiclient.discovery",
+        "json",
+        "os",
+        "sys",
+        "time"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/indexnow_submit.py",
+      "sha256": "0063aa107991d7345e4aa4876dfd4bbc7f6ff4956565ec8bd6705fe3bd9c73ef",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "json",
+        "os",
+        "pathlib",
+        "requests",
+        "sys",
+        "typing",
+        "url_safety",
+        "urllib.parse"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/iptc_ai_label.py",
+      "sha256": "49277f6c651bbeaa579939ac9dc705861c6351644c2b8e7d915403c67a7b89a8",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "json",
+        "pathlib",
+        "shutil",
+        "subprocess",
+        "sys",
+        "typing"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "subprocess",
+        "network"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/keyword_planner.py",
+      "sha256": "498a808a62f27abba04aba92568e85a309ffc0da6a93a290411dae56c20c0528",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "google.ads.googleads.client",
+        "google.ads.googleads.errors",
+        "google_auth",
+        "json",
+        "os",
+        "sys",
+        "typing"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/keywordseverywhere_api.py",
+      "sha256": "c2c58f68d75f360e91b09b618d94dae557c8261a11fb8d4493e5009c22c1e4f6",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "backlinks_auth",
+        "json",
+        "os",
+        "requests",
+        "sys",
+        "time",
+        "typing",
+        "url_safety",
+        "urllib.parse"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/lcp_subparts.py",
+      "sha256": "92662c91275f4b2b30cfb78939efb3a9bb7e33ae18402336c7cc32e770a0cf06",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "google_auth",
+        "json",
+        "os",
+        "sys",
+        "url_safety",
+        "urllib.error",
+        "urllib.request"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/lighthouse_agentic.py",
+      "sha256": "5ff42f007411e8bed34f35b143f7c7d19f81b26abd99bf8baf981bfa87ddc324",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "google_auth",
+        "json",
+        "os",
+        "requests",
+        "sys",
+        "typing"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/matomo_auth.py",
+      "sha256": "272dcfac8791864e2290e08c4d648df807c203291fe89d907be5277235c93d9c",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "google_auth",
+        "ipaddress",
+        "json",
+        "os",
+        "re",
+        "requests",
+        "socket",
+        "subprocess",
+        "sys",
+        "tempfile",
+        "typing",
+        "url_safety",
+        "urllib.parse"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "subprocess",
+        "network",
+        "filesystem-write",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/matomo_report.py",
+      "sha256": "08a6d3253bd09027e92c2f6ce06e6f3f3ab9fda857411726c121c689d9a91222",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "datetime",
+        "json",
+        "matomo_auth",
+        "os",
+        "re",
+        "requests",
+        "sys",
+        "typing"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/metadata_template.py",
+      "sha256": "28d7bcd1a98c96b010d93a48659a17dcad05f65732728025c0da9bb96ef27734",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "json",
+        "pathlib",
+        "re",
+        "sys",
+        "typing"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/moz_api.py",
+      "sha256": "0dfa4d0d8c2f92c261d03e4082fb5869f38b4c4356760d037b4dec50aa3692c5",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "backlinks_auth",
+        "base64",
+        "fcntl",
+        "google_auth",
+        "json",
+        "os",
+        "requests",
+        "sys",
+        "time"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "filesystem-write",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/nlp_analyze.py",
+      "sha256": "327686432f1fc5a77a9732e1330ba64f416bc97480e7dc288aca6a5ab90ca7aa",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "bs4",
+        "google_auth",
+        "json",
+        "os",
+        "re",
+        "requests",
+        "sys",
+        "typing",
+        "url_safety"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/pagespeed_check.py",
+      "sha256": "e7e853e3d6ad6ab8690fce7c379bc9482d64408754db76b97560f069d0b917f6",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "google_auth",
+        "json",
+        "os",
+        "requests",
+        "sys",
+        "typing",
+        "urllib.parse"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/parasite_risk.py",
+      "sha256": "b4cccea1275f9f6f82c0b04d66495297ddcce87632d6805392af759a7e483ae9",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "collections",
+        "json",
+        "os",
+        "pathlib",
+        "re",
+        "sys",
+        "typing",
+        "url_safety",
+        "urllib.parse"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/parse_html.py",
+      "sha256": "978ffe0431f6ed8b4aa96ac905c2ba262f4f2e9b99abd89cab58be2e078dc66b",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "bs4",
+        "json",
+        "lxml",
+        "os",
+        "re",
+        "sys",
+        "typing",
+        "url_safety",
+        "urllib.parse"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/portability_check.py",
+      "sha256": "0875531ab12c929dc339a29d48383ac3e04f42db3fdd59a1a28ed657edeaacc1",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "json",
+        "pathlib",
+        "re",
+        "sys"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": []
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/preload_check.py",
+      "sha256": "45745c90755f4cbfb13ec812aef076544e19a48ce9151c18f8749db0a78256b7",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "json",
+        "os",
+        "re",
+        "sys",
+        "typing",
+        "url_safety"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": []
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/release_sign.py",
+      "sha256": "97a04488f5f23419422e3c6ba4fa36028e4aa1e7168c87bed851dbbabe616e2b",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "datetime",
+        "hashlib",
+        "json",
+        "pathlib",
+        "subprocess",
+        "sys",
+        "typing"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "subprocess"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/render_page.py",
+      "sha256": "ff72e8d38130502391702cd1e5cabd35814c5ad70ecf538711bba4f8c7a0a1c2",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "bs4",
+        "htmldate",
+        "json",
+        "os",
+        "playwright.sync_api",
+        "re",
+        "sys",
+        "time",
+        "trafilatura",
+        "typing",
+        "url_safety"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "filesystem-write",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/runtime.py",
+      "sha256": "0745fcb2ee0b50633718ce445055aed136161b93258cbb3b94d11235be00560b",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "hashlib",
+        "json",
+        "os",
+        "pathlib",
+        "re",
+        "shutil",
+        "subprocess",
+        "sys",
+        "time",
+        "typing"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "subprocess",
+        "network",
+        "filesystem-write",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/schema_ecommerce_validate.py",
+      "sha256": "70075b3d6175dca37523d004f108844921224ea9ac0b3eb0b8ba525c0a9a7edc",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "json",
+        "pathlib",
+        "sys"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": []
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/schema_generate.py",
+      "sha256": "355c1d79378e99b603e3a9909d02197943b28f2b353043a32258f7b1b8c51995",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "json",
+        "sys",
+        "typing"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/seo_updates.py",
+      "sha256": "cc78bdd184ba74d0d4f9c1caab40bd79d68b7450180460d44598a2307ef54f7e",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "datetime",
+        "json",
+        "pathlib",
+        "sys",
+        "typing"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/sitemap_discovery.py",
+      "sha256": "923395d470ab05098678f2f7337b7f9c76fe9b5942265f1b226733bed21feb72",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "json",
+        "lxml",
+        "os",
+        "re",
+        "requests",
+        "sys",
+        "url_safety",
+        "urllib.parse"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/sync_flow.py",
+      "sha256": "9759792787b5f05990d77df0a79cc99c2454d9d7fcf5e256d987698a4c929adf",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "base64",
+        "datetime",
+        "hashlib",
+        "json",
+        "os",
+        "pathlib",
+        "re",
+        "shutil",
+        "subprocess",
+        "sys",
+        "tempfile",
+        "urllib.error",
+        "urllib.parse",
+        "urllib.request"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "subprocess",
+        "network",
+        "filesystem-write"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/ucp_check.py",
+      "sha256": "6b172f605f52092637cdb44b33d5beefee4609c1a620f79a9baab2d65fd10911",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "json",
+        "os",
+        "re",
+        "sys",
+        "url_safety",
+        "urllib.parse"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/unlighthouse_run.py",
+      "sha256": "9709031a95082a4e03ebc63bd792fa21987483d222858ada27df39c84f0004ab",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "json",
+        "os",
+        "pathlib",
+        "shutil",
+        "statistics",
+        "subprocess",
+        "sys",
+        "tempfile",
+        "typing",
+        "url_safety"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "subprocess",
+        "network",
+        "filesystem-write"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/url_safety.py",
+      "sha256": "d6813572ed75cdbf9bb3c7879a6243c323ffe56b4893a858e42c83a8bd86302a",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "contextlib",
+        "ipaddress",
+        "json",
+        "os",
+        "re",
+        "requests",
+        "socket",
+        "sys",
+        "threading",
+        "typing",
+        "urllib.parse"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/validate_backlink_report.py",
+      "sha256": "9eba82a54f5584c6dff8bbfd9754ef4de04d783362813600852a18a372fa8642",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "json",
+        "sys",
+        "urllib.parse"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/verify_backlinks.py",
+      "sha256": "de25ef422ca03079a0bc4bb2fe6ddd79aacccc895c199632efe1b5f14c4406f4",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "fetch_page",
+        "google_auth",
+        "json",
+        "os",
+        "parse_html",
+        "requests",
+        "sys",
+        "time",
+        "url_safety",
+        "urllib.parse"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "dependency-setup"
+      ]
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/verify_release.py",
+      "sha256": "7868e3e6bf0dcec87a36ce3ec30ca197a4ef940dae8bb25897ec6a9a74e5d02f",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "__future__",
+        "argparse",
+        "hashlib",
+        "json",
+        "pathlib",
+        "sys"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": []
+    },
+    {
+      "file": "skill-resources/claude-seo/scripts/youtube_search.py",
+      "sha256": "f34e6a4ffdda436e42d457a09f3f26d4f907d440d50ba780e7102aeebda0e670",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "executionEnabled": false,
+      "installedMode": "0644",
+      "imports": [
+        "argparse",
+        "google_auth",
+        "googleapiclient.discovery",
+        "json",
+        "os",
+        "sys",
+        "typing"
+      ],
+      "pythonSyntax": "PARSED_WITHOUT_EXECUTION",
+      "staticOperationIndicators": [
+        "network",
+        "dependency-setup"
+      ]
+    }
+  ]
+}

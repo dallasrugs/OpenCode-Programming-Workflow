@@ -35,42 +35,20 @@ else {
     throw "Specify -Global or -Project <path>."
 }
 
-$agents = @(
-    'planner',
-    'consultant',
-    'supervisor',
-    'coder'
-)
-
-# Discover bundled skills automatically.
-# Install only SKILL.md files from valid skill directories.
-$skillsRoot = Join-Path $sourceRoot 'skills'
-
-if (-not (Test-Path -LiteralPath $skillsRoot -PathType Container)) {
-    throw "Skills directory not found: $skillsRoot"
+# Python validates provenance and enumerates the full recursive skill bundle.
+# References, licenses, compatibility patches and source snapshots travel together.
+$pythonCommand = Get-Command python3 -ErrorAction SilentlyContinue
+if (-not $pythonCommand) {
+    $pythonCommand = Get-Command python -ErrorAction SilentlyContinue
 }
-
-$skills = @(
-    Get-ChildItem -LiteralPath $skillsRoot -Directory |
-        Where-Object {
-            $_.Name -match '^[a-z0-9][a-z0-9-]*$' -and
-            (Test-Path -LiteralPath (
-                Join-Path $_.FullName 'SKILL.md'
-            ) -PathType Leaf)
-        } |
-        Sort-Object -Property Name |
-        ForEach-Object { $_.Name }
-)
-
-$files = @('opencode.json')
-
-foreach ($agent in $agents) {
-    $files += "agents/$agent.md"
+if (-not $pythonCommand) {
+    throw 'Python 3.10+ is required for the controller and provenance validation.'
 }
-
-foreach ($skill in $skills) {
-    $files += "skills/$skill/SKILL.md"
-}
+$skillControl = Join-Path $sourceRoot 'governance/skillctl.py'
+& $pythonCommand.Source $skillControl validate | Out-Null
+if ($LASTEXITCODE -ne 0) { throw 'Skill provenance validation failed.' }
+$files = @(& $pythonCommand.Source $skillControl install-files)
+if ($LASTEXITCODE -ne 0) { throw 'Could not enumerate the complete skill bundle.' }
 
 # Validate source before making any changes.
 foreach ($relative in $files) {

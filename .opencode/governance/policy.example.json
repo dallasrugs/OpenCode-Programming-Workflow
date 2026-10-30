@@ -1,0 +1,27 @@
+{
+  "models": {
+    "team-lead": "openai/gpt-6-sol",
+    "maintainer": "openai/gpt-6-sol",
+    "coder": "openai/gpt-6-sol",
+    "reviewer": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free"
+  },
+  "max_plan_rounds": 3,
+  "max_implementation_rounds": 3,
+  "agent_timeout_seconds": 900,
+  "tests": {
+    "image": "bdfl-python-tests:local",
+    "commands": [
+      [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ]
+    ],
+    "timeout_seconds": 120
+  },
+  "max_test_checkpoints": 24
+}

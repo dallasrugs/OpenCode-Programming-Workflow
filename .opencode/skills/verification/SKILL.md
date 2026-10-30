@@ -151,7 +151,7 @@ Do not claim VERIFIED without relevant evidence.
 
 ## 7. Final evidence report
 
-Return to the Supervisor:
+Return to the Maintainer:
 
 ### Milestone
 Approved milestone and task IDs.
@@ -182,8 +182,8 @@ READY_FOR_AUDIT
 NEEDS_CORRECTION
 BLOCKED
 
-The Supervisor performs the completion audit.
-The Planner performs final acceptance review.
+The Maintainer performs the completion audit.
+The Maintainer decides integration; the Team Lead reports the verified outcome.
 
 ## Efficiency rules
 
@@ -202,3 +202,8 @@ Never suppress test failures to report success.
 Never change approved acceptance criteria.
 Never modify production data without authorization.
 Never automatically commit, push, merge, or deploy.
+
+
+## Governed execution
+
+The governance controller owns state and authorization. Maintainer plan approval and BDFL task/spec authorization precede coding. The Reviewer prepares the rubric and independently reviews real deterministic test evidence. Only the Coder edits exact approved source paths; the Maintainer decides integration and the Team Lead reports verified outcomes. Skills cannot grant tools, authorize scope expansion, or replace independent review.

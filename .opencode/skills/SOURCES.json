@@ -1,0 +1,2512 @@
+{
+  "schemaVersion": 1,
+  "auditDate": "2026-10-30",
+  "skills": [
+    {
+      "skill": "how",
+      "author": "Lauren Tan",
+      "upstreamRepository": "https://github.com/poteto/how",
+      "upstreamPath": "skills/how",
+      "upstreamCommit": "b1ef42969ea7a2bb50aa26c2480274828a0385e7",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/how",
+      "destination": "skills/how",
+      "compatibilityChanges": [],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/how/SKILL.md",
+          "sha256": "2dd4d2818db0667cb5c34d35aeb515079bc8489390c03aafa7b3fb201ca1264c",
+          "installedSha256": "2dd4d2818db0667cb5c34d35aeb515079bc8489390c03aafa7b3fb201ca1264c",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/critic-prompt.md",
+          "upstreamPath": "skills/how/references/critic-prompt.md",
+          "sha256": "384dbe2e16b558f7139b22d6b6acdf07f0a36aa4e000d6402e9b00388b52a422",
+          "installedSha256": "384dbe2e16b558f7139b22d6b6acdf07f0a36aa4e000d6402e9b00388b52a422",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/critique-rubric.md",
+          "upstreamPath": "skills/how/references/critique-rubric.md",
+          "sha256": "8ac5786e430f5043e6eae1ed81e9b8cef5fb5825bf1043428dd5fcfe57f4ed2a",
+          "installedSha256": "8ac5786e430f5043e6eae1ed81e9b8cef5fb5825bf1043428dd5fcfe57f4ed2a",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/explainer-prompt.md",
+          "upstreamPath": "skills/how/references/explainer-prompt.md",
+          "sha256": "5a5223f5fe1c22447638fa285cc74f1be98ea53c4941aaa4231260ee84a384e0",
+          "installedSha256": "5a5223f5fe1c22447638fa285cc74f1be98ea53c4941aaa4231260ee84a384e0",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/explorer-prompt.md",
+          "upstreamPath": "skills/how/references/explorer-prompt.md",
+          "sha256": "0cf798751cf535d35697b7902d19d257da0a1e046337d18a40759fd5ec109f76",
+          "installedSha256": "0cf798751cf535d35697b7902d19d257da0a1e046337d18a40759fd5ec109f76",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e",
+          "installedSha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ],
+      "sourceSelectors": [
+        "skills/how",
+        "LICENSE"
+      ]
+    },
+    {
+      "skill": "domain-modeling",
+      "author": "Matt Pocock",
+      "upstreamRepository": "https://github.com/mattpocock/skills",
+      "upstreamPath": "skills/engineering/domain-modeling",
+      "upstreamCommit": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/domain-modeling",
+      "destination": "skills/domain-modeling",
+      "compatibilityChanges": [],
+      "files": [
+        {
+          "path": "ADR-FORMAT.md",
+          "upstreamPath": "skills/engineering/domain-modeling/ADR-FORMAT.md",
+          "sha256": "944c92aa790e8fbdc9199640b170979abb8a34ba8d0fe18c2a01a63bce140ca0",
+          "installedSha256": "944c92aa790e8fbdc9199640b170979abb8a34ba8d0fe18c2a01a63bce140ca0",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "GLOSSARY-FORMAT.md",
+          "upstreamPath": "skills/engineering/domain-modeling/GLOSSARY-FORMAT.md",
+          "sha256": "21dcc40cdec8e151a829b98ab1517c1867bc444e3665134a98c6983411996801",
+          "installedSha256": "21dcc40cdec8e151a829b98ab1517c1867bc444e3665134a98c6983411996801",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/engineering/domain-modeling/SKILL.md",
+          "sha256": "7b925d7b1e341a2eeae33ad68a8a8c0ab889a38ddd22a7598e4c240e5a7556a3",
+          "installedSha256": "7b925d7b1e341a2eeae33ad68a8a8c0ab889a38ddd22a7598e4c240e5a7556a3",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "upstreamPath": "skills/engineering/domain-modeling/agents/openai.yaml",
+          "sha256": "f6bf2aa996c6e6f53fdd0708e18a0d16a56aed8322cca59fedbe3c0d2c75f06b",
+          "installedSha256": "f6bf2aa996c6e6f53fdd0708e18a0d16a56aed8322cca59fedbe3c0d2c75f06b",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+          "installedSha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ],
+      "sourceSelectors": [
+        "skills/engineering/domain-modeling",
+        "LICENSE"
+      ]
+    },
+    {
+      "skill": "tdd",
+      "author": "Matt Pocock",
+      "upstreamRepository": "https://github.com/mattpocock/skills",
+      "upstreamPath": "skills/engineering/tdd",
+      "upstreamCommit": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/tdd",
+      "destination": "skills/tdd",
+      "compatibilityChanges": [],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/engineering/tdd/SKILL.md",
+          "sha256": "5505d25bbaa8fc14a79e4d20163936958992a2995b7f1dd1d6197edc9ed722e0",
+          "installedSha256": "5505d25bbaa8fc14a79e4d20163936958992a2995b7f1dd1d6197edc9ed722e0",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "upstreamPath": "skills/engineering/tdd/agents/openai.yaml",
+          "sha256": "ea6f01cf1b8c06a4b0f5b649d74b1b8ce8685e72af1b38d70d877693e092af0b",
+          "installedSha256": "ea6f01cf1b8c06a4b0f5b649d74b1b8ce8685e72af1b38d70d877693e092af0b",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "mocking.md",
+          "upstreamPath": "skills/engineering/tdd/mocking.md",
+          "sha256": "3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef",
+          "installedSha256": "3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "tests.md",
+          "upstreamPath": "skills/engineering/tdd/tests.md",
+          "sha256": "859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a",
+          "installedSha256": "859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+          "installedSha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ],
+      "sourceSelectors": [
+        "skills/engineering/tdd",
+        "LICENSE"
+      ]
+    },
+    {
+      "skill": "codebase-design",
+      "author": "Matt Pocock",
+      "upstreamRepository": "https://github.com/mattpocock/skills",
+      "upstreamPath": "skills/engineering/codebase-design",
+      "upstreamCommit": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/codebase-design",
+      "destination": "skills/codebase-design",
+      "compatibilityChanges": [],
+      "files": [
+        {
+          "path": "DEEPENING.md",
+          "upstreamPath": "skills/engineering/codebase-design/DEEPENING.md",
+          "sha256": "f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1",
+          "installedSha256": "f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "DESIGN-IT-TWICE.md",
+          "upstreamPath": "skills/engineering/codebase-design/DESIGN-IT-TWICE.md",
+          "sha256": "c222ab5a82e0405672eb9062d62496139a08828e45d07fc5f18e4952c10fac1a",
+          "installedSha256": "c222ab5a82e0405672eb9062d62496139a08828e45d07fc5f18e4952c10fac1a",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/engineering/codebase-design/SKILL.md",
+          "sha256": "2c20617f87ec8af6a434859f381b2f061a69b530444e74eb39e78bb016a6d1e2",
+          "installedSha256": "2c20617f87ec8af6a434859f381b2f061a69b530444e74eb39e78bb016a6d1e2",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "upstreamPath": "skills/engineering/codebase-design/agents/openai.yaml",
+          "sha256": "edebc9e4fcfe102114012575eaa9600b9b5fd08c311664f389c36e7bc717740f",
+          "installedSha256": "edebc9e4fcfe102114012575eaa9600b9b5fd08c311664f389c36e7bc717740f",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+          "installedSha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ],
+      "sourceSelectors": [
+        "skills/engineering/codebase-design",
+        "LICENSE"
+      ]
+    },
+    {
+      "skill": "grilling",
+      "author": "Matt Pocock",
+      "upstreamRepository": "https://github.com/mattpocock/skills",
+      "upstreamPath": "skills/productivity/grilling",
+      "upstreamCommit": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/grilling",
+      "destination": "skills/grilling",
+      "compatibilityChanges": [],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/productivity/grilling/SKILL.md",
+          "sha256": "a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b82242d4e2",
+          "installedSha256": "a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b82242d4e2",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "upstreamPath": "skills/productivity/grilling/agents/openai.yaml",
+          "sha256": "1411d7df7d99b7e621a1ff8283c8133cc2464be63d064e52d8ce169c6800ee9b",
+          "installedSha256": "1411d7df7d99b7e621a1ff8283c8133cc2464be63d064e52d8ce169c6800ee9b",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+          "installedSha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ],
+      "sourceSelectors": [
+        "skills/productivity/grilling",
+        "LICENSE"
+      ]
+    },
+    {
+      "skill": "grill-with-docs",
+      "author": "Matt Pocock",
+      "upstreamRepository": "https://github.com/mattpocock/skills",
+      "upstreamPath": "skills/engineering/grill-with-docs",
+      "upstreamCommit": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/grill-with-docs",
+      "destination": "skills/grill-with-docs",
+      "compatibilityChanges": [],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/engineering/grill-with-docs/SKILL.md",
+          "sha256": "7de372c13488f1ee96cc11cd8907b56b6809cc93eef776eeddd37de6b6cbe3fe",
+          "installedSha256": "7de372c13488f1ee96cc11cd8907b56b6809cc93eef776eeddd37de6b6cbe3fe",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "upstreamPath": "skills/engineering/grill-with-docs/agents/openai.yaml",
+          "sha256": "94cd0ab161fb468a836349f5ed482ba58ce8e709a05c57ce533d739dbd35cca9",
+          "installedSha256": "94cd0ab161fb468a836349f5ed482ba58ce8e709a05c57ce533d739dbd35cca9",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+          "installedSha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ],
+      "sourceSelectors": [
+        "skills/engineering/grill-with-docs",
+        "LICENSE"
+      ]
+    },
+    {
+      "skill": "to-spec",
+      "author": "Matt Pocock",
+      "upstreamRepository": "https://github.com/mattpocock/skills",
+      "upstreamPath": "skills/engineering/to-spec",
+      "upstreamCommit": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/to-spec",
+      "destination": "skills/to-spec",
+      "compatibilityChanges": [],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/engineering/to-spec/SKILL.md",
+          "sha256": "43ad9cf318e5e7d3d1fa360253a37021796dc87a0c2e595ad262661a10f85088",
+          "installedSha256": "43ad9cf318e5e7d3d1fa360253a37021796dc87a0c2e595ad262661a10f85088",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "upstreamPath": "skills/engineering/to-spec/agents/openai.yaml",
+          "sha256": "1c5b4d1e3d8e52287ef19cc2742fdbbfae1914ac75d33af3e4c8174f08cc55bb",
+          "installedSha256": "1c5b4d1e3d8e52287ef19cc2742fdbbfae1914ac75d33af3e4c8174f08cc55bb",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+          "installedSha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ],
+      "sourceSelectors": [
+        "skills/engineering/to-spec",
+        "LICENSE"
+      ]
+    },
+    {
+      "skill": "to-tickets",
+      "author": "Matt Pocock",
+      "upstreamRepository": "https://github.com/mattpocock/skills",
+      "upstreamPath": "skills/engineering/to-tickets",
+      "upstreamCommit": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/to-tickets",
+      "destination": "skills/to-tickets",
+      "compatibilityChanges": [],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/engineering/to-tickets/SKILL.md",
+          "sha256": "56ec23c5b2782785d4e65bff9e315b6d3aeb4ef977c174a219e99489fada1995",
+          "installedSha256": "56ec23c5b2782785d4e65bff9e315b6d3aeb4ef977c174a219e99489fada1995",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "upstreamPath": "skills/engineering/to-tickets/agents/openai.yaml",
+          "sha256": "21bc6215fffcd7614e9f772bb1760e87cc5fc7dcc707e7d282bc9414267a6090",
+          "installedSha256": "21bc6215fffcd7614e9f772bb1760e87cc5fc7dcc707e7d282bc9414267a6090",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+          "installedSha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ],
+      "sourceSelectors": [
+        "skills/engineering/to-tickets",
+        "LICENSE"
+      ]
+    },
+    {
+      "skill": "code-review",
+      "author": "Matt Pocock",
+      "upstreamRepository": "https://github.com/mattpocock/skills",
+      "upstreamPath": "skills/engineering/code-review",
+      "upstreamCommit": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/code-review",
+      "destination": "skills/code-review",
+      "compatibilityChanges": [],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/engineering/code-review/SKILL.md",
+          "sha256": "9c921a8d88138a41401d8897ca1bb852088ab1b7b605cdd04edc13e3e8aab6dd",
+          "installedSha256": "9c921a8d88138a41401d8897ca1bb852088ab1b7b605cdd04edc13e3e8aab6dd",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "upstreamPath": "skills/engineering/code-review/agents/openai.yaml",
+          "sha256": "8229ca854e11dc8e6aef2131ee03f31fb1561cf905fab9ccc325180cf3331352",
+          "installedSha256": "8229ca854e11dc8e6aef2131ee03f31fb1561cf905fab9ccc325180cf3331352",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+          "installedSha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ],
+      "sourceSelectors": [
+        "skills/engineering/code-review",
+        "LICENSE"
+      ]
+    },
+    {
+      "skill": "diagnosing-bugs",
+      "author": "Matt Pocock",
+      "upstreamRepository": "https://github.com/mattpocock/skills",
+      "upstreamPath": "skills/engineering/diagnosing-bugs",
+      "upstreamCommit": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/diagnosing-bugs",
+      "destination": "skills/diagnosing-bugs",
+      "compatibilityChanges": [],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/engineering/diagnosing-bugs/SKILL.md",
+          "sha256": "849198df88cdb65fd0d97236604c1fca7ff2f22d2f705f9724a800d0266b118d",
+          "installedSha256": "849198df88cdb65fd0d97236604c1fca7ff2f22d2f705f9724a800d0266b118d",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "upstreamPath": "skills/engineering/diagnosing-bugs/agents/openai.yaml",
+          "sha256": "3e430dbe4334a87597488c060cb3dc3786bb00c9182877d6f5ec41f62490e90b",
+          "installedSha256": "3e430dbe4334a87597488c060cb3dc3786bb00c9182877d6f5ec41f62490e90b",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/hitl-loop.template.sh",
+          "upstreamPath": "skills/engineering/diagnosing-bugs/scripts/hitl-loop.template.sh",
+          "sha256": "35103539fc36873eea36074769ad454f9379d6fc8b2dc0e26ce987fd3bfe5503",
+          "installedSha256": "35103539fc36873eea36074769ad454f9379d6fc8b2dc0e26ce987fd3bfe5503",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+          "installedSha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ],
+      "sourceSelectors": [
+        "skills/engineering/diagnosing-bugs",
+        "LICENSE"
+      ]
+    },
+    {
+      "skill": "systematic-debugging",
+      "author": "Jesse Vincent",
+      "upstreamRepository": "https://github.com/obra/superpowers",
+      "upstreamPath": "skills/systematic-debugging",
+      "upstreamCommit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/systematic-debugging",
+      "destination": "skills/systematic-debugging",
+      "compatibilityChanges": [
+        {
+          "file": "find-polluter.sh",
+          "reason": "Installed with mode 0644 so imported upstream programs are inert; source bytes are unchanged and upstream Git mode is recorded."
+        }
+      ],
+      "files": [
+        {
+          "path": "CREATION-LOG.md",
+          "upstreamPath": "skills/systematic-debugging/CREATION-LOG.md",
+          "sha256": "c24733a5b1821bd6bed1fc950261f0b9f4e90097e0bbb96459d8179713730789",
+          "installedSha256": "c24733a5b1821bd6bed1fc950261f0b9f4e90097e0bbb96459d8179713730789",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/systematic-debugging/SKILL.md",
+          "sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+          "installedSha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "condition-based-waiting-example.ts",
+          "upstreamPath": "skills/systematic-debugging/condition-based-waiting-example.ts",
+          "sha256": "40ae5ebe497fdf310200e43fe986552546d0a22837c0d39e855db1cfd33eb88e",
+          "installedSha256": "40ae5ebe497fdf310200e43fe986552546d0a22837c0d39e855db1cfd33eb88e",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "condition-based-waiting.md",
+          "upstreamPath": "skills/systematic-debugging/condition-based-waiting.md",
+          "sha256": "e89fec8400d6cd50f43407cec9fab50976ba4d55d0ec2eb51c0bd68036b54c26",
+          "installedSha256": "e89fec8400d6cd50f43407cec9fab50976ba4d55d0ec2eb51c0bd68036b54c26",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "defense-in-depth.md",
+          "upstreamPath": "skills/systematic-debugging/defense-in-depth.md",
+          "sha256": "1e175fb86fc357e58c6aebf5441e481e1b7868b4380c0456b63a17eefbd18ba7",
+          "installedSha256": "1e175fb86fc357e58c6aebf5441e481e1b7868b4380c0456b63a17eefbd18ba7",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "find-polluter.sh",
+          "upstreamPath": "skills/systematic-debugging/find-polluter.sh",
+          "sha256": "dd7b8f13c4cc2a24b33ff87b18da9248f3e1c80a085c3316224f69ff0fa5c43c",
+          "installedSha256": "dd7b8f13c4cc2a24b33ff87b18da9248f3e1c80a085c3316224f69ff0fa5c43c",
+          "upstreamGitMode": "100755",
+          "installedMode": "0644"
+        },
+        {
+          "path": "root-cause-tracing.md",
+          "upstreamPath": "skills/systematic-debugging/root-cause-tracing.md",
+          "sha256": "75b933b6a8c40bdb2031b10f21654395b56ec6ab6bc7b018c18d3fe57aeb7fb8",
+          "installedSha256": "75b933b6a8c40bdb2031b10f21654395b56ec6ab6bc7b018c18d3fe57aeb7fb8",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "test-academic.md",
+          "upstreamPath": "skills/systematic-debugging/test-academic.md",
+          "sha256": "fe2ba480d78ac0d686dc025f41c2a32a43d642bf533f91b0c6053a04d35d6486",
+          "installedSha256": "fe2ba480d78ac0d686dc025f41c2a32a43d642bf533f91b0c6053a04d35d6486",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "test-pressure-1.md",
+          "upstreamPath": "skills/systematic-debugging/test-pressure-1.md",
+          "sha256": "0b6a915db0054577819834c79be9eb614e97bddba10d73768e1fbe91cfed048a",
+          "installedSha256": "0b6a915db0054577819834c79be9eb614e97bddba10d73768e1fbe91cfed048a",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "test-pressure-2.md",
+          "upstreamPath": "skills/systematic-debugging/test-pressure-2.md",
+          "sha256": "b2030aeffba07050e8ad573ddf87486457c4a016a786bb326235bebd856f2016",
+          "installedSha256": "b2030aeffba07050e8ad573ddf87486457c4a016a786bb326235bebd856f2016",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "test-pressure-3.md",
+          "upstreamPath": "skills/systematic-debugging/test-pressure-3.md",
+          "sha256": "96b50a52e2c7989c9cf20fb752c47c1e9a3a70dc362f8f7989f8f5b64dac7708",
+          "installedSha256": "96b50a52e2c7989c9cf20fb752c47c1e9a3a70dc362f8f7989f8f5b64dac7708",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+          "installedSha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ],
+      "sourceSelectors": [
+        "skills/systematic-debugging",
+        "LICENSE"
+      ]
+    },
+    {
+      "skill": "verification-before-completion",
+      "author": "Jesse Vincent",
+      "upstreamRepository": "https://github.com/obra/superpowers",
+      "upstreamPath": "skills/verification-before-completion",
+      "upstreamCommit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/verification-before-completion",
+      "destination": "skills/verification-before-completion",
+      "compatibilityChanges": [],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/verification-before-completion/SKILL.md",
+          "sha256": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3",
+          "installedSha256": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+          "installedSha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ],
+      "sourceSelectors": [
+        "skills/verification-before-completion",
+        "LICENSE"
+      ]
+    },
+    {
+      "skill": "writing-plans",
+      "author": "Jesse Vincent",
+      "upstreamRepository": "https://github.com/obra/superpowers",
+      "upstreamPath": "skills/writing-plans",
+      "upstreamCommit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/writing-plans",
+      "destination": "skills/writing-plans",
+      "compatibilityChanges": [],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/writing-plans/SKILL.md",
+          "sha256": "a6c67c1900064347c2a329990dd3c555657c51c3ec53b259a08aa01a2c26139a",
+          "installedSha256": "a6c67c1900064347c2a329990dd3c555657c51c3ec53b259a08aa01a2c26139a",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+          "installedSha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ],
+      "sourceSelectors": [
+        "skills/writing-plans",
+        "LICENSE"
+      ]
+    },
+    {
+      "skill": "superpowers-test-driven-development",
+      "author": "Jesse Vincent",
+      "upstreamRepository": "https://github.com/obra/superpowers",
+      "upstreamPath": "skills/test-driven-development",
+      "upstreamCommit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/superpowers-test-driven-development",
+      "destination": "skills/superpowers-test-driven-development",
+      "compatibilityChanges": [
+        {
+          "file": null,
+          "reason": "Native directory ID is namespaced to distinguish Jesse Vincent’s dependency from the former Matt Pocock-derived test-driven-development alias; upstream display name and bytes are unchanged."
+        }
+      ],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/test-driven-development/SKILL.md",
+          "sha256": "64b03fce4aee5a97a93160cea8111f3ba13a17b7c001db4bd5836d67fd10705d",
+          "installedSha256": "64b03fce4aee5a97a93160cea8111f3ba13a17b7c001db4bd5836d67fd10705d",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "writing-good-tests.md",
+          "upstreamPath": "skills/test-driven-development/writing-good-tests.md",
+          "sha256": "51471c853306ff92ca8bb41dcaea05f31c0e46b03651f8f3c99754b7172f4ae1",
+          "installedSha256": "51471c853306ff92ca8bb41dcaea05f31c0e46b03651f8f3c99754b7172f4ae1",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+          "installedSha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ],
+      "sourceSelectors": [
+        "skills/test-driven-development",
+        "LICENSE"
+      ]
+    },
+    {
+      "skill": "humanizer",
+      "author": "Siqi Chen",
+      "upstreamRepository": "https://github.com/blader/humanizer",
+      "upstreamPath": "SKILL.md",
+      "upstreamCommit": "0ef9fe5bc3572734fd3ae6c448fe00a30cd5dcf0",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/humanizer",
+      "destination": "skills/humanizer",
+      "compatibilityChanges": [],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "SKILL.md",
+          "sha256": "0612f1dfb1672b0ea9b97e139bf1f06cabe98d8b27424fe8ff01e1fb4cc99cad",
+          "installedSha256": "0612f1dfb1672b0ea9b97e139bf1f06cabe98d8b27424fe8ff01e1fb4cc99cad",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "4ac4810254ab36d45419141aeb8e69bf50652cfafe5b2dab947d06d44e5cbf96",
+          "installedSha256": "4ac4810254ab36d45419141aeb8e69bf50652cfafe5b2dab947d06d44e5cbf96",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ],
+      "sourceSelectors": [
+        "SKILL.md",
+        "LICENSE"
+      ]
+    },
+    {
+      "skill": "human-writing",
+      "author": "amineall",
+      "upstreamRepository": "https://github.com/amineall/human-writing-skills",
+      "upstreamPath": "human-writing",
+      "upstreamCommit": "dba7f72f2d45ab53bf5b8466219d75e8fa8e7b89",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/human-writing",
+      "destination": "skills/human-writing",
+      "compatibilityChanges": [],
+      "files": [
+        {
+          "path": "INSTALL.md",
+          "upstreamPath": "human-writing/INSTALL.md",
+          "sha256": "30a7e61699376e8d5705c43fc2fdd2e9a73548ed2ec82d8c16856778411fce44",
+          "installedSha256": "30a7e61699376e8d5705c43fc2fdd2e9a73548ed2ec82d8c16856778411fce44",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "human-writing/SKILL.md",
+          "sha256": "579cd70cb33920302834ed945b6c4096d9f59546b48587e31ddb1f7841af7353",
+          "installedSha256": "579cd70cb33920302834ed945b6c4096d9f59546b48587e31ddb1f7841af7353",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "evals/README.md",
+          "upstreamPath": "human-writing/evals/README.md",
+          "sha256": "45a68a4d03e2330d45f833a1fa4f4a6c1c0ec59d4f0668c4aee33599527be0db",
+          "installedSha256": "45a68a4d03e2330d45f833a1fa4f4a6c1c0ec59d4f0668c4aee33599527be0db",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "evals/case-01-marketing-blurb.md",
+          "upstreamPath": "human-writing/evals/case-01-marketing-blurb.md",
+          "sha256": "d3a699b37106ea55ab487e75e88c28bfeff1f2e14458c98dc1a657ebe1ce5177",
+          "installedSha256": "d3a699b37106ea55ab487e75e88c28bfeff1f2e14458c98dc1a657ebe1ce5177",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "evals/case-02-scientific-abstract.md",
+          "upstreamPath": "human-writing/evals/case-02-scientific-abstract.md",
+          "sha256": "3bbf18fc7c5d7eb2cb67cfd9a965c203e4d0847a8158c7965ffa807fb2430203",
+          "installedSha256": "3bbf18fc7c5d7eb2cb67cfd9a965c203e4d0847a8158c7965ffa807fb2430203",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "evals/case-03-chat-dm.md",
+          "upstreamPath": "human-writing/evals/case-03-chat-dm.md",
+          "sha256": "27b1ea2dcec7da68a2cc7388426cdd3284250d42e67956e8ab3db6916e85fe48",
+          "installedSha256": "27b1ea2dcec7da68a2cc7388426cdd3284250d42e67956e8ab3db6916e85fe48",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "evals/case-04-voice-match.md",
+          "upstreamPath": "human-writing/evals/case-04-voice-match.md",
+          "sha256": "5576218b96b59876058bac4e636454f82bf9b5503008158ce7276a0cc371572a",
+          "installedSha256": "5576218b96b59876058bac4e636454f82bf9b5503008158ce7276a0cc371572a",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/adversarial-paraphrasing.md",
+          "upstreamPath": "human-writing/references/adversarial-paraphrasing.md",
+          "sha256": "963d0ef7d4c50a74579db0098575169965d10641f7ee03a8b04189db5441f03e",
+          "installedSha256": "963d0ef7d4c50a74579db0098575169965d10641f7ee03a8b04189db5441f03e",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/ai-tells.md",
+          "upstreamPath": "human-writing/references/ai-tells.md",
+          "sha256": "cee058cab937f04e09de77c5d27c7544bc6f732010bcf3e6699e56346dad72ea",
+          "installedSha256": "cee058cab937f04e09de77c5d27c7544bc6f732010bcf3e6699e56346dad72ea",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/detector-matrix.md",
+          "upstreamPath": "human-writing/references/detector-matrix.md",
+          "sha256": "09c65c96645dc957bba72447fcd0115b364ece87b1af8197a36a26a372ce0517",
+          "installedSha256": "09c65c96645dc957bba72447fcd0115b364ece87b1af8197a36a26a372ce0517",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/examples.md",
+          "upstreamPath": "human-writing/references/examples.md",
+          "sha256": "72379846137633fd0b4c1420681b40ccc0a0c15a9ea6abe4b6bd61a1c62eb29a",
+          "installedSha256": "72379846137633fd0b4c1420681b40ccc0a0c15a9ea6abe4b6bd61a1c62eb29a",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/quick-check.md",
+          "upstreamPath": "human-writing/references/quick-check.md",
+          "sha256": "70f9236f1ecd0ad7baadbc13a65073b1295d8522e7907ef35c5a9c54e3aa3cf3",
+          "installedSha256": "70f9236f1ecd0ad7baadbc13a65073b1295d8522e7907ef35c5a9c54e3aa3cf3",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/techniques.md",
+          "upstreamPath": "human-writing/references/techniques.md",
+          "sha256": "1c6429ab669b26d9c10cd91bce304b724a4171cac62b75b644fb5b53bc52cbc8",
+          "installedSha256": "1c6429ab669b26d9c10cd91bce304b724a4171cac62b75b644fb5b53bc52cbc8",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/voice-matching.md",
+          "upstreamPath": "human-writing/references/voice-matching.md",
+          "sha256": "97fe1ab99ed1a0fd2564f1cefcf7bc81aff3b9ac51cf73d8891feaa5fda6fabc",
+          "installedSha256": "97fe1ab99ed1a0fd2564f1cefcf7bc81aff3b9ac51cf73d8891feaa5fda6fabc",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "1b86d4a4e2bc1c5e6be531dfff17bfbefec64272f7030e8bfa42bb6aa06eca5d",
+          "installedSha256": "1b86d4a4e2bc1c5e6be531dfff17bfbefec64272f7030e8bfa42bb6aa06eca5d",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ],
+      "sourceSelectors": [
+        "human-writing",
+        "LICENSE"
+      ]
+    },
+    {
+      "skill": "seo-content",
+      "author": "AgriciDaniel",
+      "upstreamRepository": "https://github.com/AgriciDaniel/claude-seo",
+      "upstreamPath": "skills/seo-content",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/seo-content",
+      "destination": "skills/seo-content",
+      "compatibilityChanges": [
+        {
+          "file": "SKILL.md",
+          "patch": "skill-sources/patches/seo-content.json",
+          "reason": "Replace Claude plugin-root placeholder with the bundled OpenCode resource root; methodology unchanged."
+        }
+      ],
+      "files": [
+        {
+          "path": "LICENSE.txt",
+          "upstreamPath": "skills/seo-content/LICENSE.txt",
+          "sha256": "5c617ae0aa59b995e19b3e774fcc2f2ba91b864e0b4c3e18475b139526a2da1e",
+          "installedSha256": "5c617ae0aa59b995e19b3e774fcc2f2ba91b864e0b4c3e18475b139526a2da1e",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/seo-content/SKILL.md",
+          "sha256": "b167c03c9cde9b973aee4930b4eb6b7dc14b0f994b9a75d265a3864852d9f323",
+          "installedSha256": "19b2e2bf9402e5a4f28a7054c7b61d079c266b408f1d516229e25ce52b628c1c",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "a42b3b0253cecea9af810c5207a67b0be8c9a0cfbf52b9302c3d26b063e7a86b",
+          "installedSha256": "a42b3b0253cecea9af810c5207a67b0be8c9a0cfbf52b9302c3d26b063e7a86b",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ],
+      "patch": "skill-sources/patches/seo-content.json",
+      "sourceSelectors": [
+        "skills/seo-content",
+        "LICENSE"
+      ],
+      "patchSha256": "4929ad6e76394c289454d8e2115e713467a83fe97514f6d1d82411774e40c40e"
+    },
+    {
+      "skill": "seo-technical",
+      "author": "AgriciDaniel",
+      "upstreamRepository": "https://github.com/AgriciDaniel/claude-seo",
+      "upstreamPath": "skills/seo-technical",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/seo-technical",
+      "destination": "skills/seo-technical",
+      "compatibilityChanges": [
+        {
+          "file": "SKILL.md",
+          "patch": "skill-sources/patches/seo-technical.json",
+          "reason": "Replace Claude plugin-root placeholder with the bundled OpenCode resource root; methodology unchanged."
+        }
+      ],
+      "files": [
+        {
+          "path": "LICENSE.txt",
+          "upstreamPath": "skills/seo-technical/LICENSE.txt",
+          "sha256": "5c617ae0aa59b995e19b3e774fcc2f2ba91b864e0b4c3e18475b139526a2da1e",
+          "installedSha256": "5c617ae0aa59b995e19b3e774fcc2f2ba91b864e0b4c3e18475b139526a2da1e",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/seo-technical/SKILL.md",
+          "sha256": "52b591511274158c11b40cdcbaaea3ef7fc36eb7caf740f46dfefed25ed290d9",
+          "installedSha256": "c7ca95bca9dd8d96fe784b400a3070401063c91f4d3c9f2f391c81c07e68057a",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/stack-cve-exposure.md",
+          "upstreamPath": "skills/seo-technical/references/stack-cve-exposure.md",
+          "sha256": "a6aa63975ac47dc3a1fcdfe6e17b2a2c4db91d98e8c5593aeea09bd3c1681170",
+          "installedSha256": "a6aa63975ac47dc3a1fcdfe6e17b2a2c4db91d98e8c5593aeea09bd3c1681170",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "a42b3b0253cecea9af810c5207a67b0be8c9a0cfbf52b9302c3d26b063e7a86b",
+          "installedSha256": "a42b3b0253cecea9af810c5207a67b0be8c9a0cfbf52b9302c3d26b063e7a86b",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ],
+      "patch": "skill-sources/patches/seo-technical.json",
+      "sourceSelectors": [
+        "skills/seo-technical",
+        "LICENSE"
+      ],
+      "patchSha256": "f364208dd07dcc28c5fd35eb6b171d78a31b685c65bd9c5f63ceb6619a38f57f"
+    }
+  ],
+  "resources": [
+    {
+      "id": "claude-seo",
+      "upstreamRepository": "https://github.com/AgriciDaniel/claude-seo",
+      "upstreamCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+      "upstreamPath": ".",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/claude-seo-resources",
+      "destination": "skill-resources/claude-seo",
+      "compatibilityChanges": [
+        {
+          "file": "scripts/analyze_visual.py",
+          "reason": "Installed with mode 0644 so imported upstream programs are inert; source bytes are unchanged and upstream Git mode is recorded."
+        },
+        {
+          "file": "scripts/capture_screenshot.py",
+          "reason": "Installed with mode 0644 so imported upstream programs are inert; source bytes are unchanged and upstream Git mode is recorded."
+        },
+        {
+          "file": "scripts/claude-seo",
+          "reason": "Installed with mode 0644 so imported upstream programs are inert; source bytes are unchanged and upstream Git mode is recorded."
+        },
+        {
+          "file": "scripts/dataforseo_merchant.py",
+          "reason": "Installed with mode 0644 so imported upstream programs are inert; source bytes are unchanged and upstream Git mode is recorded."
+        },
+        {
+          "file": "scripts/dataforseo_normalize.py",
+          "reason": "Installed with mode 0644 so imported upstream programs are inert; source bytes are unchanged and upstream Git mode is recorded."
+        },
+        {
+          "file": "scripts/fetch_page.py",
+          "reason": "Installed with mode 0644 so imported upstream programs are inert; source bytes are unchanged and upstream Git mode is recorded."
+        },
+        {
+          "file": "scripts/gbp_deprecation_lint.py",
+          "reason": "Installed with mode 0644 so imported upstream programs are inert; source bytes are unchanged and upstream Git mode is recorded."
+        },
+        {
+          "file": "scripts/parasite_risk.py",
+          "reason": "Installed with mode 0644 so imported upstream programs are inert; source bytes are unchanged and upstream Git mode is recorded."
+        },
+        {
+          "file": "scripts/parse_html.py",
+          "reason": "Installed with mode 0644 so imported upstream programs are inert; source bytes are unchanged and upstream Git mode is recorded."
+        },
+        {
+          "file": "scripts/runtime.py",
+          "reason": "Installed with mode 0644 so imported upstream programs are inert; source bytes are unchanged and upstream Git mode is recorded."
+        }
+      ],
+      "files": [
+        {
+          "path": ".claude-plugin/plugin.json",
+          "upstreamPath": ".claude-plugin/plugin.json",
+          "sha256": "223a22a55272aa63d18893e56252f05b7746d3af9162affc50d80cf21e0d6246",
+          "installedSha256": "223a22a55272aa63d18893e56252f05b7746d3af9162affc50d80cf21e0d6246",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "a42b3b0253cecea9af810c5207a67b0be8c9a0cfbf52b9302c3d26b063e7a86b",
+          "installedSha256": "a42b3b0253cecea9af810c5207a67b0be8c9a0cfbf52b9302c3d26b063e7a86b",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "SECURITY.md",
+          "upstreamPath": "SECURITY.md",
+          "sha256": "b64ddd41a890873fac3eb67a23ffdebd0757a1356bd61675dbd71c6de05f057e",
+          "installedSha256": "b64ddd41a890873fac3eb67a23ffdebd0757a1356bd61675dbd71c6de05f057e",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "data/google-updates.json",
+          "upstreamPath": "data/google-updates.json",
+          "sha256": "5639ebffd195a0c3ba5200ec8b85fdd29ab01c3fed56369522098ecd00b16c52",
+          "installedSha256": "5639ebffd195a0c3ba5200ec8b85fdd29ab01c3fed56369522098ecd00b16c52",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "pyproject.toml",
+          "upstreamPath": "pyproject.toml",
+          "sha256": "2533463940d95cc8d1582f61bc0837a5fa05a4adc89a8ea8b3c3ad4ec860b237",
+          "installedSha256": "2533463940d95cc8d1582f61bc0837a5fa05a4adc89a8ea8b3c3ad4ec860b237",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "requirements.txt",
+          "upstreamPath": "requirements.txt",
+          "sha256": "0d36b4a6c9268290d63ab7d0834d4c9e5a865d9acad6a74c95749e72fdacb829",
+          "installedSha256": "0d36b4a6c9268290d63ab7d0834d4c9e5a865d9acad6a74c95749e72fdacb829",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/agent_ux_check.py",
+          "upstreamPath": "scripts/agent_ux_check.py",
+          "sha256": "78ee10a25551728f820ff9c5e3e7c2f17473f868207aa2218a4471c898caf6da",
+          "installedSha256": "78ee10a25551728f820ff9c5e3e7c2f17473f868207aa2218a4471c898caf6da",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/agentic_check.py",
+          "upstreamPath": "scripts/agentic_check.py",
+          "sha256": "b770f949dd8d00c56b2a72c3233f0663a2c37944afed3d48b3c5207450ad6cbd",
+          "installedSha256": "b770f949dd8d00c56b2a72c3233f0663a2c37944afed3d48b3c5207450ad6cbd",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/agentic_fix.py",
+          "upstreamPath": "scripts/agentic_fix.py",
+          "sha256": "a25ba5c56d4bf85ddb78f81ae2a3c66a059f909a98fe426d4a02351cec43c294",
+          "installedSha256": "a25ba5c56d4bf85ddb78f81ae2a3c66a059f909a98fe426d4a02351cec43c294",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/analyze_visual.py",
+          "upstreamPath": "scripts/analyze_visual.py",
+          "sha256": "03e930f7813775abb5992da85db3d8eb23577bbce00e1bb33c38255db98e9757",
+          "installedSha256": "03e930f7813775abb5992da85db3d8eb23577bbce00e1bb33c38255db98e9757",
+          "upstreamGitMode": "100755",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/backlinks_auth.py",
+          "upstreamPath": "scripts/backlinks_auth.py",
+          "sha256": "d0a82c941bdc5ce8b4c5fb67eda2392f5f38805da82cdcacdeb7329d74e672d9",
+          "installedSha256": "d0a82c941bdc5ce8b4c5fb67eda2392f5f38805da82cdcacdeb7329d74e672d9",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/bing_webmaster.py",
+          "upstreamPath": "scripts/bing_webmaster.py",
+          "sha256": "eb9d30b3e99e3baa7dba8816da0092838bb1d843c905ca72efce9dd9a80983e9",
+          "installedSha256": "eb9d30b3e99e3baa7dba8816da0092838bb1d843c905ca72efce9dd9a80983e9",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/capture_screenshot.py",
+          "upstreamPath": "scripts/capture_screenshot.py",
+          "sha256": "6888c89afceb3102e885da0b47bd83ea86bed73c4029b02c53dd10c96b5cd926",
+          "installedSha256": "6888c89afceb3102e885da0b47bd83ea86bed73c4029b02c53dd10c96b5cd926",
+          "upstreamGitMode": "100755",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/claude-seo",
+          "upstreamPath": "scripts/claude-seo",
+          "sha256": "ff87975206a143084486c9e381be29b78cf28af4deab6c510abb611d230deb30",
+          "installedSha256": "ff87975206a143084486c9e381be29b78cf28af4deab6c510abb611d230deb30",
+          "upstreamGitMode": "100755",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/commoncrawl_graph.py",
+          "upstreamPath": "scripts/commoncrawl_graph.py",
+          "sha256": "33b21f9873407371e98da96f9a0a2c96e1dd7e07fd6319dc506de695b9b6d8a5",
+          "installedSha256": "33b21f9873407371e98da96f9a0a2c96e1dd7e07fd6319dc506de695b9b6d8a5",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/consistency_check.py",
+          "upstreamPath": "scripts/consistency_check.py",
+          "sha256": "f83fc0220d5b83f0eb7b66c8da5b584f3a492abd37ea696a8ea34e5595803b0f",
+          "installedSha256": "f83fc0220d5b83f0eb7b66c8da5b584f3a492abd37ea696a8ea34e5595803b0f",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/content_humanize.py",
+          "upstreamPath": "scripts/content_humanize.py",
+          "sha256": "8a2b262042ec3b2b3b13d7f1e9072526787cda14e981fb67896ea31e94dbfe8c",
+          "installedSha256": "8a2b262042ec3b2b3b13d7f1e9072526787cda14e981fb67896ea31e94dbfe8c",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/content_quality.py",
+          "upstreamPath": "scripts/content_quality.py",
+          "sha256": "7ffa979fef4ef3311ed5693b094ef3f6bf677dd0d2cf0a1379be1a11a0535945",
+          "installedSha256": "7ffa979fef4ef3311ed5693b094ef3f6bf677dd0d2cf0a1379be1a11a0535945",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/content_verify.py",
+          "upstreamPath": "scripts/content_verify.py",
+          "sha256": "f16f94d17d9556bf6e847b9abd0a28b0ddf6deef0af0cc2fd277489a0e83b913",
+          "installedSha256": "f16f94d17d9556bf6e847b9abd0a28b0ddf6deef0af0cc2fd277489a0e83b913",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/crux_history.py",
+          "upstreamPath": "scripts/crux_history.py",
+          "sha256": "3a6e0bdaea0d9e39bff410672f262eb66ca4a7ac0aee2eb08afd2328d51099c6",
+          "installedSha256": "3a6e0bdaea0d9e39bff410672f262eb66ca4a7ac0aee2eb08afd2328d51099c6",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/dataforseo_costs.py",
+          "upstreamPath": "scripts/dataforseo_costs.py",
+          "sha256": "001d086ea778ec3412455d9a14e7a12eba7688851d079403d40ecb5a6f8763c9",
+          "installedSha256": "001d086ea778ec3412455d9a14e7a12eba7688851d079403d40ecb5a6f8763c9",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/dataforseo_merchant.py",
+          "upstreamPath": "scripts/dataforseo_merchant.py",
+          "sha256": "461ad8329668720cfd6d90c2aac5d195db35ae5ec758537a8fef10797bd9d2c1",
+          "installedSha256": "461ad8329668720cfd6d90c2aac5d195db35ae5ec758537a8fef10797bd9d2c1",
+          "upstreamGitMode": "100755",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/dataforseo_normalize.py",
+          "upstreamPath": "scripts/dataforseo_normalize.py",
+          "sha256": "588d87b6efb0dfef3b4ba9206655959b2218208d7cbb0d39c953ac12e0859974",
+          "installedSha256": "588d87b6efb0dfef3b4ba9206655959b2218208d7cbb0d39c953ac12e0859974",
+          "upstreamGitMode": "100755",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/domain_history.py",
+          "upstreamPath": "scripts/domain_history.py",
+          "sha256": "f94d6b02100a978a792c060345785e07f01a5005add1732dcf5023c05222afc1",
+          "installedSha256": "f94d6b02100a978a792c060345785e07f01a5005add1732dcf5023c05222afc1",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/drift_baseline.py",
+          "upstreamPath": "scripts/drift_baseline.py",
+          "sha256": "416cc3a39fba37933fc87facfe95887c0db1809c6d0ec0011ad8517c7f22738f",
+          "installedSha256": "416cc3a39fba37933fc87facfe95887c0db1809c6d0ec0011ad8517c7f22738f",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/drift_compare.py",
+          "upstreamPath": "scripts/drift_compare.py",
+          "sha256": "2e493900b27b540126650a433f9509ef59adc82e69e961a7eb7b3eb47315e739",
+          "installedSha256": "2e493900b27b540126650a433f9509ef59adc82e69e961a7eb7b3eb47315e739",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/drift_history.py",
+          "upstreamPath": "scripts/drift_history.py",
+          "sha256": "d31e35b1cc86748535411b2bb39f5d66a909c7b1ddac97f26aa3acc8187b27a1",
+          "installedSha256": "d31e35b1cc86748535411b2bb39f5d66a909c7b1ddac97f26aa3acc8187b27a1",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/drift_report.py",
+          "upstreamPath": "scripts/drift_report.py",
+          "sha256": "d1b522100ef9a3d4b4572e6966a376fabd47faf4d769acd47de6985486d3f540",
+          "installedSha256": "d1b522100ef9a3d4b4572e6966a376fabd47faf4d769acd47de6985486d3f540",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/fetch_page.py",
+          "upstreamPath": "scripts/fetch_page.py",
+          "sha256": "57404eb918e31fb11676a5d698d94c5ae5086aacdb978514eea2eec76bb7d9a7",
+          "installedSha256": "57404eb918e31fb11676a5d698d94c5ae5086aacdb978514eea2eec76bb7d9a7",
+          "upstreamGitMode": "100755",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/ga4_report.py",
+          "upstreamPath": "scripts/ga4_report.py",
+          "sha256": "0cf748ece7580043066ef462183a7d0c30c0a9b787905971fbb3861cd0ddc773",
+          "installedSha256": "0cf748ece7580043066ef462183a7d0c30c0a9b787905971fbb3861cd0ddc773",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/gbp_deprecation_lint.py",
+          "upstreamPath": "scripts/gbp_deprecation_lint.py",
+          "sha256": "cec4d1c5bc102cbf280861b080a6214e8fe48ceb6c4430be3e07241cf7cdd053",
+          "installedSha256": "cec4d1c5bc102cbf280861b080a6214e8fe48ceb6c4430be3e07241cf7cdd053",
+          "upstreamGitMode": "100755",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/google_auth.py",
+          "upstreamPath": "scripts/google_auth.py",
+          "sha256": "2a0548cc66869902b40922c3f26e8182299e17302850d6a283068d429ed9d9d8",
+          "installedSha256": "2a0548cc66869902b40922c3f26e8182299e17302850d6a283068d429ed9d9d8",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/google_report.py",
+          "upstreamPath": "scripts/google_report.py",
+          "sha256": "db0917afe02a852c31061cd1d9816a15668e72ecb84e9ef1cc571f519ade2aa6",
+          "installedSha256": "db0917afe02a852c31061cd1d9816a15668e72ecb84e9ef1cc571f519ade2aa6",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/gsc_inspect.py",
+          "upstreamPath": "scripts/gsc_inspect.py",
+          "sha256": "6782618db25496e915540714f8bb768a603ede3c199b25d9b0938755b990f161",
+          "installedSha256": "6782618db25496e915540714f8bb768a603ede3c199b25d9b0938755b990f161",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/gsc_query.py",
+          "upstreamPath": "scripts/gsc_query.py",
+          "sha256": "6397c8c7b26a92fe3c69add1718efa995f0ffb38822d5f20a5e5dbe714ff5732",
+          "installedSha256": "6397c8c7b26a92fe3c69add1718efa995f0ffb38822d5f20a5e5dbe714ff5732",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/indexing_notify.py",
+          "upstreamPath": "scripts/indexing_notify.py",
+          "sha256": "94b5feeaf8ae3e454f3bcc98a96c80f091ed3dde63b65606a147d28e2709bb7c",
+          "installedSha256": "94b5feeaf8ae3e454f3bcc98a96c80f091ed3dde63b65606a147d28e2709bb7c",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/indexnow_submit.py",
+          "upstreamPath": "scripts/indexnow_submit.py",
+          "sha256": "0063aa107991d7345e4aa4876dfd4bbc7f6ff4956565ec8bd6705fe3bd9c73ef",
+          "installedSha256": "0063aa107991d7345e4aa4876dfd4bbc7f6ff4956565ec8bd6705fe3bd9c73ef",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/iptc_ai_label.py",
+          "upstreamPath": "scripts/iptc_ai_label.py",
+          "sha256": "49277f6c651bbeaa579939ac9dc705861c6351644c2b8e7d915403c67a7b89a8",
+          "installedSha256": "49277f6c651bbeaa579939ac9dc705861c6351644c2b8e7d915403c67a7b89a8",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/keyword_planner.py",
+          "upstreamPath": "scripts/keyword_planner.py",
+          "sha256": "498a808a62f27abba04aba92568e85a309ffc0da6a93a290411dae56c20c0528",
+          "installedSha256": "498a808a62f27abba04aba92568e85a309ffc0da6a93a290411dae56c20c0528",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/keywordseverywhere_api.py",
+          "upstreamPath": "scripts/keywordseverywhere_api.py",
+          "sha256": "c2c58f68d75f360e91b09b618d94dae557c8261a11fb8d4493e5009c22c1e4f6",
+          "installedSha256": "c2c58f68d75f360e91b09b618d94dae557c8261a11fb8d4493e5009c22c1e4f6",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/lcp_subparts.py",
+          "upstreamPath": "scripts/lcp_subparts.py",
+          "sha256": "92662c91275f4b2b30cfb78939efb3a9bb7e33ae18402336c7cc32e770a0cf06",
+          "installedSha256": "92662c91275f4b2b30cfb78939efb3a9bb7e33ae18402336c7cc32e770a0cf06",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/lighthouse_agentic.py",
+          "upstreamPath": "scripts/lighthouse_agentic.py",
+          "sha256": "5ff42f007411e8bed34f35b143f7c7d19f81b26abd99bf8baf981bfa87ddc324",
+          "installedSha256": "5ff42f007411e8bed34f35b143f7c7d19f81b26abd99bf8baf981bfa87ddc324",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/matomo_auth.py",
+          "upstreamPath": "scripts/matomo_auth.py",
+          "sha256": "272dcfac8791864e2290e08c4d648df807c203291fe89d907be5277235c93d9c",
+          "installedSha256": "272dcfac8791864e2290e08c4d648df807c203291fe89d907be5277235c93d9c",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/matomo_report.py",
+          "upstreamPath": "scripts/matomo_report.py",
+          "sha256": "08a6d3253bd09027e92c2f6ce06e6f3f3ab9fda857411726c121c689d9a91222",
+          "installedSha256": "08a6d3253bd09027e92c2f6ce06e6f3f3ab9fda857411726c121c689d9a91222",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/metadata_template.py",
+          "upstreamPath": "scripts/metadata_template.py",
+          "sha256": "28d7bcd1a98c96b010d93a48659a17dcad05f65732728025c0da9bb96ef27734",
+          "installedSha256": "28d7bcd1a98c96b010d93a48659a17dcad05f65732728025c0da9bb96ef27734",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/moz_api.py",
+          "upstreamPath": "scripts/moz_api.py",
+          "sha256": "0dfa4d0d8c2f92c261d03e4082fb5869f38b4c4356760d037b4dec50aa3692c5",
+          "installedSha256": "0dfa4d0d8c2f92c261d03e4082fb5869f38b4c4356760d037b4dec50aa3692c5",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/nlp_analyze.py",
+          "upstreamPath": "scripts/nlp_analyze.py",
+          "sha256": "327686432f1fc5a77a9732e1330ba64f416bc97480e7dc288aca6a5ab90ca7aa",
+          "installedSha256": "327686432f1fc5a77a9732e1330ba64f416bc97480e7dc288aca6a5ab90ca7aa",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/pagespeed_check.py",
+          "upstreamPath": "scripts/pagespeed_check.py",
+          "sha256": "e7e853e3d6ad6ab8690fce7c379bc9482d64408754db76b97560f069d0b917f6",
+          "installedSha256": "e7e853e3d6ad6ab8690fce7c379bc9482d64408754db76b97560f069d0b917f6",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/parasite_risk.py",
+          "upstreamPath": "scripts/parasite_risk.py",
+          "sha256": "b4cccea1275f9f6f82c0b04d66495297ddcce87632d6805392af759a7e483ae9",
+          "installedSha256": "b4cccea1275f9f6f82c0b04d66495297ddcce87632d6805392af759a7e483ae9",
+          "upstreamGitMode": "100755",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/parse_html.py",
+          "upstreamPath": "scripts/parse_html.py",
+          "sha256": "978ffe0431f6ed8b4aa96ac905c2ba262f4f2e9b99abd89cab58be2e078dc66b",
+          "installedSha256": "978ffe0431f6ed8b4aa96ac905c2ba262f4f2e9b99abd89cab58be2e078dc66b",
+          "upstreamGitMode": "100755",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/portability_check.py",
+          "upstreamPath": "scripts/portability_check.py",
+          "sha256": "0875531ab12c929dc339a29d48383ac3e04f42db3fdd59a1a28ed657edeaacc1",
+          "installedSha256": "0875531ab12c929dc339a29d48383ac3e04f42db3fdd59a1a28ed657edeaacc1",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/preload_check.py",
+          "upstreamPath": "scripts/preload_check.py",
+          "sha256": "45745c90755f4cbfb13ec812aef076544e19a48ce9151c18f8749db0a78256b7",
+          "installedSha256": "45745c90755f4cbfb13ec812aef076544e19a48ce9151c18f8749db0a78256b7",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/release_sign.py",
+          "upstreamPath": "scripts/release_sign.py",
+          "sha256": "97a04488f5f23419422e3c6ba4fa36028e4aa1e7168c87bed851dbbabe616e2b",
+          "installedSha256": "97a04488f5f23419422e3c6ba4fa36028e4aa1e7168c87bed851dbbabe616e2b",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/render_page.py",
+          "upstreamPath": "scripts/render_page.py",
+          "sha256": "ff72e8d38130502391702cd1e5cabd35814c5ad70ecf538711bba4f8c7a0a1c2",
+          "installedSha256": "ff72e8d38130502391702cd1e5cabd35814c5ad70ecf538711bba4f8c7a0a1c2",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/runtime.py",
+          "upstreamPath": "scripts/runtime.py",
+          "sha256": "0745fcb2ee0b50633718ce445055aed136161b93258cbb3b94d11235be00560b",
+          "installedSha256": "0745fcb2ee0b50633718ce445055aed136161b93258cbb3b94d11235be00560b",
+          "upstreamGitMode": "100755",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/schema_ecommerce_validate.py",
+          "upstreamPath": "scripts/schema_ecommerce_validate.py",
+          "sha256": "70075b3d6175dca37523d004f108844921224ea9ac0b3eb0b8ba525c0a9a7edc",
+          "installedSha256": "70075b3d6175dca37523d004f108844921224ea9ac0b3eb0b8ba525c0a9a7edc",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/schema_generate.py",
+          "upstreamPath": "scripts/schema_generate.py",
+          "sha256": "355c1d79378e99b603e3a9909d02197943b28f2b353043a32258f7b1b8c51995",
+          "installedSha256": "355c1d79378e99b603e3a9909d02197943b28f2b353043a32258f7b1b8c51995",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/seo_updates.py",
+          "upstreamPath": "scripts/seo_updates.py",
+          "sha256": "cc78bdd184ba74d0d4f9c1caab40bd79d68b7450180460d44598a2307ef54f7e",
+          "installedSha256": "cc78bdd184ba74d0d4f9c1caab40bd79d68b7450180460d44598a2307ef54f7e",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/sitemap_discovery.py",
+          "upstreamPath": "scripts/sitemap_discovery.py",
+          "sha256": "923395d470ab05098678f2f7337b7f9c76fe9b5942265f1b226733bed21feb72",
+          "installedSha256": "923395d470ab05098678f2f7337b7f9c76fe9b5942265f1b226733bed21feb72",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/sync_flow.py",
+          "upstreamPath": "scripts/sync_flow.py",
+          "sha256": "9759792787b5f05990d77df0a79cc99c2454d9d7fcf5e256d987698a4c929adf",
+          "installedSha256": "9759792787b5f05990d77df0a79cc99c2454d9d7fcf5e256d987698a4c929adf",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/ucp_check.py",
+          "upstreamPath": "scripts/ucp_check.py",
+          "sha256": "6b172f605f52092637cdb44b33d5beefee4609c1a620f79a9baab2d65fd10911",
+          "installedSha256": "6b172f605f52092637cdb44b33d5beefee4609c1a620f79a9baab2d65fd10911",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/unlighthouse_run.py",
+          "upstreamPath": "scripts/unlighthouse_run.py",
+          "sha256": "9709031a95082a4e03ebc63bd792fa21987483d222858ada27df39c84f0004ab",
+          "installedSha256": "9709031a95082a4e03ebc63bd792fa21987483d222858ada27df39c84f0004ab",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/url_safety.py",
+          "upstreamPath": "scripts/url_safety.py",
+          "sha256": "d6813572ed75cdbf9bb3c7879a6243c323ffe56b4893a858e42c83a8bd86302a",
+          "installedSha256": "d6813572ed75cdbf9bb3c7879a6243c323ffe56b4893a858e42c83a8bd86302a",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/validate_backlink_report.py",
+          "upstreamPath": "scripts/validate_backlink_report.py",
+          "sha256": "9eba82a54f5584c6dff8bbfd9754ef4de04d783362813600852a18a372fa8642",
+          "installedSha256": "9eba82a54f5584c6dff8bbfd9754ef4de04d783362813600852a18a372fa8642",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/verify_backlinks.py",
+          "upstreamPath": "scripts/verify_backlinks.py",
+          "sha256": "de25ef422ca03079a0bc4bb2fe6ddd79aacccc895c199632efe1b5f14c4406f4",
+          "installedSha256": "de25ef422ca03079a0bc4bb2fe6ddd79aacccc895c199632efe1b5f14c4406f4",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/verify_release.py",
+          "upstreamPath": "scripts/verify_release.py",
+          "sha256": "7868e3e6bf0dcec87a36ce3ec30ca197a4ef940dae8bb25897ec6a9a74e5d02f",
+          "installedSha256": "7868e3e6bf0dcec87a36ce3ec30ca197a4ef940dae8bb25897ec6a9a74e5d02f",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "scripts/youtube_search.py",
+          "upstreamPath": "scripts/youtube_search.py",
+          "sha256": "f34e6a4ffdda436e42d457a09f3f26d4f907d440d50ba780e7102aeebda0e670",
+          "installedSha256": "f34e6a4ffdda436e42d457a09f3f26d4f907d440d50ba780e7102aeebda0e670",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "skills/seo-geo/references/google-ai-optimization-guide.md",
+          "upstreamPath": "skills/seo-geo/references/google-ai-optimization-guide.md",
+          "sha256": "587dfbe3a298b625341883cffe389441f6acff61fb4e12be7586c7e1cf455348",
+          "installedSha256": "587dfbe3a298b625341883cffe389441f6acff61fb4e12be7586c7e1cf455348",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "skills/seo-geo/references/llmstxt-evidence.md",
+          "upstreamPath": "skills/seo-geo/references/llmstxt-evidence.md",
+          "sha256": "6cc60538738ddabdb6da0657d43cd187d63f377140a3d4deed52dac634c344a1",
+          "installedSha256": "6cc60538738ddabdb6da0657d43cd187d63f377140a3d4deed52dac634c344a1",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "skills/seo/references/backlink-quality.md",
+          "upstreamPath": "skills/seo/references/backlink-quality.md",
+          "sha256": "86a39d009b19f4f17a3dc4461afe209111dc2e8df56b6bd3eecedf5b4a03f742",
+          "installedSha256": "86a39d009b19f4f17a3dc4461afe209111dc2e8df56b6bd3eecedf5b4a03f742",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "skills/seo/references/cwv-thresholds.md",
+          "upstreamPath": "skills/seo/references/cwv-thresholds.md",
+          "sha256": "bd1d28773d7ee94bbdd1c1230f0f6be3cf4d1689c22dd6dfd52cc0e043732d16",
+          "installedSha256": "bd1d28773d7ee94bbdd1c1230f0f6be3cf4d1689c22dd6dfd52cc0e043732d16",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "skills/seo/references/eeat-framework.md",
+          "upstreamPath": "skills/seo/references/eeat-framework.md",
+          "sha256": "7d1f45cc9f42e9208c936af9e0d57dbdf29e52e733b5a8bed6eb65fa19475972",
+          "installedSha256": "7d1f45cc9f42e9208c936af9e0d57dbdf29e52e733b5a8bed6eb65fa19475972",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "skills/seo/references/eeat-scoring-guide.md",
+          "upstreamPath": "skills/seo/references/eeat-scoring-guide.md",
+          "sha256": "da90342f0c97af529345d7824147c0a19c1a20de57d1470150c8838f5c445228",
+          "installedSha256": "da90342f0c97af529345d7824147c0a19c1a20de57d1470150c8838f5c445228",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "skills/seo/references/free-backlink-sources.md",
+          "upstreamPath": "skills/seo/references/free-backlink-sources.md",
+          "sha256": "eaa18f4608c3bd889267c9723d632340ca72d3856f972651364dcbce42f3ed8e",
+          "installedSha256": "eaa18f4608c3bd889267c9723d632340ca72d3856f972651364dcbce42f3ed8e",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "skills/seo/references/local-schema-multilocation.md",
+          "upstreamPath": "skills/seo/references/local-schema-multilocation.md",
+          "sha256": "15fcdea286dde09d6e2633973d67f5040b6dadabf92b8e2f3855f2e301da5524",
+          "installedSha256": "15fcdea286dde09d6e2633973d67f5040b6dadabf92b8e2f3855f2e301da5524",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "skills/seo/references/local-schema-types.md",
+          "upstreamPath": "skills/seo/references/local-schema-types.md",
+          "sha256": "65f4e35e065afb7af24ac130f39f23e536e9ca3268ab81447f34fde143407d4e",
+          "installedSha256": "65f4e35e065afb7af24ac130f39f23e536e9ca3268ab81447f34fde143407d4e",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "skills/seo/references/local-search-behavior.md",
+          "upstreamPath": "skills/seo/references/local-search-behavior.md",
+          "sha256": "f7870f17345a7d57e9d42b77ec85834f9aedc5ac5b54da57409e3f77f7fd47ba",
+          "installedSha256": "f7870f17345a7d57e9d42b77ec85834f9aedc5ac5b54da57409e3f77f7fd47ba",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "skills/seo/references/local-seo-signals.md",
+          "upstreamPath": "skills/seo/references/local-seo-signals.md",
+          "sha256": "a0fd5c9ad9160e076002d8b6d6c904e5e98cae62aa79e6c6b0ecb5c9401f6bae",
+          "installedSha256": "a0fd5c9ad9160e076002d8b6d6c904e5e98cae62aa79e6c6b0ecb5c9401f6bae",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "skills/seo/references/maps-api-endpoints.md",
+          "upstreamPath": "skills/seo/references/maps-api-endpoints.md",
+          "sha256": "7b5b15d2e50feb15d6d4c523a89e9a6f5291b82a0cd8c384053243119e35d9ab",
+          "installedSha256": "7b5b15d2e50feb15d6d4c523a89e9a6f5291b82a0cd8c384053243119e35d9ab",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "skills/seo/references/maps-free-apis.md",
+          "upstreamPath": "skills/seo/references/maps-free-apis.md",
+          "sha256": "18323486ddd52eaa8e86f7f22930fc065f7c9b529352eadda8c27dca44299b91",
+          "installedSha256": "18323486ddd52eaa8e86f7f22930fc065f7c9b529352eadda8c27dca44299b91",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "skills/seo/references/maps-gbp-checklist.md",
+          "upstreamPath": "skills/seo/references/maps-gbp-checklist.md",
+          "sha256": "779c3e5de1c8c5182db4791be859f6f0b7001d25daa7a742b8cdf9d80738dcdc",
+          "installedSha256": "779c3e5de1c8c5182db4791be859f6f0b7001d25daa7a742b8cdf9d80738dcdc",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "skills/seo/references/maps-geo-grid.md",
+          "upstreamPath": "skills/seo/references/maps-geo-grid.md",
+          "sha256": "76e08cd3fefb4d0367e0647895c482e1914a932dc86de4a82dc2d03b987855e4",
+          "installedSha256": "76e08cd3fefb4d0367e0647895c482e1914a932dc86de4a82dc2d03b987855e4",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "skills/seo/references/quality-gates.md",
+          "upstreamPath": "skills/seo/references/quality-gates.md",
+          "sha256": "5652ec5f0328f3f2129d0873d69091e66ea69d99cf6f566d1391e3a3d0db6ef1",
+          "installedSha256": "5652ec5f0328f3f2129d0873d69091e66ea69d99cf6f566d1391e3a3d0db6ef1",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "skills/seo/references/schema-types.md",
+          "upstreamPath": "skills/seo/references/schema-types.md",
+          "sha256": "fed009afae2148c7790dc0bb5d0d9ac3fc3f7bda65e7e537fa3aad64a2005e6b",
+          "installedSha256": "fed009afae2148c7790dc0bb5d0d9ac3fc3f7bda65e7e537fa3aad64a2005e6b",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "skills/seo/references/thinking-framework-validate-act.md",
+          "upstreamPath": "skills/seo/references/thinking-framework-validate-act.md",
+          "sha256": "8109404dfee9e732a10a8be10e48a311b3b6c000a1a542972bbd11c7b57f0c75",
+          "installedSha256": "8109404dfee9e732a10a8be10e48a311b3b6c000a1a542972bbd11c7b57f0c75",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "skills/seo/references/thinking-framework.md",
+          "upstreamPath": "skills/seo/references/thinking-framework.md",
+          "sha256": "e15560608df0b8216b06967f72658f35b320ebe314cd8e15a1b99d66ec2aa96f",
+          "installedSha256": "e15560608df0b8216b06967f72658f35b320ebe314cd8e15a1b99d66ec2aa96f",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "uv.lock",
+          "upstreamPath": "uv.lock",
+          "sha256": "8220f2f3b9b6bc763f236221c869ee093fa439a31c9b4e16eb28062909bba3a1",
+          "installedSha256": "8220f2f3b9b6bc763f236221c869ee093fa439a31c9b4e16eb28062909bba3a1",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ],
+      "sourceSelectors": [
+        "scripts",
+        "skills/seo/references",
+        "skills/seo-geo/references",
+        "data",
+        "LICENSE",
+        "requirements.txt",
+        "pyproject.toml",
+        "uv.lock",
+        "SECURITY.md",
+        ".claude-plugin/plugin.json"
+      ]
+    }
+  ],
+  "audit": [
+    {
+      "skill": "code-quality",
+      "originalLocalPath": "skills/code-quality/SKILL.md",
+      "localIntroductionCommit": "0872f9a8e739730b99a1ccb657b61a7b8afefbbc",
+      "classification": "LOCAL_PARAPHRASE_OR_COMPOSITE_ADAPTATION",
+      "preservedInput": "skill-sources/legacy/code-quality/SKILL.md",
+      "inputSha256": "91469c147edd1575252ebbdaf97d2a8321fc24fecdc4fcc203e94409689cd868",
+      "functionality": "Produce simple, maintainable, well-structured software using pragmatic Clean Code principles, clear domain boundaries, and restrained refactoring.",
+      "status": "SOURCE_UNVERIFIED",
+      "resolution": "PRESERVED_UNCHANGED",
+      "reason": "The header names Uncle Bob’s UB Mode, but no redistribution license exists in the inspected master history. Preserve the local adaptation; do not import UB Mode.",
+      "candidates": [
+        {
+          "upstreamRepository": "https://github.com/unclebob/ub-mode",
+          "candidatePath": "SKILL.md",
+          "inspectedCommit": "57a8bdd28e45ed41900ace0bafa2ff76dd9ed70f"
+        }
+      ],
+      "license": "UNVERIFIED",
+      "restoredSkills": [],
+      "lastInspected": "2026-10-30",
+      "claimedAuthors": [
+        "unclebob"
+      ],
+      "missingSupportingFiles": null,
+      "compatibilityAssessment": "Existing native frontmatter is valid; content is preserved unchanged and remains subject to role permissions. Original-method compatibility cannot be certified while restoration is unresolved.",
+      "redistributionStatus": "UNVERIFIED",
+      "sourceIdentityStatus": "IDENTIFIED_LICENSE_BLOCKED"
+    },
+    {
+      "skill": "codebase-understanding",
+      "originalLocalPath": "skills/codebase-understanding/SKILL.md",
+      "localIntroductionCommit": "0872f9a8e739730b99a1ccb657b61a7b8afefbbc",
+      "classification": "LOCAL_PARAPHRASE_OR_COMPOSITE_ADAPTATION",
+      "preservedInput": "skill-sources/legacy/codebase-understanding/SKILL.md",
+      "inputSha256": "c9dc228e4b59ff3aa9653d10cb0080852ecee7528247b0fa9e0747dccef4e868",
+      "functionality": "Investigate and explain existing codebase architecture, runtime flows, component relationships, and implementation boundaries before planning changes.",
+      "status": "VERIFIED",
+      "resolution": "RESTORED_ORIGINAL",
+      "restoredSkills": [
+        "how"
+      ],
+      "evidence": "Explicit author/repository or named skill attribution in the preserved input; corroborated by upstream skill identity and pinned Git content. This verifies the named sources, not undocumented historical copying.",
+      "missingSupportingFiles": [
+        "references/critic-prompt.md",
+        "references/critique-rubric.md",
+        "references/explainer-prompt.md",
+        "references/explorer-prompt.md"
+      ],
+      "lastInspected": "2026-10-30",
+      "originalAuthors": [
+        "Lauren Tan"
+      ],
+      "compatibilityAssessment": "See the per-native-skill compatibility records; original bodies and native role permissions are verified separately."
+    },
+    {
+      "skill": "completion-audit",
+      "originalLocalPath": "skills/completion-audit/SKILL.md",
+      "localIntroductionCommit": "0872f9a8e739730b99a1ccb657b61a7b8afefbbc",
+      "classification": "LOCAL_PARAPHRASE_OR_COMPOSITE_ADAPTATION",
+      "preservedInput": "skill-sources/legacy/completion-audit/SKILL.md",
+      "inputSha256": "6aabea84b45ed58486f7642c9ebea128e344b01992decfe1e7efdf88ccca1172",
+      "functionality": "Audit completed coding milestones against approved requirements, execution evidence, test results, and architectural constraints before final Team Lead review.",
+      "status": "VERIFIED",
+      "resolution": "RESTORED_COMPONENTS",
+      "restoredSkills": [
+        "code-review",
+        "verification-before-completion"
+      ],
+      "evidence": "Explicit author/repository or named skill attribution in the preserved input; corroborated by upstream skill identity and pinned Git content. This verifies the named sources, not undocumented historical copying.",
+      "missingSupportingFiles": [
+        "agents/openai.yaml"
+      ],
+      "lastInspected": "2026-10-30",
+      "originalAuthors": [
+        "Jesse Vincent",
+        "Matt Pocock"
+      ],
+      "compatibilityAssessment": "See the per-native-skill compatibility records; original bodies and native role permissions are verified separately."
+    },
+    {
+      "skill": "domain-modeling",
+      "originalLocalPath": "skills/domain-modeling/SKILL.md",
+      "localIntroductionCommit": "0872f9a8e739730b99a1ccb657b61a7b8afefbbc",
+      "classification": "LOCAL_PARAPHRASE_OR_COMPOSITE_ADAPTATION",
+      "preservedInput": "skill-sources/legacy/domain-modeling/SKILL.md",
+      "inputSha256": "76546e77ba446be9bb8c53c9a90f3c7edea1fb41b81fe5b53587e6e538a2cb0d",
+      "functionality": "Establish consistent domain terminology, investigate business rules, identify domain boundaries, and propose architectural decision records during software design.",
+      "status": "VERIFIED",
+      "resolution": "RESTORED_ORIGINAL",
+      "restoredSkills": [
+        "domain-modeling"
+      ],
+      "evidence": "Explicit author/repository or named skill attribution in the preserved input; corroborated by upstream skill identity and pinned Git content. This verifies the named sources, not undocumented historical copying.",
+      "missingSupportingFiles": [
+        "ADR-FORMAT.md",
+        "GLOSSARY-FORMAT.md",
+        "agents/openai.yaml"
+      ],
+      "lastInspected": "2026-10-30",
+      "originalAuthors": [
+        "Matt Pocock"
+      ],
+      "compatibilityAssessment": "See the per-native-skill compatibility records; original bodies and native role permissions are verified separately."
+    },
+    {
+      "skill": "ecommerce-brand-voice",
+      "originalLocalPath": "skills/ecommerce-brand-voice/SKILL.md",
+      "localIntroductionCommit": "2998647261d058ce324b810810929abe110ea54d",
+      "classification": "LOCAL_PARAPHRASE_OR_COMPOSITE_ADAPTATION",
+      "preservedInput": "skill-sources/legacy/ecommerce-brand-voice/SKILL.md",
+      "inputSha256": "7e4c1d019c32180b64644a4fdcb1b2044609a5e134ebe8c6dead8402273c05aa",
+      "functionality": "Establish and maintain a consistent brand identity, tone, customer perspective, and messaging for commerce websites, product descriptions, email campaigns, and marketing content.",
+      "status": "SOURCE_UNVERIFIED",
+      "resolution": "PRESERVED_UNCHANGED",
+      "reason": "Only a repository-level inspiration is named; ecommerce-brand-guide is a candidate, not a verified file-level derivation. No license file exists at the inspected revision.",
+      "candidates": [
+        {
+          "upstreamRepository": "https://github.com/amanamabasiakpan/Claude-Skills-for-eCommerce",
+          "candidatePath": "skills/ecommerce-brand-guide/SKILL.md",
+          "inspectedCommit": "ebc3950d9bdd55ec1e365bddba2a4412a28d5a74"
+        }
+      ],
+      "license": "UNVERIFIED",
+      "restoredSkills": [],
+      "lastInspected": "2026-10-30",
+      "claimedAuthors": [
+        "amanamabasiakpan"
+      ],
+      "missingSupportingFiles": null,
+      "compatibilityAssessment": "Existing native frontmatter is valid; content is preserved unchanged and remains subject to role permissions. Original-method compatibility cannot be certified while restoration is unresolved.",
+      "redistributionStatus": "UNVERIFIED",
+      "sourceIdentityStatus": "INCOMPLETE_OR_AMBIGUOUS"
+    },
+    {
+      "skill": "ecommerce-copywriting",
+      "originalLocalPath": "skills/ecommerce-copywriting/SKILL.md",
+      "localIntroductionCommit": "2998647261d058ce324b810810929abe110ea54d",
+      "classification": "LOCAL_PARAPHRASE_OR_COMPOSITE_ADAPTATION",
+      "preservedInput": "skill-sources/legacy/ecommerce-copywriting/SKILL.md",
+      "inputSha256": "1224fbfbdc3e78f0226c7a6c601ff65f8659fd59454f21dd2979465f3676b19a",
+      "functionality": "Write accurate, natural, conversion-focused content for product pages, collections, retail and wholesale websites, landing pages, emails, and commerce marketing.",
+      "status": "SOURCE_UNVERIFIED",
+      "resolution": "PRESERVED_UNCHANGED",
+      "reason": "A matching named skill exists in the cited repository, but redistribution permission is unverified. No license file exists at the inspected revision. Preserve the local adaptation.",
+      "candidates": [
+        {
+          "upstreamRepository": "https://github.com/amanamabasiakpan/Claude-Skills-for-eCommerce",
+          "candidatePath": "skills/ecommerce-copywriting/SKILL.md",
+          "inspectedCommit": "ebc3950d9bdd55ec1e365bddba2a4412a28d5a74"
+        }
+      ],
+      "license": "UNVERIFIED",
+      "restoredSkills": [],
+      "lastInspected": "2026-10-30",
+      "claimedAuthors": [
+        "amanamabasiakpan"
+      ],
+      "missingSupportingFiles": null,
+      "compatibilityAssessment": "Existing native frontmatter is valid; content is preserved unchanged and remains subject to role permissions. Original-method compatibility cannot be certified while restoration is unresolved.",
+      "redistributionStatus": "UNVERIFIED",
+      "sourceIdentityStatus": "IDENTIFIED_LICENSE_BLOCKED"
+    },
+    {
+      "skill": "ecommerce-product-pages",
+      "originalLocalPath": "skills/ecommerce-product-pages/SKILL.md",
+      "localIntroductionCommit": "2998647261d058ce324b810810929abe110ea54d",
+      "classification": "LOCAL_PARAPHRASE_OR_COMPOSITE_ADAPTATION",
+      "preservedInput": "skill-sources/legacy/ecommerce-product-pages/SKILL.md",
+      "inputSha256": "584d048cdbeb3702426657abe0169f0adf68e8e4ef7ec09acd651b25075a4e1e",
+      "functionality": "Audit, design, write, and optimize product detail pages for retail, wholesale, B2B, DTC, and inquiry-based commerce. Covers product data, usability, conversion, SEO, and accessibility.",
+      "status": "SOURCE_UNVERIFIED",
+      "resolution": "PRESERVED_UNCHANGED",
+      "reason": "Composite repository-level inspirations do not identify a unique original file. The eCommerce source lacks a license; do not substitute seo-ecommerce or ecommerce-pdp based on name/function.",
+      "candidates": [
+        {
+          "upstreamRepository": "https://github.com/amanamabasiakpan/Claude-Skills-for-eCommerce",
+          "candidatePath": "skills/ecommerce-pdp/SKILL.md",
+          "inspectedCommit": "ebc3950d9bdd55ec1e365bddba2a4412a28d5a74"
+        },
+        {
+          "upstreamRepository": "https://github.com/AgriciDaniel/claude-seo",
+          "candidatePath": "skills/seo-ecommerce/SKILL.md",
+          "inspectedCommit": "6be93f45064ffbadced572b5d5c95f55fd263af0"
+        }
+      ],
+      "license": "UNVERIFIED",
+      "restoredSkills": [],
+      "lastInspected": "2026-10-30",
+      "claimedAuthors": [
+        "amanamabasiakpan",
+        "AgriciDaniel"
+      ],
+      "missingSupportingFiles": null,
+      "compatibilityAssessment": "Existing native frontmatter is valid; content is preserved unchanged and remains subject to role permissions. Original-method compatibility cannot be certified while restoration is unresolved.",
+      "redistributionStatus": "UNVERIFIED",
+      "sourceIdentityStatus": "INCOMPLETE_OR_AMBIGUOUS"
+    },
+    {
+      "skill": "milestone-coordination",
+      "originalLocalPath": "skills/milestone-coordination/SKILL.md",
+      "localIntroductionCommit": "0872f9a8e739730b99a1ccb657b61a7b8afefbbc",
+      "classification": "LOCAL_PARAPHRASE_OR_COMPOSITE_ADAPTATION",
+      "preservedInput": "skill-sources/legacy/milestone-coordination/SKILL.md",
+      "inputSha256": "29792237fb9df947c6106cd5a81e217e3c9c2805df7638490a3aa7e5015574a4",
+      "functionality": "Coordinate approved implementation milestones through the Coder, track dependencies, handle blockers, and minimize Maintainer model requests.",
+      "status": "SOURCE_UNVERIFIED",
+      "resolution": "PRESERVED_UNCHANGED",
+      "reason": "The header identifies subagent-driven-development plus unspecified Matt Pocock implementation workflows. A unique original for the combined skill cannot be established; preserve the composite.",
+      "candidates": [
+        {
+          "upstreamRepository": "https://github.com/wildwasser/opencode-agents",
+          "candidatePath": ".opencode/skills/subagent-driven-development/SKILL.md",
+          "inspectedCommit": "c850b153fe02c8f30b863dd515960012f5e145fe"
+        }
+      ],
+      "license": "UNVERIFIED",
+      "restoredSkills": [],
+      "lastInspected": "2026-10-30",
+      "claimedAuthors": [
+        "wildwasser",
+        "Matt Pocock"
+      ],
+      "missingSupportingFiles": null,
+      "compatibilityAssessment": "Existing native frontmatter is valid; content is preserved unchanged and remains subject to role permissions. Original-method compatibility cannot be certified while restoration is unresolved.",
+      "redistributionStatus": "UNVERIFIED",
+      "sourceIdentityStatus": "INCOMPLETE_OR_AMBIGUOUS"
+    },
+    {
+      "skill": "natural-writing",
+      "originalLocalPath": "skills/natural-writing/SKILL.md",
+      "localIntroductionCommit": "2998647261d058ce324b810810929abe110ea54d",
+      "classification": "LOCAL_PARAPHRASE_OR_COMPOSITE_ADAPTATION",
+      "preservedInput": "skill-sources/legacy/natural-writing/SKILL.md",
+      "inputSha256": "7e85d26e49199b72f529472afe7504b8fb9b33bdf36194d41d557500515942a7",
+      "functionality": "Write and revise natural, audience-appropriate prose with a consistent voice, clear language, and accurate factual details.",
+      "status": "VERIFIED",
+      "resolution": "RESTORED_COMPONENTS",
+      "restoredSkills": [
+        "humanizer",
+        "human-writing"
+      ],
+      "evidence": "Explicit author/repository or named skill attribution in the preserved input; corroborated by upstream skill identity and pinned Git content. This verifies the named sources, not undocumented historical copying.",
+      "missingSupportingFiles": [
+        "INSTALL.md",
+        "evals/README.md",
+        "evals/case-01-marketing-blurb.md",
+        "evals/case-02-scientific-abstract.md",
+        "evals/case-03-chat-dm.md",
+        "evals/case-04-voice-match.md",
+        "references/adversarial-paraphrasing.md",
+        "references/ai-tells.md",
+        "references/detector-matrix.md",
+        "references/examples.md",
+        "references/quick-check.md",
+        "references/techniques.md",
+        "references/voice-matching.md"
+      ],
+      "lastInspected": "2026-10-30",
+      "originalAuthors": [
+        "Siqi Chen",
+        "amineall"
+      ],
+      "compatibilityAssessment": "See the per-native-skill compatibility records; original bodies and native role permissions are verified separately."
+    },
+    {
+      "skill": "requirements-grilling",
+      "originalLocalPath": "skills/requirements-grilling/SKILL.md",
+      "localIntroductionCommit": "0872f9a8e739730b99a1ccb657b61a7b8afefbbc",
+      "classification": "LOCAL_PARAPHRASE_OR_COMPOSITE_ADAPTATION",
+      "preservedInput": "skill-sources/legacy/requirements-grilling/SKILL.md",
+      "inputSha256": "f7cadc28e879ff0ba74c7fff86ec10b5b8fba2099f7d75cf7a41cf89bd443f77",
+      "functionality": "Interrogate software requirements through structured, dependency-aware questions, validate assumptions against repository evidence, and establish shared understanding before implementation.",
+      "status": "VERIFIED",
+      "resolution": "RESTORED_COMPONENTS",
+      "restoredSkills": [
+        "grilling",
+        "grill-with-docs"
+      ],
+      "evidence": "Explicit author/repository or named skill attribution in the preserved input; corroborated by upstream skill identity and pinned Git content. This verifies the named sources, not undocumented historical copying.",
+      "missingSupportingFiles": [
+        "agents/openai.yaml",
+        "agents/openai.yaml"
+      ],
+      "lastInspected": "2026-10-30",
+      "originalAuthors": [
+        "Matt Pocock"
+      ],
+      "compatibilityAssessment": "See the per-native-skill compatibility records; original bodies and native role permissions are verified separately."
+    },
+    {
+      "skill": "seo-content",
+      "originalLocalPath": "skills/seo-content/SKILL.md",
+      "localIntroductionCommit": "2998647261d058ce324b810810929abe110ea54d",
+      "classification": "LOCAL_PARAPHRASE_OR_COMPOSITE_ADAPTATION",
+      "preservedInput": "skill-sources/legacy/seo-content/SKILL.md",
+      "inputSha256": "0dfe070f56c7a5cf1810bdcde9b733458bf202e0275bc3ed05fb3154a915a022",
+      "functionality": "Plan, write, review, and improve search-focused website content, including product pages, category pages, articles, metadata, and internal linking.",
+      "status": "VERIFIED",
+      "resolution": "RESTORED_ORIGINAL",
+      "restoredSkills": [
+        "seo-content"
+      ],
+      "evidence": "Explicit author/repository or named skill attribution in the preserved input; corroborated by upstream skill identity and pinned Git content. This verifies the named sources, not undocumented historical copying.",
+      "missingSupportingFiles": [
+        "LICENSE.txt"
+      ],
+      "lastInspected": "2026-10-30",
+      "originalAuthors": [
+        "AgriciDaniel"
+      ],
+      "compatibilityAssessment": "See the per-native-skill compatibility records; original bodies and native role permissions are verified separately."
+    },
+    {
+      "skill": "seo-technical",
+      "originalLocalPath": "skills/seo-technical/SKILL.md",
+      "localIntroductionCommit": "2998647261d058ce324b810810929abe110ea54d",
+      "classification": "LOCAL_PARAPHRASE_OR_COMPOSITE_ADAPTATION",
+      "preservedInput": "skill-sources/legacy/seo-technical/SKILL.md",
+      "inputSha256": "6b3906ef2692084877a362db0da9c970f7c18d55d2329cde8b1d7ac790b3ea8d",
+      "functionality": "Audit and improve technical website SEO, including crawling, indexing, canonical URLs, sitemaps, structured data, performance, and international SEO.",
+      "status": "VERIFIED",
+      "resolution": "RESTORED_ORIGINAL",
+      "restoredSkills": [
+        "seo-technical"
+      ],
+      "evidence": "Explicit author/repository or named skill attribution in the preserved input; corroborated by upstream skill identity and pinned Git content. This verifies the named sources, not undocumented historical copying.",
+      "missingSupportingFiles": [
+        "LICENSE.txt",
+        "references/stack-cve-exposure.md"
+      ],
+      "lastInspected": "2026-10-30",
+      "originalAuthors": [
+        "AgriciDaniel"
+      ],
+      "compatibilityAssessment": "See the per-native-skill compatibility records; original bodies and native role permissions are verified separately."
+    },
+    {
+      "skill": "specification-design",
+      "originalLocalPath": "skills/specification-design/SKILL.md",
+      "localIntroductionCommit": "0872f9a8e739730b99a1ccb657b61a7b8afefbbc",
+      "classification": "LOCAL_PARAPHRASE_OR_COMPOSITE_ADAPTATION",
+      "preservedInput": "skill-sources/legacy/specification-design/SKILL.md",
+      "inputSha256": "c47dbe50035891a32f4127b82ab2f73ef238701a3471da9742aca14c9099dc4f",
+      "functionality": "Transform approved requirements and architectural findings into an implementation-ready technical specification with acceptance criteria, dependencies, and verification strategy.",
+      "status": "VERIFIED",
+      "resolution": "RESTORED_COMPONENTS",
+      "restoredSkills": [
+        "to-spec",
+        "writing-plans"
+      ],
+      "evidence": "Explicit author/repository or named skill attribution in the preserved input; corroborated by upstream skill identity and pinned Git content. This verifies the named sources, not undocumented historical copying.",
+      "missingSupportingFiles": [
+        "agents/openai.yaml"
+      ],
+      "lastInspected": "2026-10-30",
+      "originalAuthors": [
+        "Jesse Vincent",
+        "Matt Pocock"
+      ],
+      "compatibilityAssessment": "See the per-native-skill compatibility records; original bodies and native role permissions are verified separately."
+    },
+    {
+      "skill": "systematic-debugging",
+      "originalLocalPath": "skills/systematic-debugging/SKILL.md",
+      "localIntroductionCommit": "0872f9a8e739730b99a1ccb657b61a7b8afefbbc",
+      "classification": "LOCAL_PARAPHRASE_OR_COMPOSITE_ADAPTATION",
+      "preservedInput": "skill-sources/legacy/systematic-debugging/SKILL.md",
+      "inputSha256": "b4b0f9384bcd4aa488752db3493b5a912d94c5203b620e649def33e0bea3de38",
+      "functionality": "Investigate software failures through reproducible evidence, root-cause analysis, targeted corrections, and efficient regression verification.",
+      "status": "VERIFIED",
+      "resolution": "RESTORED_COMPONENTS",
+      "restoredSkills": [
+        "systematic-debugging",
+        "diagnosing-bugs"
+      ],
+      "evidence": "Explicit author/repository or named skill attribution in the preserved input; corroborated by upstream skill identity and pinned Git content. This verifies the named sources, not undocumented historical copying.",
+      "missingSupportingFiles": [
+        "CREATION-LOG.md",
+        "condition-based-waiting-example.ts",
+        "condition-based-waiting.md",
+        "defense-in-depth.md",
+        "find-polluter.sh",
+        "root-cause-tracing.md",
+        "test-academic.md",
+        "test-pressure-1.md",
+        "test-pressure-2.md",
+        "test-pressure-3.md",
+        "agents/openai.yaml",
+        "scripts/hitl-loop.template.sh"
+      ],
+      "lastInspected": "2026-10-30",
+      "originalAuthors": [
+        "Jesse Vincent",
+        "Matt Pocock"
+      ],
+      "compatibilityAssessment": "See the per-native-skill compatibility records; original bodies and native role permissions are verified separately."
+    },
+    {
+      "skill": "task-decomposition",
+      "originalLocalPath": "skills/task-decomposition/SKILL.md",
+      "localIntroductionCommit": "0872f9a8e739730b99a1ccb657b61a7b8afefbbc",
+      "classification": "LOCAL_PARAPHRASE_OR_COMPOSITE_ADAPTATION",
+      "preservedInput": "skill-sources/legacy/task-decomposition/SKILL.md",
+      "inputSha256": "e57a1830cc2dc5be7f7294b7d8a7d0d352a4239592be92096d24ec9c67e7e660",
+      "functionality": "Convert an approved implementation plan into dependency-aware, independently verifiable coding milestones for Maintainer coordination.",
+      "status": "VERIFIED",
+      "resolution": "RESTORED_ORIGINAL",
+      "restoredSkills": [
+        "to-tickets"
+      ],
+      "evidence": "Explicit author/repository or named skill attribution in the preserved input; corroborated by upstream skill identity and pinned Git content. This verifies the named sources, not undocumented historical copying.",
+      "missingSupportingFiles": [
+        "agents/openai.yaml"
+      ],
+      "lastInspected": "2026-10-30",
+      "originalAuthors": [
+        "Matt Pocock"
+      ],
+      "compatibilityAssessment": "See the per-native-skill compatibility records; original bodies and native role permissions are verified separately."
+    },
+    {
+      "skill": "test-driven-development",
+      "originalLocalPath": "skills/test-driven-development/SKILL.md",
+      "localIntroductionCommit": "0872f9a8e739730b99a1ccb657b61a7b8afefbbc",
+      "classification": "LOCAL_PARAPHRASE_OR_COMPOSITE_ADAPTATION",
+      "preservedInput": "skill-sources/legacy/test-driven-development/SKILL.md",
+      "inputSha256": "189238bdf47f1b23ce8bc069eb7e3c6b3bc800f5220366297ce30f627ed6d6e4",
+      "functionality": "Implement features and bug fixes using behavioral tests, red-green development cycles, and independently verifiable results.",
+      "status": "VERIFIED",
+      "resolution": "RESTORED_ORIGINAL",
+      "restoredSkills": [
+        "tdd"
+      ],
+      "evidence": "Explicit author/repository or named skill attribution in the preserved input; corroborated by upstream skill identity and pinned Git content. This verifies the named sources, not undocumented historical copying.",
+      "missingSupportingFiles": [
+        "agents/openai.yaml",
+        "mocking.md",
+        "tests.md"
+      ],
+      "lastInspected": "2026-10-30",
+      "originalAuthors": [
+        "Matt Pocock"
+      ],
+      "compatibilityAssessment": "See the per-native-skill compatibility records; original bodies and native role permissions are verified separately."
+    },
+    {
+      "skill": "verification",
+      "originalLocalPath": "skills/verification/SKILL.md",
+      "localIntroductionCommit": "0872f9a8e739730b99a1ccb657b61a7b8afefbbc",
+      "classification": "LOCAL_PARAPHRASE_OR_COMPOSITE_ADAPTATION",
+      "preservedInput": "skill-sources/legacy/verification/SKILL.md",
+      "inputSha256": "24eedd0869893eb98ae91e1df390c4cf4de4236f36c4c4fcb2b500e10801f7a3",
+      "functionality": "Verify implemented software against approved acceptance criteria using risk-based tests, build checks, regression evidence, and concise completion reports.",
+      "status": "SOURCE_UNVERIFIED",
+      "resolution": "PRESERVED_UNCHANGED",
+      "reason": "The header names verification-before-completion but identifies no author/repository for this file. Related completion-audit attribution is corroborating context, not proof of a unique source. The verified Jesse Vincent skill is separately restored through completion-audit.",
+      "candidates": [],
+      "license": "UNVERIFIED",
+      "restoredSkills": [],
+      "lastInspected": "2026-10-30",
+      "claimedAuthors": [],
+      "missingSupportingFiles": null,
+      "compatibilityAssessment": "Existing native frontmatter is valid; content is preserved unchanged and remains subject to role permissions. Original-method compatibility cannot be certified while restoration is unresolved.",
+      "redistributionStatus": "UNVERIFIED",
+      "sourceIdentityStatus": "INCOMPLETE_OR_AMBIGUOUS"
+    }
+  ],
+  "agents": {
+    "team-lead": [
+      "grilling",
+      "grill-with-docs",
+      "domain-modeling",
+      "how",
+      "codebase-design",
+      "to-spec",
+      "to-tickets",
+      "writing-plans",
+      "verification-before-completion",
+      "milestone-coordination",
+      "humanizer",
+      "human-writing",
+      "seo-content",
+      "seo-technical",
+      "ecommerce-brand-voice",
+      "ecommerce-copywriting",
+      "ecommerce-product-pages"
+    ],
+    "maintainer": [
+      "domain-modeling",
+      "how",
+      "codebase-design",
+      "code-review",
+      "systematic-debugging",
+      "diagnosing-bugs",
+      "verification-before-completion",
+      "code-quality",
+      "verification",
+      "milestone-coordination",
+      "seo-technical"
+    ],
+    "coder": [
+      "tdd",
+      "superpowers-test-driven-development",
+      "systematic-debugging",
+      "diagnosing-bugs",
+      "codebase-design",
+      "verification-before-completion",
+      "code-quality",
+      "verification",
+      "humanizer",
+      "human-writing",
+      "seo-content",
+      "seo-technical",
+      "ecommerce-brand-voice",
+      "ecommerce-copywriting",
+      "ecommerce-product-pages"
+    ],
+    "reviewer": [
+      "how",
+      "codebase-design",
+      "code-review",
+      "tdd",
+      "superpowers-test-driven-development",
+      "systematic-debugging",
+      "diagnosing-bugs",
+      "verification-before-completion",
+      "code-quality",
+      "verification",
+      "humanizer",
+      "human-writing",
+      "seo-content",
+      "seo-technical",
+      "ecommerce-product-pages"
+    ]
+  },
+  "compatibility": {
+    "how": {
+      "notes": [
+        "The upstream parallel explorers, explainer and multi-model critics are unsupported by the four-role/no-delegation policy. Preserve all prompts, but report this limitation rather than pretending that a single-role analysis implements that methodology."
+      ]
+    },
+    "domain-modeling": {
+      "notes": [
+        "Team Lead and Maintainer cannot perform the required inline glossary/ADR writes. Return proposed artifacts; only an authorized Coder can write approved files. Inline-authoring sessions remain limited under those roles."
+      ]
+    },
+    "grilling": {
+      "notes": [
+        "Interactive frontier rounds require actual BDFL replies. Fresh-context exploration delegation is denied; report the missing capability, do not silently replace it."
+      ]
+    },
+    "grill-with-docs": {
+      "notes": [
+        "Requires grilling and domain-modeling, both bundled; their interaction and write limitations still apply."
+      ]
+    },
+    "to-spec": {
+      "notes": [
+        "Upstream manual-only discovery flag is preserved. Explicitly invoke by native ID. Tracker setup/publication and seam confirmation require BDFL-provided context; no tracker mutation capability is granted."
+      ]
+    },
+    "to-tickets": {
+      "notes": [
+        "Upstream manual-only discovery flag is preserved. User approval of the breakdown and tracker setup are not implied. Team Lead cannot publish tracker tickets or write local tickets; these capabilities are unsupported in that role."
+      ]
+    },
+    "writing-plans": {
+      "notes": [
+        "Saving plan files, automatic commits, executing-plans and subagent-driven-development dispatch are not authorized. Preserve the source, report unsupported steps, and use only controller-approved execution."
+      ]
+    },
+    "code-review": {
+      "notes": [
+        "Upstream Standards and Spec reviews require parallel subagents and commit-based Git inspection. Delegation/shell are denied; full parallel methodology is unsupported. Do not label the controller’s normal review as this exact upstream procedure."
+      ]
+    },
+    "tdd": {
+      "notes": [
+        "Requires user-confirmed seams; task authorization alone is not a confirmation. Coder may run only fixed deterministic test-runner commands through its CHECKPOINT controller handoff, not shell. Reviewer may consult the rubric but cannot run the loop."
+      ]
+    },
+    "superpowers-test-driven-development": {
+      "notes": [
+        "Native ID is namespaced to preserve the distinction from Matt Pocock’s tdd. Only the Coder CHECKPOINT controller handoff can execute fixed policy tests; Reviewer uses this as read-only assessment guidance."
+      ]
+    },
+    "systematic-debugging": {
+      "notes": [
+        "superpowers:test-driven-development resolves to superpowers-test-driven-development; superpowers:verification-before-completion resolves to verification-before-completion. Shell examples and find-polluter.sh are preserved as source but not enabled; deterministic checkpoints run only fixed policy commands."
+      ]
+    },
+    "diagnosing-bugs": {
+      "notes": [
+        "HITL shell loops, network replay, debugger and git-bisect operations are not enabled. The script template is preserved and inert; fixed isolated test checkpoints are available to the Coder. Report unavailable reproduction capabilities."
+      ]
+    },
+    "verification-before-completion": {
+      "notes": [
+        "Fresh verification must come from actual deterministic runner evidence. Reviewer cannot execute commands; it reads fresh supplied results and must report stale/missing results. No automatic commits or PR creation."
+      ]
+    },
+    "seo-content": {
+      "notes": [
+        "Only CLAUDE_PLUGIN_ROOT resource locations are patched. Shared original scripts/references/dependency metadata are bundled. Scripts are not auto-executed or enabled: launcher setup can install dependencies; browser/network/API/issue tooling requires separate BDFL-controlled infrastructure and remains unavailable here."
+      ]
+    },
+    "seo-technical": {
+      "notes": [
+        "Only CLAUDE_PLUGIN_ROOT resource locations are patched. Network, browser, Google/DataForSEO APIs and sibling /seo command dispatch are not enabled. Original tools are preserved inert; do not claim unmeasured live audits."
+      ]
+    },
+    "humanizer": {
+      "notes": [
+        "Upstream prose and examples are unchanged. This is the cited author’s skill, not the old synthetic natural-writing instructions."
+      ]
+    },
+    "human-writing": {
+      "notes": [
+        "All seven reference files and eval examples are preserved. External detector APIs are unavailable; upstream factual claims are preserved as source, not independently endorsed or validated."
+      ]
+    },
+    "codebase-design": {
+      "notes": [
+        "Imported as the exact dependency named by tdd, not as a guessed replacement for code-quality. Source writes still require Coder scope authorization."
+      ]
+    }
+  },
+  "research": [
+    {
+      "skill": "systematic-debugging",
+      "viaRepository": "https://github.com/wildwasser/opencode-agents",
+      "viaCommit": "c850b153fe02c8f30b863dd515960012f5e145fe",
+      "importAttributionCommit": "96bd036cb468deade32a496aabf20cbca025c489",
+      "originalRepository": "https://github.com/obra/superpowers",
+      "matchingGitBlob": "111d2a98c2698b5a202ddae8906f75f16ecfcffd",
+      "originalHistoryMatches": [
+        "90e1721817ff783a200017e395911b9af858285a",
+        "21ad401e909d7b5e4b0f48f5111669ea87118d11",
+        "030a222af19c1f3a93c6eb876a7422d8e4fc0162"
+      ]
+    },
+    {
+      "skill": "verification-before-completion",
+      "viaRepository": "https://github.com/wildwasser/opencode-agents",
+      "viaCommit": "c850b153fe02c8f30b863dd515960012f5e145fe",
+      "importAttributionCommit": "96bd036cb468deade32a496aabf20cbca025c489",
+      "originalRepository": "https://github.com/obra/superpowers",
+      "matchingGitBlob": "2f14076e59e6ce5cd6f88007421a85f0bd772520",
+      "originalHistoryMatches": [
+        "3be5aad3dd2400ef23b15680969f4bcd3b6d7b8b",
+        "43d87baeed4524284f8b995b419e5febe169f8a4",
+        "447edeea29af9cb916ca734bcb496ce442cdd07c",
+        "48410c7f1973bd66569a627ef27ef6619e0ba923"
+      ]
+    },
+    {
+      "skill": "writing-plans",
+      "viaRepository": "https://github.com/wildwasser/opencode-agents",
+      "viaCommit": "c850b153fe02c8f30b863dd515960012f5e145fe",
+      "importAttributionCommit": "96bd036cb468deade32a496aabf20cbca025c489",
+      "originalRepository": "https://github.com/obra/superpowers",
+      "matchingGitBlob": "448ca3193b0cd68dba36f73160be66a890fd66c4",
+      "originalHistoryMatches": [
+        "19df3db59b6527d2ef4312dd7370c1d17c10137f",
+        "2538180beb1e3f379b82c343954ea27ac4c9d28f",
+        "030a222af19c1f3a93c6eb876a7422d8e4fc0162"
+      ]
+    },
+    {
+      "repository": "https://github.com/alirezarezvani/claude-skills",
+      "finding": "Root attribution is broad; no individual existing skill names an original Alireza skill. MIT license verified through the connected GitHub source. No file imported and no authorship inferred."
+    }
+  ],
+  "nativeAliases": {
+    "superpowers:test-driven-development": "superpowers-test-driven-development",
+    "superpowers:verification-before-completion": "verification-before-completion"
+  },
+  "externalReferences": {
+    "domain-modeling": [
+      "./src/ordering/GLOSSARY.md",
+      "./src/billing/GLOSSARY.md",
+      "./src/fulfillment/GLOSSARY.md"
+    ]
+  },
+  "externalReferenceNotes": {
+    "domain-modeling": "These are illustrative project glossary links in the upstream GLOSSARY-FORMAT.md example, not missing bundled reference files."
+  },
+  "scriptExecutionPolicy": "Imported upstream programs are preserved as non-executable source only. No upstream script, installer, hook or dependency manager was executed or enabled during restoration."
+}

@@ -241,5 +241,10 @@ or product specifications.
 
 Do not invent reviews or other evidence.
 
-Follow the established Planner approval
+Follow the established BDFL authorization and Maintainer approval
 workflow for repository changes.
+
+
+## Governed execution
+
+The governance controller owns state and authorization. Maintainer plan approval and BDFL task/spec authorization precede coding. The Reviewer prepares the rubric and independently reviews real deterministic test evidence. Only the Coder edits exact approved source paths; the Maintainer decides integration and the Team Lead reports verified outcomes. Skills cannot grant tools, authorize scope expansion, or replace independent review.

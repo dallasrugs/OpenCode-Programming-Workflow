@@ -1,0 +1,489 @@
+#!/usr/bin/env python3
+"""Validate and synchronize pinned native skills without executing upstream code."""
+from __future__ import annotations
+
+import argparse
+import base64
+from datetime import date
+import difflib
+import hashlib
+import json
+import os
+from pathlib import Path, PurePosixPath
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+
+BUNDLE = Path(__file__).resolve().parent.parent
+MANIFEST = 'skills/SOURCES.json'
+ROLES = {'team-lead', 'maintainer', 'coder', 'reviewer'}
+
+
+class SkillError(RuntimeError):
+    pass
+
+
+def need(condition, message):
+    if not condition:
+        raise SkillError(message)
+
+
+def sha(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def encoded(value):
+    return (json.dumps(value, sort_keys=True, indent=2, ensure_ascii=False) + '\n').encode()
+
+
+def relative(value):
+    need(isinstance(value, str) and value and '\\' not in value and ':' not in value
+         and not any(c in value for c in '\x00\r\n') and not PurePosixPath(value).is_absolute()
+         and all(p not in ('', '.', '..') for p in value.split('/')), f'Unsafe relative path: {value}')
+    return value
+
+
+def local(bundle, name):
+    relative(name)
+    path = bundle / name
+    need(path.resolve().is_relative_to(bundle.resolve()), f'Path escapes bundle: {name}')
+    need(not any(bundle.joinpath(*PurePosixPath(name).parts[:i]).is_symlink()
+                 for i in range(1, len(PurePosixPath(name).parts) + 1)), f'Symlink in bundle: {name}')
+    return path
+
+
+def load_manifest(bundle=BUNDLE):
+    value = json.loads((bundle / MANIFEST).read_text(encoding='utf-8'))
+    need(value.get('schemaVersion') == 1, 'Unsupported skill manifest version')
+    return value
+
+
+def units(manifest):
+    return manifest['skills'] + manifest.get('resources', [])
+
+
+def inventory(directory):
+    if not directory.exists():
+        return {}
+    result = {}
+    for path in directory.rglob('*'):
+        need(not path.is_symlink(), f'Symlink in managed directory: {path}')
+        if path.is_file():
+            result[path.relative_to(directory).as_posix()] = path.read_bytes()
+    return result
+
+
+def frontmatter(data):
+    """Read discovery fields from the restricted YAML forms used by pinned skills.
+
+    OpenCode remains the authoritative full YAML parser. This deliberately rejects
+    ambiguous discovery fields rather than trying to implement general YAML.
+    """
+    text = data.decode('utf-8')
+    lines = text.splitlines()
+    need(lines and lines[0] == '---', 'Missing YAML frontmatter')
+    try:
+        end = lines.index('---', 1)
+    except ValueError as e:
+        raise SkillError('Unterminated YAML frontmatter') from e
+    fields = {}
+    i = 1
+    while i < end:
+        match = re.match(r'^([a-zA-Z][\w/-]*):(?:\s+(.*))?$', lines[i])
+        if match:
+            key, value = match[1], match[2] or ''
+            need(key not in fields, f'Duplicate frontmatter key: {key}')
+            if value in ('>', '>-', '|', '|-'):
+                block = []
+                while i + 1 < end and (lines[i+1].startswith(' ') or not lines[i+1]):
+                    i += 1
+                    block.append(lines[i].strip())
+                value = (' ' if value.startswith('>') else '\n').join(block)
+            elif value.startswith('"'):
+                try:
+                    value = json.loads(value)
+                except ValueError as e:
+                    raise SkillError(f'Invalid quoted discovery field: {key}') from e
+            elif value.startswith("'"):
+                need(value.endswith("'"), 'Invalid quoted YAML value')
+                value = value[1:-1].replace("''", "'")
+            fields[key] = value
+        i += 1
+    need(isinstance(fields.get('name'), str) and fields['name'].strip(), 'Skill name is missing')
+    need(isinstance(fields.get('description'), str) and fields['description'].strip(), 'Skill description is missing')
+    return fields
+
+
+def patches_for(unit, bundle):
+    if not unit.get('patch'):
+        return []
+    data = local(bundle, unit['patch']).read_bytes()
+    need(sha(data) == unit['patchSha256'], f'Unresolved local compatibility patch change: {unit.get("skill")}')
+    return json.loads(data)
+
+
+def patched(files, patches):
+    result = dict(files)
+    for patch in patches:
+        name = relative(patch['file'])
+        need(name in result, f'Compatibility patch target missing: {name}')
+        old, new = patch['old'].encode(), patch['new'].encode()
+        need(old and result[name].count(old) == patch['count'], f'Compatibility patch conflict: {name}')
+        result[name] = result[name].replace(old, new)
+    return result
+
+
+def allowed_skills(role, manifest=None):
+    manifest = manifest or load_manifest()
+    need(role in ROLES, 'Unknown functional role')
+    return manifest['agents'][role]
+
+
+def compatibility_notes(selected, manifest=None):
+    manifest = manifest or load_manifest()
+    return {s: manifest['compatibility'][s] for s in selected if s in manifest['compatibility']}
+
+
+def native_ids(manifest):
+    return {u['skill'] for u in manifest['skills']} | {
+        a['skill'] for a in manifest['audit'] if a['resolution'] == 'PRESERVED_UNCHANGED'}
+
+
+def validate(bundle=BUNDLE):
+    manifest = load_manifest(bundle)
+    ids = native_ids(manifest)
+    need(len(manifest['skills']) == len({u['skill'] for u in manifest['skills']}), 'Duplicate native skill ID')
+    actual = {p.parent.name for p in (bundle / 'skills').glob('*/SKILL.md')}
+    need(actual == ids, f'Native catalog differs from manifest: {actual ^ ids}')
+    need(set(manifest['agents']) == ROLES, 'Role skill matrix must contain exactly four roles')
+    for role, selected in manifest['agents'].items():
+        need(len(selected) == len(set(selected)) and set(selected) <= ids, f'Unknown/duplicate role skill: {role}')
+        front, _, = read_agent(bundle, role)
+        grants = {r['resource'] for r in front['permissions'] if r['action'] == 'skill' and r['effect'] == 'allow'}
+        need(grants == set(selected), f'Agent skill permissions differ from manifest: {role}')
+        for action in ('shell', 'subagent', 'execute', 'external_directory', 'edit'):
+            need(permission(front['permissions'], action, '*') == 'deny', f'Role has ambient mutation authority: {role}/{action}')
+    for skill in ids:
+        need(re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', skill), f'Unstable native ID: {skill}')
+        frontmatter(local(bundle, 'skills/' + skill + '/SKILL.md').read_bytes())
+    for unit in units(manifest):
+        need(unit['status'] == 'VERIFIED' and unit['license'] == 'MIT', 'Unverified import cannot be distributed')
+        need(re.fullmatch(r'[a-f0-9]{40}', unit['upstreamCommit']), 'Upstream must be pinned to a full Git SHA')
+        need(re.fullmatch(r'https://github.com/[\w.-]+/[\w.-]+', unit['upstreamRepository']), 'Non-canonical upstream repository')
+        expected = {relative(f['path']): f for f in unit['files']}
+        snapshot = inventory(local(bundle, unit['snapshot']))
+        active = inventory(local(bundle, unit['destination']))
+        need(set(snapshot) == set(expected), f'Unresolved snapshot additions/deletions: {unit["destination"]}')
+        need(set(active) == set(expected), f'Unresolved local additions/deletions: {unit["destination"]}')
+        need('LICENSE' in snapshot and b'Permission is hereby granted' in snapshot['LICENSE'], 'Required MIT notice missing')
+        for name, record in expected.items():
+            need(sha(snapshot[name]) == record['sha256'], f'Upstream snapshot integrity mismatch: {unit["destination"]}/{name}')
+            need(sha(active[name]) == record['installedSha256'], f'Unresolved local modification: {unit["destination"]}/{name}')
+        for name in active:
+            if name.endswith(('.py', '.sh', '.js', '.ts')) or '/scripts/' in '/' + name:
+                need(not (local(bundle, unit['destination'] + '/' + name).stat().st_mode & 0o111),
+                     'Imported script unexpectedly executable: ' + name)
+        need(patched(snapshot, patches_for(unit, bundle)) == active, f'Installed content differs from snapshot plus compatibility patch: {unit["destination"]}')
+    need(len(manifest['audit']) == len({a['skill'] for a in manifest['audit']}), 'Duplicate audit input')
+    for audit in manifest['audit']:
+        old = local(bundle, audit['preservedInput']).read_bytes()
+        need(sha(old) == audit['inputSha256'], f'Audit input modified: {audit["skill"]}')
+        if audit['resolution'] == 'PRESERVED_UNCHANGED':
+            need(audit['status'] == 'SOURCE_UNVERIFIED' and old == local(bundle, audit['originalLocalPath']).read_bytes(),
+                 f'Unverified skill changed: {audit["skill"]}')
+    check_references(bundle, manifest)
+    return {'nativeSkills': len(ids), 'verifiedImports': len(manifest['skills']),
+            'unverifiedPreserved': sum(a['status'] == 'SOURCE_UNVERIFIED' for a in manifest['audit']),
+            'importedFiles': sum(len(u['files']) for u in units(manifest))}
+
+
+def read_agent(bundle, role):
+    _, front, body = (bundle / 'agents' / (role + '.md')).read_text().split('---', 2)
+    return json.loads(front), body
+
+
+def permission(rules, action, resource):
+    def matches(pattern, value):
+        return re.fullmatch(''.join('.*' if c == '*' else '.' if c == '?' else re.escape(c) for c in pattern), value, flags=re.S) is not None
+    effect = 'ask'
+    for rule in rules:
+        if matches(rule['action'], action) and matches(rule['resource'], resource):
+            effect = rule['effect']
+    return effect
+
+
+def check_references(bundle, manifest):
+    """Verify shipped support links; explicit external/project links stay documented."""
+    for unit in manifest['skills']:
+        root = local(bundle, unit['destination'])
+        for record in unit['files']:
+            if not record['path'].endswith('.md'):
+                continue
+            path = root / record['path']
+            text = path.read_text(encoding='utf-8')
+            for target in re.findall(r'\[[^\]]+\]\(([^)\s]+)\)', text):
+                if re.match(r'^[a-z]+://|^#|^mailto:', target):
+                    continue
+                target = target.split('#')[0]
+                if target.startswith('.opencode/'):
+                    need((bundle.parent / target).is_file(), f'Missing OpenCode resource: {target}')
+                elif (path.parent / target).is_file():
+                    continue
+                else:
+                    exceptions = manifest.get('externalReferences', {}).get(unit['skill'], [])
+                    need(target in exceptions, f'Missing or undocumented relative link: {unit["skill"]}/{record["path"]} -> {target}')
+            for target in re.findall(r'\.opencode/skill-resources/[A-Za-z0-9_./-]+', text):
+                need((bundle.parent / target).exists(), f'Missing bundled plugin resource: {target}')
+
+
+def installation_files(bundle=BUNDLE):
+    validate(bundle)
+    names = ['opencode.json']
+    for directory in ('agents', 'skills', 'governance', 'skill-sources', 'skill-resources'):
+        for path in (bundle / directory).rglob('*'):
+            name = path.relative_to(bundle).as_posix()
+            if '__pycache__' in path.parts or path.suffix == '.pyc' or '/staged/' in name:
+                continue
+            need(not path.is_symlink(), f'Installer source is a symlink: {name}')
+            if path.is_file():
+                names.append(relative(name))
+    return sorted(set(names))
+
+
+def git_fetch(repository, ref):
+    """Bare public HTTPS inspection only. No checkout, hooks, filters or code execution."""
+    need(re.fullmatch(r'https://github.com/[\w.-]+/[\w.-]+', repository), 'Only canonical public GitHub sources are supported')
+    need(re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._/-]*', ref) and '..' not in ref and '//' not in ref, 'Unsafe upstream ref')
+    env = {k: v for k, v in os.environ.items() if not k.startswith('GIT_')}
+    env.update(GIT_ALLOW_PROTOCOL='https', GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull)
+    with tempfile.TemporaryDirectory(prefix='skill-upstream-') as tmp:
+        def git(*args):
+            p = subprocess.run(['git', '-c', 'core.hooksPath=' + os.devnull, '-C', tmp, *args],
+                               env=env, capture_output=True, timeout=120)
+            need(p.returncode == 0, 'Read-only Git inspection failed: ' + p.stderr.decode(errors='replace')[-2000:])
+            return p.stdout
+        git('init', '--bare', '-q')
+        git('fetch', '--no-tags', '--depth=1', repository, ref)
+        commit = git('rev-parse', 'FETCH_HEAD').decode().strip()
+        tree = {}
+        for item in git('ls-tree', '-rz', 'FETCH_HEAD').split(b'\0'):
+            if not item:
+                continue
+            meta, name = item.split(b'\t', 1)
+            mode, kind, oid = meta.decode().split()
+            path = relative(name.decode())
+            tree[path] = (mode, kind, oid)
+        # Lazy blob access: only relevant selected files are retrieved.
+        cache = {}
+        def get(path):
+            need(path in tree and tree[path][0] in ('100644', '100755') and tree[path][1] == 'blob', f'Unsupported upstream file: {path}')
+            if path not in cache:
+                size = int(git('cat-file', '-s', tree[path][2]))
+                need(size <= 5_000_000, 'Oversized upstream file')
+                cache[path] = git('cat-file', 'blob', tree[path][2])
+            return cache[path]
+        yield commit, tree, get
+
+
+def select_files(unit, paths):
+    selectors = unit['sourceSelectors']
+    selected = set()
+    for selector in selectors:
+        need(selector in paths or any(p.startswith(selector + '/') for p in paths), f'Upstream source path removed: {selector}')
+        selected.update(p for p in paths if p == selector or p.startswith(selector + '/'))
+    # Newly introduced root notices/licenses must be reviewed as well.
+    selected.update(p for p in paths if '/' not in p and re.match(r'(?i)^(license|copying|notice)(\.|$)', p))
+    root = unit['upstreamPath']
+    result = {}
+    for path in selected:
+        if path == unit['licensePath']:
+            name = 'LICENSE'
+        elif root == '.':
+            name = path
+        elif root == 'SKILL.md':
+            name = path
+        elif path.startswith(root + '/'):
+            name = path[len(root)+1:]
+        else:
+            name = path
+        relative(name)
+        need(name not in result, 'Upstream file path collision')
+        result[name] = path
+    return result
+
+
+def plan_update(bundle, skill, ref, fetcher=git_fetch):
+    manifest = load_manifest(bundle)
+    validate(bundle)
+    source = next((u for u in manifest['skills'] if u['skill'] == skill), None)
+    need(source is not None, 'Only verified imports can synchronize; unverified skills stay preserved')
+    repository = source['upstreamRepository']
+    # Update all packages from one repository together, including shared SEO resources.
+    selected = [u for u in units(manifest) if u['upstreamRepository'] == repository]
+    report = {'schemaVersion': 1, 'manifestSha256': sha((bundle / MANIFEST).read_bytes()),
+              'repository': repository, 'requestedRef': ref, 'units': [], 'blockedReasons': [], 'diff': ''}
+    for commit, tree, get in fetcher(repository, ref):
+        for unit in selected:
+            label = unit.get('skill', unit.get('id'))
+            new = select_files(unit, tree)
+            snapshots = {name: get(path) for name, path in new.items()}
+            need(sum(map(len, snapshots.values())) < 50_000_000, 'Oversized upstream package')
+            previous = inventory(local(bundle, unit['snapshot']))
+            def licenses(values):
+                return {p: sha(v) for p, v in values.items() if re.match(r'(?i)^(license|copying|notice)(\.|$)', PurePosixPath(p).name)}
+            if licenses(previous) != licenses(snapshots):
+                report['blockedReasons'].append('LICENSE_CHANGED: ' + label + '; review redistribution rights before updating the manifest')
+            try:
+                active = patched(snapshots, patches_for(unit, bundle))
+            except SkillError as e:
+                report['blockedReasons'].append(str(e))
+                active = snapshots
+            before = inventory(local(bundle, unit['destination']))
+            for name in sorted(before.keys() | active.keys()):
+                if before.get(name) != active.get(name):
+                    report['diff'] += ''.join(difflib.unified_diff(
+                        before.get(name, b'').decode(errors='replace').splitlines(True),
+                        active.get(name, b'').decode(errors='replace').splitlines(True),
+                        fromfile=label + '/' + name + ' (installed)', tofile=label + '/' + name + ' (proposed)'))
+            report['units'].append({'destination': unit['destination'], 'commitBefore': unit['upstreamCommit'],
+                 'commitAfter': commit, 'upstreamPaths': new,
+                 'snapshotFiles': {p: base64.b64encode(v).decode() for p, v in snapshots.items()},
+                 'upstreamGitModes': {p: tree[path][0] for p, path in new.items()},
+                 'changedScripts': [p for p, v in active.items() if before.get(p) != v and (p.endswith(('.py', '.sh', '.js', '.ts')) or '/scripts/' in '/' + p)]})
+    need(report['units'], 'No upstream inspection result')
+    return report
+
+
+def apply_update(bundle, report_bytes, reviewed_hash):
+    need(sha(report_bytes) == reviewed_hash, 'Review fingerprint does not match this update report')
+    report = json.loads(report_bytes)
+    need(report.get('schemaVersion') == 1 and not report.get('blockedReasons'), 'Update blocked by licensing or compatibility conflicts')
+    need(sha((bundle / MANIFEST).read_bytes()) == report['manifestSha256'], 'Manifest changed after update planning')
+    validate(bundle)  # Includes all local additions, deletions, bytes, snapshots and patch hashes.
+    manifest = load_manifest(bundle)
+    updated = json.loads(json.dumps(manifest))
+    changes = {}
+    destinations = set()
+    for proposal in report['units']:
+        need(proposal['destination'] not in destinations, 'Duplicate proposal destination')
+        destinations.add(proposal['destination'])
+        unit = next((u for u in units(updated) if u['destination'] == proposal['destination']), None)
+        need(unit and unit['upstreamRepository'] == report['repository'] and unit['upstreamCommit'] == proposal['commitBefore'], 'Update source no longer matches')
+        need(re.fullmatch(r'[a-f0-9]{40}', proposal['commitAfter']), 'Update commit must be pinned')
+        snapshots = {relative(p): base64.b64decode(v, validate=True) for p, v in proposal['snapshotFiles'].items()}
+        need(set(snapshots) == set(proposal['upstreamPaths']), 'Update file provenance missing')
+        old_snapshot = inventory(local(bundle, unit['snapshot']))
+        license_names = {p for p in old_snapshot.keys() | snapshots.keys()
+                         if re.match(r'(?i)^(license|copying|notice)(\.|$)', PurePosixPath(p).name)}
+        need(all(old_snapshot.get(p) == snapshots.get(p) for p in license_names),
+             'License changed; redistribution rights must be reviewed before synchronization')
+        active = patched(snapshots, patches_for(unit, bundle))
+        old_paths = {f['path'] for f in unit['files']}
+        unit['files'] = [{'path': p, 'upstreamPath': relative(proposal['upstreamPaths'][p]),
+                          'sha256': sha(v), 'installedSha256': sha(active[p]),
+                          'upstreamGitMode': proposal['upstreamGitModes'][p], 'installedMode': '0644'} for p, v in sorted(snapshots.items())]
+        for f in unit['files']:
+            need(f['upstreamGitMode'] in ('100644', '100755'), 'Unsupported upstream file mode')
+        unit['compatibilityChanges'] = [c for c in unit['compatibilityChanges'] if not c['reason'].startswith('Installed with mode 0644')]
+        unit['compatibilityChanges'] += [{'file': f['path'], 'reason': 'Installed with mode 0644 so imported upstream programs are inert; source bytes are unchanged and upstream Git mode is recorded.'}
+                                         for f in unit['files'] if f['upstreamGitMode'] == '100755']
+        unit['upstreamCommit'] = proposal['commitAfter']
+        unit['lastSynchronized'] = date.today().isoformat()
+        for prefix, values in ((unit['snapshot'], snapshots), (unit['destination'], active)):
+            for path in old_paths | values.keys():
+                changes[prefix + '/' + relative(path)] = values.get(path)
+    expected = {u['destination'] for u in units(manifest) if u['upstreamRepository'] == report['repository']}
+    need(destinations == expected, 'Update must include the entire upstream repository group')
+    changes[MANIFEST] = encoded(updated)
+    # Validate the complete proposed bundle before touching installed files.
+    with tempfile.TemporaryDirectory(prefix='skill-update-validation-') as tmp:
+        staged = Path(tmp) / '.opencode'
+        shutil.copytree(bundle, staged, ignore=shutil.ignore_patterns('__pycache__', 'staged'))
+        for name, data in changes.items():
+            p = local(staged, name)
+            if data is None:
+                p.unlink()
+            else:
+                p.parent.mkdir(parents=True, exist_ok=True)
+                p.write_bytes(data)
+        validate(staged)
+    need(sha((bundle / MANIFEST).read_bytes()) == report['manifestSha256'], 'Manifest changed during staging')
+    validate(bundle)
+    backup = {name: local(bundle, name).read_bytes() if local(bundle, name).is_file() else None for name in changes}
+    lock = bundle / '.skill-update.lock'
+    fd = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+    os.close(fd)
+    applied = []
+    try:
+        for name, data in changes.items():
+            path = local(bundle, name)
+            need((path.read_bytes() if path.is_file() else None) == backup[name],
+                 'Local file changed during update: ' + name)
+            if data is None:
+                path.unlink()
+            else:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                tmp = path.with_name(path.name + '.skill-update-tmp')
+                with tmp.open('xb') as f:
+                    f.write(data)
+                    f.flush()
+                    os.fsync(f.fileno())
+                tmp.chmod(0o644)  # Imported scripts remain non-executable.
+                os.replace(tmp, path)
+            applied.append(name)
+    except BaseException:
+        for name in reversed(applied):
+            data = backup[name]
+            path = local(bundle, name)
+            if (path.read_bytes() if path.is_file() else None) != changes[name]:
+                continue  # Preserve a concurrent user's edit rather than overwriting it during rollback.
+            if data is None:
+                path.unlink(missing_ok=True)
+            else:
+                path.write_bytes(data)
+        raise
+    finally:
+        lock.unlink()
+    return {'updatedRepository': report['repository'], 'updatedUnits': len(report['units']), 'executedScripts': []}
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--bundle', type=Path, default=BUNDLE)
+    sub = parser.add_subparsers(dest='command', required=True)
+    sub.add_parser('validate')
+    sub.add_parser('install-files')
+    p = sub.add_parser('check')
+    p.add_argument('skill')
+    p.add_argument('--ref', default='HEAD')
+    p.add_argument('--report', type=Path, required=True)
+    p = sub.add_parser('apply')
+    p.add_argument('report', type=Path)
+    p.add_argument('--reviewed', required=True, help='SHA256 of the exact diff report you reviewed')
+    args = parser.parse_args(argv)
+    try:
+        if args.command == 'validate':
+            print(json.dumps(validate(args.bundle), indent=2))
+        elif args.command == 'install-files':
+            print('\n'.join(installation_files(args.bundle)))
+        elif args.command == 'check':
+            report = plan_update(args.bundle, args.skill, args.ref)
+            data = encoded(report)
+            # Never overwrite an existing report or write a report over managed content.
+            need(not args.report.resolve().is_relative_to(args.bundle.resolve()), 'Place update reports outside the installed bundle')
+            with args.report.open('xb') as f:
+                f.write(data)
+            print(report['diff'] or 'No imported file content changed.')
+            print(json.dumps({'report': str(args.report), 'reviewFingerprint': sha(data), 'blockedReasons': report['blockedReasons']}, indent=2))
+        else:
+            print(json.dumps(apply_update(args.bundle, args.report.read_bytes(), args.reviewed), indent=2))
+        return 0
+    except (SkillError, OSError, ValueError, KeyError, subprocess.TimeoutExpired) as e:
+        print('Skill operation stopped: ' + str(e), file=sys.stderr)
+        return 1
+
+
+if __name__ == '__main__':
+    sys.exit(main())

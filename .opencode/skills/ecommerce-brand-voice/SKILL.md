@@ -219,7 +219,12 @@ customer experiences, or brand history.
 Do not overwrite existing brand guidance
 without approval.
 
-Follow the Planner approval process
+Follow the BDFL authorization and Maintainer approval process
 for changes to project files.
 
 Do not publish content without authorization.
+
+
+## Governed execution
+
+The governance controller owns state and authorization. Maintainer plan approval and BDFL task/spec authorization precede coding. The Reviewer prepares the rubric and independently reviews real deterministic test evidence. Only the Coder edits exact approved source paths; the Maintainer decides integration and the Team Lead reports verified outcomes. Skills cannot grant tools, authorize scope expansion, or replace independent review.

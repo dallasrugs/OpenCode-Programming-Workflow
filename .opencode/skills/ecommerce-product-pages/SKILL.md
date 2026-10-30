@@ -254,8 +254,8 @@ Separate confirmed problems from assumptions.
 
 For approved product page improvements:
 
-1. Follow the existing Planner approval process.
-2. Delegate through the Supervisor.
+1. Follow BDFL authorization and Maintainer plan approval.
+2. Execute through the governance controller.
 3. Implement using established components.
 4. Preserve catalog data integrity.
 5. Add or update relevant tests.
@@ -290,3 +290,8 @@ availability, or inventory without approval.
 Never publish website changes automatically.
 
 Follow the existing four-agent architecture.
+
+
+## Governed execution
+
+The governance controller owns state and authorization. Maintainer plan approval and BDFL task/spec authorization precede coding. The Reviewer prepares the rubric and independently reviews real deterministic test evidence. Only the Coder edits exact approved source paths; the Maintainer decides integration and the Team Lead reports verified outcomes. Skills cannot grant tools, authorize scope expansion, or replace independent review.

@@ -46,7 +46,7 @@ Before introducing new structures:
 Do not introduce new frameworks, infrastructure,
 or architectural layers without justification.
 
-Material deviations require Supervisor escalation.
+Material deviations require Maintainer escalation.
 
 ## 3. Clear responsibilities
 
@@ -212,3 +212,8 @@ Do not perform unrelated refactoring.
 Do not introduce dependencies without justification.
 Do not fabricate quality or test results.
 Do not automatically commit, push, merge, or deploy.
+
+
+## Governed execution
+
+The governance controller owns state and authorization. Maintainer plan approval and BDFL task/spec authorization precede coding. The Reviewer prepares the rubric and independently reviews real deterministic test evidence. Only the Coder edits exact approved source paths; the Maintainer decides integration and the Team Lead reports verified outcomes. Skills cannot grant tools, authorize scope expansion, or replace independent review.

@@ -1,6 +1,6 @@
 ---
 name: milestone-coordination
-description: Coordinate approved implementation milestones through the Coder, track dependencies, handle blockers, and minimize Supervisor model requests.
+description: Coordinate approved implementation milestones through the Coder, track dependencies, handle blockers, and minimize Maintainer model requests.
 ---
 
 # Milestone Coordination
@@ -12,9 +12,9 @@ and Matt Pocock's implementation workflows.
 
 Coordinate implementation without directly writing code.
 
-The Supervisor manages milestones.
+The controller manages execution; the Maintainer approves architecture.
 The Coder executes them.
-The Planner manages requirements and final acceptance.
+The Team Lead manages requirements and reports verified outcomes.
 
 ## 1. Establish execution state
 
@@ -71,11 +71,11 @@ The Coder may:
 - Write and update tests
 - Debug failures
 - Refactor within approved boundaries
-- Maintain the task ledger
-- Perform permitted local verification
+- Return implementation evidence to the controller
+- Examine deterministic runner results
 
 The Coder should complete its assigned milestone
-without repeatedly consulting the Supervisor.
+without repeatedly consulting the Maintainer.
 
 Do not poll for progress.
 
@@ -111,7 +111,7 @@ For significant blockers:
 - Identify the affected milestone.
 - Capture the cause and attempted solutions.
 - Explain the proposed alternative.
-- Return control to the Planner when a new
+- Return control to the Team Lead when a new
   user decision or approval is required.
 
 Never silently change approved architecture.
@@ -138,15 +138,15 @@ Implementation or verification failed.
 VERIFIED:
 Acceptance criteria have supporting execution evidence.
 
-The Coder may persist task state in the repository.
+The controller persists task state outside agent access.
 
-The Supervisor must not directly edit repository files.
+The Maintainer must not directly edit repository files.
 
 Never mark incomplete work as VERIFIED.
 
-## 8. Minimize Nemotron usage
+## 8. Minimize redundant model calls
 
-The Supervisor has limited requests.
+Independent Reviewer requests may be limited.
 
 - Plan milestones once.
 - Delegate coherent batches.
@@ -183,9 +183,9 @@ When all milestones are finished:
 3. Identify incomplete acceptance criteria.
 4. Document deviations and remaining risks.
 5. Produce a completion report.
-6. Return the report to the Planner.
+6. Return the report to the Team Lead.
 
-The Planner performs final review.
+The Reviewer performs independent review; the Maintainer decides integration.
 
 Do not automatically commit, push, merge, or deploy.
 
@@ -196,4 +196,9 @@ Never expand scope independently.
 Never approve material architectural deviations.
 Never claim tests passed without evidence.
 Never bypass required user approvals.
-Never delegate to agents other than the Coder.
+The controller invokes roles; agents cannot delegate or grant authorization.
+
+
+## Governed execution
+
+The governance controller owns state and authorization. Maintainer plan approval and BDFL task/spec authorization precede coding. The Reviewer prepares the rubric and independently reviews real deterministic test evidence. Only the Coder edits exact approved source paths; the Maintainer decides integration and the Team Lead reports verified outcomes. Skills cannot grant tools, authorize scope expansion, or replace independent review.
