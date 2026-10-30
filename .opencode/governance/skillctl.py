@@ -235,13 +235,13 @@ def check_references(bundle, manifest):
                     exceptions = manifest.get('externalReferences', {}).get(unit['skill'], [])
                     need(target in exceptions, f'Missing or undocumented relative link: {unit["skill"]}/{record["path"]} -> {target}')
             for target in re.findall(r'\.opencode/skill-resources/[A-Za-z0-9_./-]+', text):
-                need((bundle.parent / target).exists(), f'Missing bundled plugin resource: {target}')
+                need((bundle / target.removeprefix('.opencode/')).exists(), f'Missing bundled plugin resource: {target}')
 
 
 def installation_files(bundle=BUNDLE):
     validate(bundle)
     names = ['opencode.json']
-    for directory in ('agents', 'skills', 'governance', 'skill-sources', 'skill-resources'):
+    for directory in ('agents', 'skills', 'governance', 'plugins', 'skill-sources', 'skill-resources'):
         for path in (bundle / directory).rglob('*'):
             name = path.relative_to(bundle).as_posix()
             if '__pycache__' in path.parts or path.suffix == '.pyc' or '/staged/' in name:

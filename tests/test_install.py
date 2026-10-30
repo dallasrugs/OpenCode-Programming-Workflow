@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 import subprocess
 import tempfile
@@ -23,6 +24,8 @@ class InstallerTests(unittest.TestCase):
                              {'team-lead', 'maintainer', 'coder', 'reviewer'})
             self.assertTrue((bundle / 'governance/bdfl.py').is_file())
             self.assertTrue((bundle / 'governance/policy.example.json').is_file())
+            self.assertTrue((bundle / 'governance/chat.py').is_file())
+            self.assertTrue((bundle / 'plugins/bdfl-chat/index.js').is_file())
             self.assertEqual(len(list((bundle / 'skills').glob('*/SKILL.md'))), 24)
             self.assertTrue((bundle / 'skills/tdd/tests.md').is_file())
             self.assertTrue((bundle / 'skills/tdd/LICENSE').is_file())
@@ -44,6 +47,15 @@ class InstallerTests(unittest.TestCase):
             self.install(target)
             self.assertFalse((target / '.opencode/opencode.json').exists())
             self.assertEqual(jsonc.read_text(), '// existing config\n{}')
+
+    def test_global_install_validates_resources_outside_dot_opencode_directory(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            env = dict(os.environ, HOME=tmp)
+            subprocess.run(['bash', str(ROOT / 'install.sh'), '--global'], env=env,
+                           check=True, capture_output=True, text=True)
+            bundle = Path(tmp) / '.config/opencode'
+            subprocess.run(['python3', str(bundle / 'governance/skillctl.py'), 'validate'],
+                           check=True, capture_output=True, text=True)
 
     def test_symlink_existing_file_preserved(self):
         with tempfile.TemporaryDirectory() as tmp:

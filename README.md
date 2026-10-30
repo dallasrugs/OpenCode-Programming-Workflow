@@ -62,7 +62,32 @@ For global installation, invoke the controller at
 `~/.config/opencode/governance/bdfl.py --repo /path/to/project ...` instead of the
 project-local path below. No Python packages need installation.
 
-## Run an authorized task
+## Start work from chat
+
+Open OpenCode in your repository and send your implementation request to the
+Team Lead. That request authorizes ordinary implementation within its scope.
+The Team Lead inspects the project, builds its test policy, and calls the bundled
+`bdfl_controller` tool to save the full request and policy and start the controller.
+You do not need to create files or run a command yourself. For example:
+
+> Implement the UI refinement described below. Preserve the current API, run the
+> frontend and browser tests, and report the result. [Your requirements here.]
+
+The tool returns a run ID immediately; execution continues in the background.
+Ask the Team Lead for status or to resume an interrupted run. It can also convey
+your explicit approval or rejection of a pending architecture/breaking-change
+escalation using the exact specification hash. Ordinary task authorization never
+approves such an escalation. Finished candidates remain uncommitted for your review.
+
+Docker and a preloaded project-specific test image are still required. If those
+or essential requirements are missing, the Team Lead explains what is needed;
+it must not invent an image or substitute the starter's tests for your tests.
+The bridge uses OpenCode's native [V2 plugin API](https://opencode.ai/v2/docs/build/plugins/server/).
+Existing installations need the updated Team Lead, governance files and
+`plugins/bdfl-chat/` directory; the installer preserves existing files. Restart
+OpenCode after updating. Controller-managed sessions cannot launch nested runs.
+
+## Start work from the terminal (optional)
 
 Copy `policy.example.json` to a BDFL-controlled location **outside the target
 repository**. Set its test image, fixed argv commands, timeouts and retry limits.
@@ -104,11 +129,11 @@ python3 .opencode/governance/bdfl.py resume RUN_ID
 python3 .opencode/governance/bdfl.py reject RUN_ID --reason 'Choose a different approach'
 ```
 
-The CLI is the supported autonomous execution entrypoint. The default interactive
-Team Lead can discuss requirements and explain these commands; its shell, source
-writes and direct subagent launches are denied. Typing an implementation request in
-the TUI alone does not grant execution authority. The controller calls each role
-in a fresh private OpenCode session, without relying on recursive agent delegation.
+The CLI and the chat bridge both use the same controller. The default interactive
+Team Lead can save and launch tasks only through `bdfl_controller`; its shell,
+source writes and direct subagent launches remain denied. The controller calls
+each role in a fresh private OpenCode session, without recursive agent delegation.
+The CLI also accepts `--request-file /path/to/request.txt` instead of `--request`.
 
 ## Outcomes and recovery
 
@@ -119,6 +144,9 @@ State lives under the repository's Git common directory:
   architecture.json            # Maintainer map, invariants, ADRs across runs
   controller.lock             # repository-wide exclusive lock
   runs/RUN_ID/state.json      # spec, decisions, authorization, rubric, test logs, events
+  runs/RUN_ID/request.txt     # original task text
+  runs/RUN_ID/policy.json     # frozen input policy
+  runs/RUN_ID/controller.log # background chat run output/errors
   runs/RUN_ID/candidate.patch # includes additions and deletions; no commit required
   worktrees/RUN_ID/           # isolated bdfl/RUN_ID branch, candidate remains uncommitted
 ```
@@ -163,7 +191,10 @@ against source on demand; it is not an approval or authorization token.
   and runtime. It receives no provider keys, Docker socket or host credentials.
   Build test dependencies into the preloaded image. This is container isolation,
   not a promise to withstand a hostile kernel/container-runtime exploit.
-- The BDFL controls the CLI, runner policy, state directory and trusted installation.
+- The BDFL controls the CLI, state directory and trusted installation. The interactive
+  Team Lead may generate a runner policy for a requested task through the chat bridge;
+  the controller validates and freezes it before execution. The bridge is trusted
+  host code with fixed controller actions, not an unrestricted shell tool.
   A host user able to rewrite those files can change governance. Permissions and
   fingerprints protect against model tool misuse, not a malicious host owner.
 - Sending a task authorizes the configured providers to process the eligible
@@ -224,6 +255,7 @@ opencode --standalone debug agents
 opencode --standalone debug config
 python3 .opencode/governance/skillctl.py validate
 python3 -m unittest discover -s tests -v
+node --test tests/test_chat_plugin.mjs
 bash -n install.sh
 ```
 

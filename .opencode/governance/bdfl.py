@@ -204,6 +204,8 @@ class OpenCode:
         skillctl.validate(BUNDLE)
         front, body = read_agent(role)
         rules = front['permissions'][:]
+        # Chat intake is an interactive-only capability, never recursive execution.
+        rules.append({'action': 'bdfl_controller', 'resource': '*', 'effect': 'deny'})
         if role == 'coder':
             rules += [{'action': 'edit', 'resource': safe_path(p), 'effect': 'allow'} for p in allowed]
         with mirror(root) as workspace:
@@ -383,9 +385,12 @@ class Store:
 
 def start(store, request, policy, authorized=False):
     require(not store.path.exists(), 'Run already exists')
+    require(isinstance(request, str) and request.strip(), 'A non-empty task request is required')
     validate_policy(policy)
     require(not git(store.repo, 'status', '--porcelain', '--untracked-files=all').strip(),
             'Start requires a clean checkout; preserve existing work first')
+    (store.directory / 'request.txt').write_text(request, encoding='utf-8')
+    atomic_json(store.directory / 'policy.json', policy)
     run_id = store.directory.name
     worktree = store.home / 'worktrees' / run_id
     worktree.parent.mkdir(parents=True, exist_ok=True)
@@ -678,7 +683,9 @@ def main(argv=None):
     parser.add_argument('--repo', default='.')
     commands = parser.add_subparsers(dest='command', required=True)
     p = commands.add_parser('start')
-    p.add_argument('--request', required=True)
+    request_args = p.add_mutually_exclusive_group(required=True)
+    request_args.add_argument('--request', help='Task request text')
+    request_args.add_argument('--request-file', type=Path, help='UTF-8 task request file')
     p.add_argument('--policy', required=True, type=Path)
     p.add_argument('--authorize-task', action='store_true', help='BDFL authorizes ordinary changes within this task')
     for name in ('resume', 'status', 'authorize', 'reject'):
@@ -696,7 +703,8 @@ def main(argv=None):
         store = Store(root, run_id)
         with store.lock():
             if args.command == 'start':
-                state = start(store, args.request, json.loads(args.policy.read_text()), args.authorize_task)
+                request = args.request_file.read_text(encoding='utf-8') if args.request_file else args.request
+                state = start(store, request, json.loads(args.policy.read_text()), args.authorize_task)
             else:
                 state = store.read()
             if args.command == 'authorize':

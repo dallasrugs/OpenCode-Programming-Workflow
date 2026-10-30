@@ -243,6 +243,7 @@ class WorkflowTests(unittest.TestCase):
             rules = config['agents']['coder']['permissions']
             grants = [r['resource'] for r in rules if r['action'] == 'edit' and r['effect'] == 'allow']
             self.assertEqual(grants, ['app.py'])
+            self.assertEqual(b.skillctl.permission(rules, 'bdfl_controller', '*'), 'deny')
             self.assertEqual(config['agents']['coder']['mode'], 'primary')
             self.assertIn('--standalone', argv)
             self.assertFalse((cwd / '.git').exists())
@@ -380,6 +381,7 @@ class BoundaryTests(unittest.TestCase):
                 return effect
             for action in ('edit', 'shell', 'subagent', 'execute', 'some_mcp_tool', 'external_directory'):
                 self.assertEqual(resolve(action), 'deny', (role, action))
+            self.assertEqual(resolve('bdfl_controller'), 'allow' if role == 'team-lead' else 'deny')
         self.assertEqual(set(p.stem for p in (b.BUNDLE / 'agents').glob('*.md')), set(b.ROLES))
 
     def test_parser_never_trusts_tool_json(self):
