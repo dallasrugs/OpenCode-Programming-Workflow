@@ -1,0 +1,1 @@
+Only edit eligibility.py and test_eligibility.py. No delegation, external research, sandbox setup, package installs, skills, background processes or unrelated changes. Use python3 -m unittest -v for checks. Preserve existing behavior; stop after the bounded task.

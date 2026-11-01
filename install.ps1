@@ -140,5 +140,6 @@ else {
 if ($skipped -gt 0) {
     Write-Host ""
     Write-Host "Existing files were preserved."
-    Write-Host "Review configuration merging manually if needed."
+    Write-Host "Use runtime/skillctl.py compare-install DEST and follow docs/MIGRATION.md."
+    Write-Host "An old configuration plus newly copied files is not a validated migration."
 }

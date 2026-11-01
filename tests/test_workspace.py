@@ -1,6 +1,9 @@
 """Native workspace tools do not authorize or orchestrate agents."""
 import json
+import contextlib
+import io
 import subprocess
+import tempfile
 import unittest
 from unittest.mock import patch
 
@@ -47,6 +50,24 @@ class WorkspaceTests(unittest.TestCase):
             with self.subTest(action=action), self.assertRaisesRegex(runtime.SandboxError, 'Unknown workspace action'):
                 self.call(action)
         self.assertFalse((sandbox.home(self.root) / 'runs').exists())
+
+    def test_non_git_startup_and_inspection_are_nonfatal_and_do_not_write(self):
+        with tempfile.TemporaryDirectory() as directory:
+            for action in ('session_start', 'settings', 'status', 'end_sandbox'):
+                output = io.StringIO()
+                with self.subTest(action=action), patch.object(workspace.sys, 'stdin', io.StringIO(json.dumps({'action': action}))), contextlib.redirect_stdout(output):
+                    self.assertEqual(workspace.main(['--repo', directory, 'call']), 0)
+                result = json.loads(output.getvalue())
+                self.assertEqual(result['reason'], 'not_git_repository')
+                self.assertEqual(result['status'], 'unavailable')
+            self.assertEqual(list(workspace.Path(directory).iterdir()), [])
+
+    def test_non_git_tests_still_report_failure_instead_of_claiming_verification(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = io.StringIO()
+            with patch.object(workspace.sys, 'stdin', io.StringIO('{"action":"test"}')), contextlib.redirect_stdout(output):
+                self.assertEqual(workspace.main(['--repo', directory, 'call']), 1)
+            self.assertIn('Cannot use workspace', json.loads(output.getvalue())['error'])
 
 
 if __name__ == '__main__':

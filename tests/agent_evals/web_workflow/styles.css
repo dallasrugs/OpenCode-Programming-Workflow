@@ -1,0 +1,15 @@
+:root { color: #183d30; background: #fff; font-family: Georgia, serif; line-height: 1.65; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+a { color: inherit; }
+.skip { position: absolute; top: -4rem; }
+.skip:focus { top: 0; background: white; padding: 1rem; z-index: 3; }
+aside { position: fixed; inset: 0 auto 0 0; width: 17rem; padding: 2rem; border-right: 1px solid #183d30; }
+nav { display: grid; gap: 1rem; margin: 3rem 0; }
+main { margin-left: 17rem; padding: 3rem; max-width: 80rem; }
+h1 { font-size: clamp(2rem, 5vw, 4rem); line-height: 1.15; }
+.entries { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 2rem; margin: 3rem 0; }
+article { border-top: 1px solid #183d30; padding-top: 1rem; }
+input, select { font: inherit; max-width: 100%; padding: .5rem; margin: .5rem 1rem .5rem 0; }
+:focus-visible { outline: 3px solid #183d30; outline-offset: 3px; }
+[hidden] { display: none; }

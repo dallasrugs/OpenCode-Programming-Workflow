@@ -1051,6 +1051,204 @@
         "LICENSE"
       ],
       "patchSha256": "f364208dd07dcc28c5fd35eb6b171d78a31b685c65bd9c5f63ceb6619a38f57f"
+    },
+    {
+      "skill": "frontend-design",
+      "author": "Anthropic",
+      "upstreamRepository": "https://github.com/anthropics/skills",
+      "upstreamPath": "skills/frontend-design",
+      "upstreamCommit": "ca45fc496a3436251f191354091d557da31c15b5",
+      "license": "Apache-2.0",
+      "licensePath": "skills/frontend-design/LICENSE.txt",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-10-30",
+      "snapshot": "skill-sources/upstream/frontend-design",
+      "destination": "skills/frontend-design",
+      "compatibilityChanges": [],
+      "sourceSelectors": [
+        "skills/frontend-design",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/frontend-design/SKILL.md",
+          "sha256": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3",
+          "installedSha256": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE.txt",
+          "upstreamPath": "skills/frontend-design/LICENSE.txt",
+          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+          "installedSha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "upstreamPath": "THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "installedSha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ]
+    },
+    {
+      "skill": "karpathy-guidelines",
+      "author": "Multica contributors (inspired by Andrej Karpathy)",
+      "upstreamRepository": "https://github.com/multica-ai/andrej-karpathy-skills",
+      "upstreamPath": "skills/karpathy-guidelines",
+      "upstreamCommit": "2c606141936f1eeef17fa3043a72095b4765b9c2",
+      "license": "MIT",
+      "licensePath": "skills/karpathy-guidelines/SKILL.md",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-11-01",
+      "snapshot": "skill-sources/upstream/karpathy-guidelines",
+      "destination": "skills/karpathy-guidelines",
+      "compatibilityChanges": [],
+      "sourceSelectors": [
+        "skills/karpathy-guidelines"
+      ],
+      "files": [
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "skills/karpathy-guidelines/SKILL.md",
+          "sha256": "6e22cc54cb02a5e98ae42d06d9d7292db0c1b43894831b32879beb0166b2aea7",
+          "installedSha256": "6e22cc54cb02a5e98ae42d06d9d7292db0c1b43894831b32879beb0166b2aea7",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ]
+    },
+    {
+      "skill": "gtd",
+      "author": "Zerui Wang",
+      "upstreamRepository": "https://github.com/zrwang/gtd",
+      "upstreamPath": ".",
+      "upstreamCommit": "e192366199ba543505ff8d5caf88d31c40a4ae90",
+      "license": "MIT",
+      "licensePath": "LICENSE",
+      "status": "VERIFIED",
+      "lastSynchronized": "2026-11-01",
+      "snapshot": "skill-sources/upstream/gtd",
+      "destination": "skills/gtd",
+      "compatibilityChanges": [],
+      "sourceSelectors": [
+        ".gitignore",
+        "SKILL.md",
+        "LICENSE",
+        "README.md",
+        "references"
+      ],
+      "files": [
+        {
+          "path": ".gitignore",
+          "upstreamPath": ".gitignore",
+          "sha256": "1bbb1f296754fcd5e15329d3368b058e06bc7a16acdc42ec221e34f55637103e",
+          "installedSha256": "1bbb1f296754fcd5e15329d3368b058e06bc7a16acdc42ec221e34f55637103e",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "LICENSE",
+          "upstreamPath": "LICENSE",
+          "sha256": "610d3423423dbf1a19e704229e464cda2679ae0e14b21e050f3890bc6f1a6a59",
+          "installedSha256": "610d3423423dbf1a19e704229e464cda2679ae0e14b21e050f3890bc6f1a6a59",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "README.md",
+          "upstreamPath": "README.md",
+          "sha256": "c8163b276b5656640ba250b1134633190dc15ac38fdc360d89a3e8e41f39c0dc",
+          "installedSha256": "c8163b276b5656640ba250b1134633190dc15ac38fdc360d89a3e8e41f39c0dc",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "SKILL.md",
+          "upstreamPath": "SKILL.md",
+          "sha256": "4833479c3654894535801b2089d54d754efa82a521d0c112222a46c667890a26",
+          "installedSha256": "4833479c3654894535801b2089d54d754efa82a521d0c112222a46c667890a26",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/00-foundations.md",
+          "upstreamPath": "references/00-foundations.md",
+          "sha256": "1b2d9dafc43a3562807de699d06b416f44467f4cd9b7bb468f252b9c76d0e10d",
+          "installedSha256": "1b2d9dafc43a3562807de699d06b416f44467f4cd9b7bb468f252b9c76d0e10d",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/01-the-engine.md",
+          "upstreamPath": "references/01-the-engine.md",
+          "sha256": "2d094773b8716ff91c37adb4be95429c4c583cff6035cc7668fdaffc5408f193",
+          "installedSha256": "2d094773b8716ff91c37adb4be95429c4c583cff6035cc7668fdaffc5408f193",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/02-capture-and-setup.md",
+          "upstreamPath": "references/02-capture-and-setup.md",
+          "sha256": "5ccff7d527fe4c771e9116d3aaa1f45e380d39ce57d75755519fab6d73c17a8f",
+          "installedSha256": "5ccff7d527fe4c771e9116d3aaa1f45e380d39ce57d75755519fab6d73c17a8f",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/03-clarify-and-organize.md",
+          "upstreamPath": "references/03-clarify-and-organize.md",
+          "sha256": "c665abde728c8d73bd8309508f69aabf8d14463ec595d8645f8776402ba54f58",
+          "installedSha256": "c665abde728c8d73bd8309508f69aabf8d14463ec595d8645f8776402ba54f58",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/04-natural-planning.md",
+          "upstreamPath": "references/04-natural-planning.md",
+          "sha256": "6e5127b352268d7612bf8f0362f9c2264d4126e7fb8555f3efe3090944aaf46f",
+          "installedSha256": "6e5127b352268d7612bf8f0362f9c2264d4126e7fb8555f3efe3090944aaf46f",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/05-review.md",
+          "upstreamPath": "references/05-review.md",
+          "sha256": "f82579e0daaa49b71aec778dd42e9b54db0b11963f3d10b614dcc0799a3f2f7e",
+          "installedSha256": "f82579e0daaa49b71aec778dd42e9b54db0b11963f3d10b614dcc0799a3f2f7e",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/06-engage-and-choose.md",
+          "upstreamPath": "references/06-engage-and-choose.md",
+          "sha256": "4a54e81751c0e7b4927acc2568e5bff72e247e5525ad3147d22bed2464170e24",
+          "installedSha256": "4a54e81751c0e7b4927acc2568e5bff72e247e5525ad3147d22bed2464170e24",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/07-power-principles.md",
+          "upstreamPath": "references/07-power-principles.md",
+          "sha256": "04ba98eca063e4a54c1c7db88e16819c295263f8eb6d8b70b7ae79ffd7726687",
+          "installedSha256": "04ba98eca063e4a54c1c7db88e16819c295263f8eb6d8b70b7ae79ffd7726687",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        },
+        {
+          "path": "references/diagnostic.md",
+          "upstreamPath": "references/diagnostic.md",
+          "sha256": "f1de325e2b3f5ea204fda667761139f4f975754c4799d054399a089bf4b7b56c",
+          "installedSha256": "f1de325e2b3f5ea204fda667761139f4f975754c4799d054399a089bf4b7b56c",
+          "upstreamGitMode": "100644",
+          "installedMode": "0644"
+        }
+      ]
     }
   ],
   "resources": [
@@ -2306,7 +2504,8 @@
       "seo-technical",
       "ecommerce-brand-voice",
       "ecommerce-copywriting",
-      "ecommerce-product-pages"
+      "ecommerce-product-pages",
+      "karpathy-guidelines"
     ],
     "maintainer": [
       "domain-modeling",
@@ -2319,7 +2518,8 @@
       "code-quality",
       "verification",
       "milestone-coordination",
-      "seo-technical"
+      "seo-technical",
+      "karpathy-guidelines"
     ],
     "coder": [
       "tdd",
@@ -2336,7 +2536,8 @@
       "seo-technical",
       "ecommerce-brand-voice",
       "ecommerce-copywriting",
-      "ecommerce-product-pages"
+      "ecommerce-product-pages",
+      "karpathy-guidelines"
     ],
     "reviewer": [
       "how",
@@ -2353,7 +2554,8 @@
       "human-writing",
       "seo-content",
       "seo-technical",
-      "ecommerce-product-pages"
+      "ecommerce-product-pages",
+      "karpathy-guidelines"
     ],
     "poseidon": [
       "grilling",
@@ -2361,7 +2563,15 @@
       "codebase-design",
       "writing-plans",
       "verification-before-completion",
-      "milestone-coordination"
+      "milestone-coordination",
+      "karpathy-guidelines",
+      "grill-with-docs",
+      "domain-modeling",
+      "gtd",
+      "frontend-design"
+    ],
+    "researcher": [
+      "karpathy-guidelines"
     ]
   },
   "research": [

@@ -128,5 +128,6 @@ fi
 if [[ -e "$DEST/opencode.json" && $skipped -gt 0 ]]; then
   echo
   echo "Note: existing configuration files were not merged."
-  echo "Merge default_agent=poseidon and the disabled built-ins. See README.md migration guidance."
+  echo "Use runtime/skillctl.py compare-install DEST to detect differences; see docs/MIGRATION.md."
+  echo "An old configuration plus newly copied files is not a validated migration."
 fi

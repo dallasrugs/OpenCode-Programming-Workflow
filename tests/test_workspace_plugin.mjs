@@ -5,28 +5,41 @@ import { createHash } from "node:crypto"
 import { mkdtemp, readFile, rm, access, mkdir, writeFile, readdir } from "node:fs/promises"
 import { tmpdir } from "node:os"
 import path from "node:path"
-import { execFileSync, execFile } from "node:child_process"
-import { promisify } from "node:util"
+import { execFileSync } from "node:child_process"
 import { setTimeout } from "node:timers/promises"
 
-async function fixture(prefix = "poseidon-native-") {
+async function fixture(prefix = "poseidon-native-", native = []) {
   const directory = await mkdtemp(path.join(tmpdir(), prefix))
   execFileSync("git", ["init", "-q", directory])
-  const hooks = new Map(), commands = new Map(), prompts = [], queue = []
+  const hooks = new Map(), commands = new Map(), prompts = [], queue = [], synthetic = []
+  const tools = new Map(native.map(t => [t.id, { ...t }]))
   let tool, stopped = false
+  const stored = new Map()
   const cleanup = await plugin.setup({
     location: { directory },
+    storage: { get: async key => structuredClone(stored.get(key)), set: async (key,value) => { stored.set(key,structuredClone(value)) } },
     session: {
-      get: async ({ sessionID }) => ({ data: { id: sessionID, ...(sessionID === "child" ? { parentID: "parent" } : {}) } }),
-      hook: async (name, handler) => hooks.set(name, handler),
-      synthetic: async (value) => { assert.equal(value.resume, false) },
+      get: async ({ sessionID }) => ({ data: { id: sessionID, agent: "team-lead", ...(sessionID === "child" ? { parentID: "parent" } : {}) } }),
+      hook: async (name, handler) => { const previous=hooks.get(name); hooks.set(name, previous ? async event => { await previous(event); await handler(event) } : handler) },
+      synthetic: async (value) => { assert.equal(value.resume, false); synthetic.push(value) },
       prompt: async (value) => { prompts.push(value) },
     },
+    permission: { assert: async ({ action, resources, agent }) => {
+      assert.equal(action, "poseidon_workspace")
+      if (agent === "researcher" || (agent && agent !== "team-lead" && ["configure", "end_sandbox"].includes(resources[0]))) {
+        throw new Error("Permission denied")
+      }
+    } },
     command: { transform: async (register) => register({ add: (command) => commands.set(command.name, command) }) },
-    tool: { transform: async (register) => register({ add: (definition) => { tool = definition } }) },
+    tool: { list: async () => [...tools.values()], transform: async (register) => register({
+      add: (definition) => { tool = definition; tools.set(definition.name, { ...definition, id: definition.name }) },
+      list: () => [...tools.values()],
+      update: (id, update) => update(tools.get(id)),
+    }) },
     event: { async *subscribe({ signal }) {
+      let cursor = 0
       while (!signal.aborted) {
-        if (queue.length) yield queue.shift()
+        if (cursor < queue.length) yield queue[cursor++]
         else await setTimeout(10)
       }
       stopped = true
@@ -39,8 +52,8 @@ async function fixture(prefix = "poseidon-native-") {
     }
     assert.fail("Cleanup did not complete: " + id)
   }
-  return { directory, hooks, commands, tool, prompts, queue, marker, waitForMarker, async cleanup() {
-    cleanup()
+  return { directory, hooks, commands, tool: tools.get("poseidon_workspace"), tools, prompts, synthetic, queue, marker, waitForMarker, async cleanup() {
+    await cleanup()
     for (let attempt = 0; !stopped && attempt < 50; attempt++) await setTimeout(10)
     await rm(directory, { recursive: true, force: true })
   } }
@@ -57,6 +70,11 @@ test("workspace tool uses native permissions and root session ownership, without
     const settings = JSON.parse(result.content)
     assert.equal(settings.settings, null)
     assert.ok(settings.tests_template.commands.length)
+    const status = JSON.parse((await f.tool.execute({ action: "status" }, { sessionID: "child" })).content)
+    assert.equal(status.resources.version, 1)
+    assert.equal(status.resources.config.maxAgents, 1)
+    assert.equal(status.resources.config.maxTools, 1)
+    assert.ok(!JSON.stringify(status.resources).includes("environment"))
     await assert.rejects(access(path.join(f.directory, ".git/bdfl/runs")))
   } finally { await f.cleanup() }
 })
@@ -69,7 +87,7 @@ test("delegated agents share the user sandbox; deleting a child does not end its
     const count = (await readdir(operations)).length
     await f.hooks.get("prompt")({ sessionID: "child" })
     assert.equal((await readdir(operations)).length, count)
-    const context = { sessionID: "child", system: [] }
+    const context = { sessionID: "child", agent: "team-lead", system: [], options: {}, tools: {} }
     await f.hooks.get("context")(context)
     assert.match(context.system[0].text, /needs_configuration/)
     f.queue.push({ type: "session.deleted", data: { sessionID: "child" } })
@@ -90,10 +108,60 @@ test("log command follows native operation output with quoted paths and rejects 
     await writeFile(path.join(directory, "state.json"), JSON.stringify({ finished: true, failed: false }))
     await writeFile(path.join(directory, "output.log"), "NATIVE_LOG_MARKER\n")
     await f.commands.get("poseidon-logs").execute({ sessionID: "child", prompt: { text: id } })
-    const viewer = f.prompts.at(-1)
+    const viewer = f.synthetic.at(-1)
     assert.equal(viewer.sessionID, "parent")
-    const output = await promisify(execFile)("/bin/sh", ["-c", viewer.text.split("\n").at(-1)])
-    assert.match(output.stdout, /NATIVE_LOG_MARKER/)
+    assert.match(viewer.text, /NATIVE_LOG_MARKER/)
+    assert.equal(f.prompts.length, 0)
     await assert.rejects(f.commands.get("poseidon-logs").execute({ sessionID: "parent", prompt: { text: id + "; echo injected" } }), /Invalid log ID/)
   } finally { await f.cleanup() }
+})
+
+
+test("workspace checks the calling worker before helper execution", async () => {
+  const f = await fixture()
+  try {
+    for (const action of ["settings", "configure", "test", "status", "end_sandbox"]) {
+      await assert.rejects(f.tool.execute({ action }, { sessionID: "child", agent: "researcher" }), /Permission denied|Operator configures|Session role changed/)
+    }
+    for (const agent of ["coder", "reviewer"]) {
+      for (const action of ["configure", "end_sandbox"]) {
+        await assert.rejects(f.tool.execute({ action }, { sessionID: "child", agent }), /Permission denied|Operator configures|Session role changed/)
+      }
+    }
+    // Rejection happened before the host helper created settings or operation logs.
+    await assert.rejects(access(path.join(f.directory, ".git/bdfl")))
+  } finally { await f.cleanup() }
+})
+
+
+test("native tool transforms admit agent and heavy calls without holding a dispatcher slot", async () => {
+  let active = 0, peak = 0
+  const execute = async (_input, context) => {
+    assert.ok(context.signal instanceof AbortSignal)
+    active++; peak = Math.max(peak, active)
+    await setTimeout(30)
+    active--
+    return { content: "done" }
+  }
+  const dispatcher = async () => ({ content: "dispatch" })
+  const f = await fixture("poseidon-governed-", [
+    {id:"glob",execute}, {id:"shell",execute}, {id:"remote_mcp",execute}, {id:"execute",execute:dispatcher},
+  ])
+  try {
+    await Promise.all(Array.from({length:4}, () => f.tools.get("glob").execute({}, {sessionID:"parent", agent:"team-lead"})))
+    assert.equal(peak,1)
+    for (const id of ["shell", "remote_mcp", "execute"]) {
+      await assert.rejects(f.tools.get(id).execute({}, {sessionID:"parent",agent:"team-lead"}), /Unclassified tool/)
+    }
+  } finally { await f.cleanup() }
+})
+test("an existing global workspace tool is reused without duplicate sandbox hooks",async()=>{
+ const original=async()=>({content:'existing'})
+ const f=await fixture('workspace-compatible-',[{id:'poseidon_workspace',execute:original}])
+ try{
+  // The only prompt hook is reliability's bounded-turn reset; it does not provision a sandbox.
+  await f.hooks.get('prompt')({sessionID:'parent'})
+  await assert.rejects(access(path.join(f.directory,'.git/bdfl/operations')))
+  assert.ok(f.tools.has('agent_contracts'));assert.ok(f.commands.has('confirm-brief'))
+ }finally{await f.cleanup()}
 })

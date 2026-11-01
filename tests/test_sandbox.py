@@ -20,7 +20,7 @@ class Docker:
         self.image = True
         self.calls = []
         self.execute_real = b.execute
-        self.run_real = subprocess.run
+        self.run_real = b.capture
         self.labels = {'runtime.project': session.project, 'runtime.session': session.key}
         self.copied = []
 
@@ -68,7 +68,7 @@ class SandboxTests(unittest.TestCase):
         self.settings = s.save(self.root, self.policy, {})
         self.session = s.SessionSandbox(self.root, 'opencode-session')
         self.docker = Docker(self.session)
-        for target, method, fake in ((b, 'execute', self.docker.execute), (s.subprocess, 'run', self.docker.run)):
+        for target, method, fake in ((b, 'execute', self.docker.execute), (b, 'capture', self.docker.run)):
             patcher = patch.object(target, method, side_effect=fake)
             patcher.start()
             self.addCleanup(patcher.stop)

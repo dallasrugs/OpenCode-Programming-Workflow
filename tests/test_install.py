@@ -21,7 +21,7 @@ class InstallerTests(unittest.TestCase):
             self.install(target)
             bundle = target / '.opencode'
             self.assertEqual(set(x.stem for x in (bundle / 'agents').glob('*.md')),
-                             {'poseidon', 'team-lead', 'maintainer', 'coder', 'reviewer'})
+                             {'poseidon', 'team-lead', 'maintainer', 'researcher', 'coder', 'reviewer'})
             self.assertTrue((bundle / 'runtime/runtime.py').is_file())
             self.assertFalse((bundle / 'governance').exists())
             self.assertTrue((bundle / 'runtime/sandbox.py').is_file())
@@ -29,17 +29,24 @@ class InstallerTests(unittest.TestCase):
             self.assertTrue((bundle / 'runtime/logs.py').is_file())
             self.assertTrue((bundle / 'runtime/settings.example.json').is_file())
             self.assertTrue((bundle / 'plugins/poseidon-workspace/index.js').is_file())
-            self.assertEqual(len(list((bundle / 'skills').glob('*/SKILL.md'))), 24)
+            self.assertEqual(len(list((bundle / 'skills').glob('*/SKILL.md'))), 27)
             self.assertTrue((bundle / 'skills/tdd/tests.md').is_file())
             self.assertTrue((bundle / 'skills/tdd/LICENSE').is_file())
+            self.assertTrue((bundle / 'skills/frontend-design/LICENSE.txt').is_file())
+            self.assertTrue((bundle / 'skills/gtd/references/04-natural-planning.md').is_file())
+            self.assertTrue((bundle / 'skills/gtd/LICENSE').is_file())
+            self.assertTrue((bundle / 'agents/researcher.md').is_file())
             self.assertTrue((bundle / 'skill-sources/upstream/tdd/SKILL.md').is_file())
             self.assertTrue((bundle / 'skill-sources/patches/seo-content.json').is_file())
             self.assertTrue((bundle / 'skill-resources/claude-seo/scripts/url_safety.py').is_file())
             config = bundle / 'opencode.json'
-            self.assertEqual(json.loads(config.read_text())['default_agent'], 'poseidon')
+            self.assertEqual(json.loads(config.read_text())['default_agent'], 'team-lead')
+            designer = bundle / 'agents/researcher.md'
+            designer.write_text('preserve custom designer')
             config.write_text('preserve existing user config')
             self.install(target)
             self.assertEqual(config.read_text(), 'preserve existing user config')
+            self.assertEqual(designer.read_text(), 'preserve custom designer')
 
     def test_jsonc_preserved_without_competing_json(self):
         with tempfile.TemporaryDirectory() as tmp:

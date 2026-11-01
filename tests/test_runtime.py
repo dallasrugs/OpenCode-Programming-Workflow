@@ -3,6 +3,7 @@ from contextlib import redirect_stderr
 import io
 from pathlib import Path
 import sys
+import subprocess
 import tempfile
 import unittest
 
@@ -21,6 +22,17 @@ class RuntimeTests(unittest.TestCase):
 
     def tearDown(self):
         self.directory.cleanup()
+
+    def test_capture_bounds_required_results_and_drains_both_streams(self):
+        with self.assertRaisesRegex(runtime.SandboxError, 'capture budget'):
+            runtime.capture([sys.executable, '-c',
+                             'import sys; sys.stdout.write("x"*100000); sys.stderr.write("y"*100000)'], limit=1024)
+        result = runtime.capture([sys.executable, '-c', 'print("small required result")'])
+        self.assertEqual(result.stdout, b'small required result\n')
+
+    def test_capture_timeout_reaps_owned_child(self):
+        with self.assertRaises(subprocess.TimeoutExpired):
+            runtime.capture([sys.executable, '-c', 'import time; time.sleep(60)'], timeout=.05)
 
     def test_build_snapshot_excludes_secrets_configuration_and_ignored_dependencies(self):
         (self.root / '.env').write_text('not for the sandbox')

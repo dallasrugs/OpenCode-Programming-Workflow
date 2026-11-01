@@ -1,0 +1,33 @@
+{
+  "maxAgents": 1,
+  "maxTools": 1,
+  "maxShells": 1,
+  "maxDepth": 1,
+  "maxQueue": 4,
+  "queueTimeoutMs": 60000,
+  "workTimeoutMs": 900000,
+  "activeSampleMs": 7500,
+  "idleSampleMs": 30000,
+  "metricTimeoutMs": 3000,
+  "graceMs": 2000,
+  "historySize": 64,
+  "thresholds": [
+    0.5,
+    0.65,
+    0.8,
+    0.9
+  ],
+  "hysteresis": 0.05,
+  "recoverySamples": 3,
+  "rssSoftFraction": 0.2,
+  "rssHardFraction": 0.3,
+  "fdSoft": 1024,
+  "fdHard": 2048,
+  "outputBytes": 1048576,
+  "leakSamples": 6,
+  "leakGrowth": 64,
+  "workloadRssSoftFraction": 0.1,
+  "workloadRssHardFraction": 0.2,
+  "workloadFDSoft": 2048,
+  "workloadFDHard": 4096
+}

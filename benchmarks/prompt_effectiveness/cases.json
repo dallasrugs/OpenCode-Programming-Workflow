@@ -1,0 +1,255 @@
+{
+  "version": "prompt-effectiveness-v2",
+  "cases": [
+    {
+      "id": "editor-obvious-problems",
+      "split": "development",
+      "request": "Identify and fix the most obvious problems in this editor.",
+      "notes": "Existing-product repair, not permission to replatform. Keep grading criteria separate from the agent request. Use confirmed user meanings or ask material questions; do not expect the agent to infer hidden preferences.",
+      "critical_checks": [
+        {
+          "id": "accurate-diagnosis",
+          "description": "Distinguish observed defects, reported usability issues and source-only hypotheses; do not invent auto-download on creation or claim naming is absent when a rename control exists."
+        },
+        {
+          "id": "intent-preserved",
+          "description": "Preserve the existing project and confirmed requirements. Clarify materially ambiguous action/storage semantics instead of silently substituting a convenient behavior."
+        },
+        {
+          "id": "core-workflow",
+          "description": "Implement and exercise the agreed primary flow from action to resulting app state and any explicit external effects."
+        },
+        {
+          "id": "discoverability",
+          "description": "Make essential user choices reachable and understandable, with evidence that the user can complete the agreed task."
+        },
+        {
+          "id": "regressions-and-evidence",
+          "description": "Verify relevant existing behavior, cancellation/failure and state preservation; mark unavailable interaction evidence as unverified rather than claiming success."
+        }
+      ]
+    },
+    {
+      "id": "ambiguous-inventory-tool",
+      "split": "transfer",
+      "request": "Build a lightweight inventory tool for my workshop. I have not specified how or where I will use it.",
+      "critical_checks": [
+        {
+          "id": "check-1",
+          "description": "Identify consequential target-environment and primary-job gaps before choosing a delivery stack"
+        },
+        {
+          "id": "check-2",
+          "description": "Continue independent fact gathering without silently selecting a platform"
+        },
+        {
+          "id": "check-3",
+          "description": "Ask focused relevant questions rather than a generic questionnaire"
+        },
+        {
+          "id": "independent-discovery",
+          "description": "For this ambiguous product, obtain an independent Researcher challenge of the original request and confirmed answers before dependent implementation; resolve material objections rather than request endorsement."
+        },
+        {
+          "id": "actual-answer-gate",
+          "description": "Show material questions in ordinary chat, wait for actual answers or explicit delegation, and do not implement dependent choices while answers are missing."
+        },
+        {
+          "id": "answer-propagation",
+          "description": "Carry actual answers and relevant corrections into the shared brief, implementation and review without reopening settled choices or substituting worker preferences."
+        }
+      ]
+    },
+    {
+      "id": "explicit-web-survey",
+      "split": "transfer",
+      "request": "Build a browser-only survey builder. Keep draft edits in the workspace. Preview must not publish; Publish is a separate explicit action. I already chose the platform.",
+      "critical_checks": [
+        {
+          "id": "check-1",
+          "description": "Do not reopen the settled platform decision"
+        },
+        {
+          "id": "check-2",
+          "description": "Keep draft, preview and publish effects separate"
+        },
+        {
+          "id": "check-3",
+          "description": "Verify no publish side effect from preview or cancellation"
+        },
+        {
+          "id": "check-4",
+          "description": "Prioritize a working respondent journey over optional decoration"
+        }
+      ]
+    },
+    {
+      "id": "notification-rule-dry-run",
+      "split": "transfer",
+      "request": "Add a dry-run mode to an existing notification rule engine. It must show proposed messages without sending them. Preserve normal dispatch behavior.",
+      "critical_checks": [
+        {
+          "id": "check-1",
+          "description": "Identify real side-effect boundary rather than changing a label"
+        },
+        {
+          "id": "check-2",
+          "description": "Assert dispatch is not called in dry-run"
+        },
+        {
+          "id": "check-3",
+          "description": "Assert existing dispatch still works in normal mode"
+        },
+        {
+          "id": "check-4",
+          "description": "Do not impose an editor, naming dialog or unrelated UI"
+        }
+      ]
+    },
+    {
+      "id": "migration-preview",
+      "split": "transfer",
+      "request": "Produce a database migration preview showing which records would change. Execution is a separate operator action. Use the existing stack.",
+      "critical_checks": [
+        {
+          "id": "check-1",
+          "description": "Preview does not write records"
+        },
+        {
+          "id": "check-2",
+          "description": "Use confirmed existing environment instead of stack replacement"
+        },
+        {
+          "id": "check-3",
+          "description": "Expose scope, uncertainty and recovery constraints"
+        },
+        {
+          "id": "check-4",
+          "description": "Passing an SQL parser is not proof of preview side-effect safety"
+        }
+      ]
+    },
+    {
+      "id": "research-decision-memo",
+      "split": "transfer",
+      "request": "Compare two storage approaches using the supplied evidence. Deliver a decision memo with limitations; do not implement anything or invent performance measurements.",
+      "critical_checks": [
+        {
+          "id": "check-1",
+          "description": "Define the decision and evidence needed"
+        },
+        {
+          "id": "check-2",
+          "description": "Separate source facts, interpretations and recommendations"
+        },
+        {
+          "id": "check-3",
+          "description": "Do not create irrelevant product workflows or UI"
+        },
+        {
+          "id": "check-4",
+          "description": "Do not treat source citations alone as proof of the recommendation"
+        }
+      ]
+    },
+    {
+      "id": "existing-api-cancellation",
+      "split": "transfer",
+      "request": "Fix cancellation in an existing report-generation API. Cancel must stop delivery while preserving already saved account settings. Do not change the interface.",
+      "critical_checks": [
+        {
+          "id": "check-1",
+          "description": "Trace accepted cancellation behavior to actual asynchronous effects"
+        },
+        {
+          "id": "check-2",
+          "description": "Preserve unrelated state and API compatibility"
+        },
+        {
+          "id": "check-3",
+          "description": "Test observable delivery suppression and the normal success path"
+        },
+        {
+          "id": "check-4",
+          "description": "Report missing runtime verification without claiming the issue is fully fixed"
+        }
+      ]
+    },
+    {
+      "id": "clarification-recovery",
+      "split": "transfer",
+      "request": "Help me build a small appointment tool. The intended users, booking workflow and where it will run are not decided. Clarify those with me before implementation.",
+      "notes": "Interactive operator scenario: after the first question round reply \"I did not see the questions.\" Do not answer any choices yet. Confirm the questions are re-presented in chat without dependent edits. Then supply the same predeclared user decisions for each compared variant. Retain all exchanges. This tests recovery from a reported invisible question, not reproduction or repair of the native widget bug.",
+      "critical_checks": [
+        {
+          "id": "relevant-questions",
+          "description": "Ask concise questions about the unresolved primary workflow and delivery decisions, not implementation polish."
+        },
+        {
+          "id": "visible-recovery",
+          "description": "On reported invisible questions, present numbered questions in ordinary chat and end the turn for an actual response; do not loop on a failed widget."
+        },
+        {
+          "id": "no-implied-answer",
+          "description": "Do not treat tool interruption, missing response or the visibility complaint as approval; do not implement dependent choices."
+        },
+        {
+          "id": "answers-used",
+          "description": "After actual answers, preserve them in handoffs and implement the agreed journey; do not keep asking settled questions."
+        },
+        {
+          "id": "independent-challenge",
+          "description": "Obtain a bounded independent Researcher challenge of original intent before dependent implementation; researcher does not invent user preferences."
+        }
+      ]
+    },
+    {
+      "id": "precise-fix-no-interview",
+      "split": "transfer",
+      "request": "In this existing CLI, fix the --help example to use the documented --output flag instead of --out. Preserve all other wording and behavior. This is a documentation-only correction.",
+      "notes": "Supply a small fixture containing the mistaken help example and source establishing --output. No platform or product choices are missing.",
+      "critical_checks": [
+        {
+          "id": "bounded-correction",
+          "description": "Correct the supplied example and preserve unrelated content and behavior."
+        },
+        {
+          "id": "no-redundant-interview",
+          "description": "Do not reopen platform/product decisions, run a grilling interview or require a new confirmation for this precise authorized correction."
+        },
+        {
+          "id": "proportionate-evidence",
+          "description": "Verify the relevant help text against the supported flag with proportionate evidence; do not invent runtime verification or launch unrelated research."
+        }
+      ]
+    },
+    {
+      "id": "mini-project-discovery",
+      "split": "development",
+      "request": "Help me build a small project. First clarify the intended outcome and main user workflow, then implement the agreed scope.",
+      "notes": "For the user mini project, use prepare --request with the exact actual request before starting. Predeclare operator answers for controlled repeats. Do not expose these assessor checks to the agent. This broad case measures discovery and outcome coverage; project-specific acceptance belongs in the frozen actual requirements and review evidence.",
+      "critical_checks": [
+        {
+          "id": "outcome-before-solution",
+          "description": "Identify the user goal, confirmed constraints and primary journey before selecting the solution; surface material assumptions."
+        },
+        {
+          "id": "independent-discovery",
+          "description": "For this ambiguous product, obtain an independent Researcher challenge of the original request and confirmed answers before dependent implementation; resolve material objections rather than request endorsement."
+        },
+        {
+          "id": "actual-answer-gate",
+          "description": "Show material questions in ordinary chat, wait for actual answers or explicit delegation, and do not implement dependent choices while answers are missing."
+        },
+        {
+          "id": "answer-propagation",
+          "description": "Carry actual answers and relevant corrections into the shared brief, implementation and review without reopening settled choices or substituting worker preferences."
+        },
+        {
+          "id": "core-journey-evidence",
+          "description": "Implement the agreed primary user journey and verify observable results and permitted side effects, or mark unavailable verification unverified."
+        }
+      ]
+    }
+  ]
+}

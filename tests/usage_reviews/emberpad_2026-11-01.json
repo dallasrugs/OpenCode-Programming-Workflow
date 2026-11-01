@@ -1,0 +1,67 @@
+{
+  "task_id": "notepad-inspired-editor",
+  "artifact_id": "emberpad-user-review-2026-11-01",
+  "variant": "baseline",
+  "repeat": 1,
+  "original_request": "Build an original Notepad++-like text/code editor with linting, snippets and important features; use upstream only as a reference, not an exact copy.",
+  "user_overall_rating": 4,
+  "user_product_ratings": {
+    "interface": 8,
+    "usability": 4,
+    "internal_save_workflow": 0,
+    "discoverable_filename_and_extension": 0
+  },
+  "user_agent_ratings": {
+    "poseidon": 3,
+    "team-lead": 6,
+    "researcher": 8,
+    "coder_initial": 6.5,
+    "reviewer_initial": 7,
+    "coder_revision": 6,
+    "reviewer_revision": null
+  },
+  "rubric_ratings": {
+    "presentation": 8,
+    "workflow_usability": 4
+  },
+  "clarifications": [
+    {
+      "source": "user follow-up",
+      "decision": "Save commits document state within the app in memory; Download exports a file to the device."
+    },
+    {
+      "source": "user review",
+      "decision": "Platform was consequential and should have been clarified; do not infer a universal desktop requirement for future tasks."
+    }
+  ],
+  "critical_checks": [
+    {
+      "id": "platform-confirmed-before-stack",
+      "status": "FAIL",
+      "evidence": "Submitted agent transcript: browser chosen because the folder was empty and the user had not specified a platform."
+    },
+    {
+      "id": "save-has-confirmed-internal-semantics",
+      "status": "FAIL",
+      "evidence": "User clarifies Save is in-memory. src/App.tsx save() instead creates a Blob and clicks a download anchor."
+    },
+    {
+      "id": "identity-and-format-discoverable",
+      "status": "FAIL",
+      "evidence": "User rates choice of filename/extension 0/10. Source includes a pencil-triggered rename prompt accepting extensions, so absence of implementation is not established; discoverability/creation flow remains a reported failure."
+    },
+    {
+      "id": "primary-workflow-interaction-verification",
+      "status": "UNVERIFIED",
+      "evidence": "Submitted final handoff explicitly states no browser interaction or visual inspection. Screenshots show presentation and example state, not the full interaction/cancel/error sequence."
+    }
+  ],
+  "source_evidence": {
+    "app": "Reviewed checkout src/App.tsx",
+    "sha256": "6af204e059ea74003aad974c6df639e6d76b20714275ecfe8f36f788b6345a53",
+    "newFile": "Creates an in-memory document, activates it, and displays Download-to-save guidance; source does not show automatic download on New.",
+    "save": "Triggers download and marks the document saved.",
+    "rename": "Existing control accepts a filename including its extension."
+  },
+  "sampling_notes": "One user-reviewed task/artifact trajectory. Multiple screenshots, roles, revisions and unit assertions are not independent task samples. User ratings are retained verbatim, not converted into a pass probability. No after-tuning artifact or outcome exists yet."
+}

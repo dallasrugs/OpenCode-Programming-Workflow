@@ -1,0 +1,20 @@
+{
+  "version": "outcome-coverage-v1",
+  "weights": {
+    "intent_alignment": 20,
+    "core_behavior": 30,
+    "workflow_usability": 25,
+    "reliability_and_evidence": 15,
+    "presentation": 10
+  },
+  "scales": {
+    "0": "Required outcome absent or contradicts the accepted request",
+    "5": "Partly usable; material gaps or unverified behavior remain",
+    "10": "Accepted outcome demonstrated with relevant evidence"
+  },
+  "critical_gate": "Any failed critical outcome blocks readiness regardless of weighted score; any unverified critical outcome makes readiness inconclusive.",
+  "scoring_provenance": "Prospective assessor rubric, not user-provided weights and not a recalculation of the recorded 4/10 review.",
+  "sampling_unit": "A distinct task cluster, not a screenshot, assertion, role response or revision of the same task.",
+  "comparison": "Freeze request, criteria, environment and model settings. Pair before/after repeats, aggregate within task, then weight distinct tasks equally. Retain failed runs. Keep transfer tasks separate from the task used to tune prompts.",
+  "limitations": "No post-tuning product or live model evaluation exists for this prompt variant. One reviewed product does not establish general agent quality. A sign test requires independent preselected task clusters. Avoid optimizing for a letter grade."
+}

@@ -3,6 +3,9 @@
 import argparse
 from datetime import datetime, timezone
 import json
+import os
+import threading
+import time
 from pathlib import Path
 import signal
 import subprocess
@@ -67,11 +70,25 @@ def main(argv=None):
     parser.add_argument('identifier', nargs='?')
     args = parser.parse_args(argv)
     try:
-        root = Path(runtime.git(args.repo.resolve(), 'rev-parse', '--show-toplevel').decode().strip())
+        payload = json.load(sys.stdin) if args.mode == 'call' else None
+        requested_root = args.repo.resolve()
+        probe = runtime.capture(['git', '-C', str(requested_root), 'rev-parse', '--show-toplevel'])
+        if probe.returncode != 0:
+            not_git = b'not a git repository' in probe.stderr.lower()
+            if not_git and args.mode == 'call' and payload.get('action') in (
+                    'session_start', 'settings', 'status', 'end_sandbox'):
+                # Sandbox support is optional for ordinary chats in non-Git folders.
+                # Do not create a repository or persist workspace state there.
+                print(json.dumps({'status': 'unavailable', 'reason': 'not_git_repository',
+                                  'repo': str(requested_root), 'settings': None,
+                                  'error': 'Docker workspace testing requires a Git repository; ordinary chat can continue.'}))
+                return 0
+            runtime.require(False, 'Cannot use workspace in this folder: ' +
+                            probe.stderr.decode(errors='replace')[-4000:])
+        root = Path(probe.stdout.decode().strip())
         if args.mode != 'call':
             logs.follow(root, args.identifier)
             return 0
-        payload = json.load(sys.stdin)
         if payload.get('action') in ('session_start', 'configure', 'test'):
             payload.setdefault('operation_id', uuid.uuid4().hex)
         with logs.operation(root, payload):
@@ -89,6 +106,17 @@ def main(argv=None):
 
 
 if __name__ == '__main__':
+    # Only detached, governor-owned group leaders install an orphan watchdog.
+    # A plugin/server crash must not strand the helper and its same-group children.
+    if os.name == 'posix' and os.getpgrp() == os.getpid():
+        owner = os.getppid()
+        def watch_owner():
+            while os.getppid() == owner and owner != 1:
+                time.sleep(1)
+            os.kill(os.getpid(), signal.SIGTERM)
+            time.sleep(3)
+            os.killpg(os.getpgrp(), signal.SIGKILL)
+        threading.Thread(target=watch_owner, daemon=True).start()
     def interrupt(signum, frame):
         raise KeyboardInterrupt
     signal.signal(signal.SIGTERM, interrupt)

@@ -1,6 +1,10 @@
+# Current role integration — November 1, 2026
+
+The historical catalog/restoration notes below are retained. Current role assignments live in skills/SOURCES.json: Team Lead coordinates, Poseidon owns design and can load frontend-design/grilling/documented interview/GTD, Researcher can load only task-approved karpathy-guidelines. Imported skill bodies, support files and licenses were compared with the pre-assignment hashes and are unchanged. Microsoft and five K-Dense workflows were studied as references; no new collection/scripts/providers were installed. [Agent contracts](AGENT_CONTRACTS.md) supersede older role/delegation descriptions below.
+
 # Skill provenance and native OpenCode integration
 
-The role matrix includes Poseidon plus four native worker agents. Agent Markdown
+The role matrix includes Poseidon plus five native worker agents. Agent Markdown
 files define capabilities; the README describes the current workflow. Upstream
 source hashes, licenses and imported bodies are unchanged.
 
@@ -24,8 +28,10 @@ Current author-maintained source is pinned at the inspected Git commits below.
 original skills (`codebase-design` and `superpowers-test-driven-development`) are
 included because restored skills explicitly depend on them. Six existing local
 adaptations remain byte-for-byte unchanged and carry `SOURCE_UNVERIFIED` status.
-The complete native catalog therefore has **24 IDs**, including **18 verified
-upstream imports**. All pre-restoration inputs are archived outside discovery.
+That restoration produced **24 IDs**, including **18 verified upstream imports**.
+The subsequent original frontend-design import brings the current catalog to
+**25 IDs / 19 verified imports**; see its Apache-2.0 record below. All pre-restoration
+inputs are archived outside discovery.
 
 ## Audit of every existing skill
 
@@ -151,22 +157,43 @@ skills, not new OpenCode agents. Source snapshots and legacy inputs live outside
 
 ## Native execution and role assignment
 
+November 1, 2026: Poseidon and Researcher now load the existing, unchanged Matt
+Pocock `grilling` skill proactively for material product/design ambiguity. User
+phrases “grill me”, “grill-me” and “grill” route to this native ID; no duplicate
+skill is invented. Both roles also have `grill-with-docs` (explicit requests only)
+and its `domain-modeling` dependency. Researcher drafts questions and documentation
+through Poseidon, with no write/question-tool/delegation grant. Role definitions
+limit rounds to three material questions, reuse answers and honor explicit user
+delegation. Imported source bodies, hashes and manual-invocation flags are intact.
+
+Poseidon alone can load `gtd`, imported byte-for-byte from
+[zrwang/gtd](https://github.com/zrwang/gtd/tree/e192366199ba543505ff8d5caf88d31c40a4ae90)
+at commit `e192366199ba543505ff8d5caf88d31c40a4ae90`. The root skill, README,
+LICENSE, `.gitignore` and all nine references are retained and hashed in
+`skills/SOURCES.json` with matching source snapshots. Root-level update selectors
+preserve reference paths. Zerui Wang's MIT license includes a separate copyright
+caveat for David Allen excerpts; that full notice is retained. No book PDF is
+bundled or required; the skill's `books/...pdf` string is an upstream source
+citation. The user's language and confirmed vision take precedence over the
+skill author's personal defaults. GTD grants no new authority for external actions.
+
 Skills load through OpenCode's native skill tool. Their source text and licenses
 remain unchanged; loading a skill does not grant additional permissions. Manual-only
 invocation flags remain intact. OpenCode is responsible for the full YAML parser;
 the local validator checks the discovery fields used by the pinned sources.
 
-The five agent definitions and `skills/SOURCES.json` contain matching allowlists:
+The six agent definitions and `skills/SOURCES.json` contain matching allowlists:
 
 | Agent | Skill responsibilities |
 |---|---|
 | Poseidon | Coordination, planning and verification |
 | Team Lead | Requirements, decomposition and content planning |
 | Maintainer | Architecture, compatibility and code review |
+| Researcher | Read-only source/web research; frontend-design methodology for UI specifications |
 | Coder | Implementation, TDD, debugging and code/content quality |
 | Reviewer | Independent review, test strategy and verification |
 
-Poseidon delegates to the four worker agents. Worker agents do not recursively delegate.
+Poseidon delegates to the five worker agents. Worker agents do not recursively delegate.
 Coder uses native edit/shell tools. Reviewer has native shell access for inspection and tests, while its instructions
 prohibit application source edits. It can also run the configured sandbox tests. A skill requiring unsupported delegation,
 external publication or other unavailable tools must report that limitation; an
@@ -243,3 +270,43 @@ installation, back up and inspect obsolete adapted directories before removing
 them; the installer never deletes user files or silently merges local changes.
 Old Task #1 runs should be restarted because the canonical skill IDs and catalog
 have changed. No commits, pushes or deployments were made by the restoration.
+
+## Approved Apache-2.0 frontend-design import
+
+Added October 30, 2026 from the original [Anthropic skill directory](https://github.com/anthropics/skills/tree/ca45fc496a3436251f191354091d557da31c15b5/skills/frontend-design),
+pinned at **`ca45fc496a3436251f191354091d557da31c15b5`**. This adds one verified
+native ID to the earlier restoration: **25 native skills, 19 verified imports,
+6 unchanged unverified adaptations, 173 imported files including shared resources**.
+The original methodology is not rewritten or compatibility-patched.
+
+`SKILL.md`, original `LICENSE.txt` (Apache License 2.0) and repository
+`THIRD_PARTY_NOTICES.md` are copied byte-for-byte to both
+`skill-sources/upstream/frontend-design/` and `skills/frontend-design/`.
+The complete root third-party notice is retained conservatively; this import
+contains no third-party programs, fonts or dependencies from those notices.
+Each path, immutable SHA, file hash and installed hash/mode is recorded in SOURCES.
+The author frontmatter's relative `LICENSE.txt` link remains valid.
+
+The validator permits Apache-2.0 only for the explicitly approved
+`frontend-design` identity at `https://github.com/anthropics/skills`, source path
+`skills/frontend-design`, and original license path. It additionally pins the
+approved Apache license's exact SHA-256 in validator code. Existing imports
+still require MIT and their original notices; unknown licenses/sources fail
+closed. Snapshot/installed equality, hashes, complete file inventory and sync-time
+license-change blocking apply unchanged. The selector preserves LICENSE.txt
+rather than renaming it to LICENSE during future synchronization. License or
+notice changes require separate review, not a bypass flag.
+
+Researcher alone has native `skill:frontend-design allow`. Other roles receive
+the bounded handoff and retain their existing skill allowlists. The native skill
+loader supplies the document on demand; it is not injected into every agent.
+Build/code instructions in the original are advisory methodology and confer no
+editing, shell, screenshot or delegation permission. Researcher's tool restrictions
+and the application brief take precedence. The updated development CLI used to
+verify discovery, skill loading and permissions is **OpenCode v2.2.4**.
+
+## Karpathy guidelines (November 1, 2026)
+
+All six agents load `karpathy-guidelines` before substantive coding, planning, research or review work, within existing authority, role, test ownership and work limits. Project and global installations include the skill and narrowly scoped global read permissions.
+
+Imported unchanged from `multica-ai/andrej-karpathy-skills` at commit `2c606141936f1eeef17fa3043a72095b4765b9c2`. The skill and source snapshot are byte-identical. Upstream declares MIT in the skill frontmatter and [README](https://github.com/multica-ai/andrej-karpathy-skills/blob/2c606141936f1eeef17fa3043a72095b4765b9c2/README.md#license), without a separate LICENSE file; none has been invented. The validator accepts only this exact source hash and declaration for this import; source updates require review of that exception.

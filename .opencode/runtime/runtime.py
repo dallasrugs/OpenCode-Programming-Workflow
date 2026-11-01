@@ -48,9 +48,41 @@ def atomic_json(path, value):
         tmp.unlink(missing_ok=True)
 
 
+def capture(argv, cwd=None, timeout=60, env=None, stdin=None, limit=16 * 1024 * 1024):
+    """Drain both pipes with bounded buffers; reject oversized required results explicitly."""
+    process = subprocess.Popen(argv, cwd=cwd, env=env, stdin=stdin,
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    buffers, truncated = [bytearray(), bytearray()], [False, False]
+    def drain(index, stream):
+        try:
+            while chunk := stream.read(8192):
+                room = max(0, limit - len(buffers[index]))
+                buffers[index].extend(chunk[:room])
+                if len(chunk) > room:
+                    truncated[index] = True
+        finally:
+            stream.close()
+    threads = [threading.Thread(target=drain, args=(i, stream), daemon=True)
+               for i, stream in enumerate((process.stdout, process.stderr))]
+    for thread in threads:
+        thread.start()
+    try:
+        process.wait(timeout=timeout)
+    except BaseException:
+        process.kill()
+        process.wait()
+        raise
+    finally:
+        for thread in threads:
+            thread.join(timeout=2)
+    require(not any(thread.is_alive() for thread in threads), 'Command left inherited output streams open')
+    require(not any(truncated), 'Command output exceeded capture budget; required result was not silently truncated')
+    return subprocess.CompletedProcess(argv, process.returncode, bytes(buffers[0]), bytes(buffers[1]))
+
+
 def execute(argv, cwd=None, timeout=60, env=None):
     try:
-        result = subprocess.run(argv, cwd=cwd, env=env, capture_output=True, timeout=timeout)
+        result = capture(argv, cwd=cwd, env=env, timeout=timeout)
     except (OSError, subprocess.TimeoutExpired) as e:
         raise SandboxError(f'Command unavailable or timed out: {argv[0]}: {e}') from e
     require(result.returncode == 0, f'Command failed: {argv[0]}: {result.stderr.decode(errors="replace")[-4000:]}')

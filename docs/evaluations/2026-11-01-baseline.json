@@ -1,0 +1,3185 @@
+{
+  "date": "2026-11-01",
+  "cli": "OpenCode v2.2.5",
+  "defaultAgent": "poseidon",
+  "roles": {
+    "poseidon": {
+      "mode": "primary",
+      "model": "openai/gpt-6-sol",
+      "permissions": [
+        {
+          "action": "*",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "glob",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "grep",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "question",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "subagent",
+          "resource": "team-lead",
+          "effect": "allow"
+        },
+        {
+          "action": "subagent",
+          "resource": "maintainer",
+          "effect": "allow"
+        },
+        {
+          "action": "subagent",
+          "resource": "coder",
+          "effect": "allow"
+        },
+        {
+          "action": "subagent",
+          "resource": "reviewer",
+          "effect": "allow"
+        },
+        {
+          "action": "poseidon_workspace",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": ".git",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".git",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "skill",
+          "resource": "grill-with-docs",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "domain-modeling",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "gtd",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "karpathy-guidelines",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "grilling",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "how",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "codebase-design",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "writing-plans",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "verification-before-completion",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "milestone-coordination",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/grilling/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/how/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/codebase-design/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/writing-plans/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/verification-before-completion/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/milestone-coordination/*",
+          "effect": "allow"
+        },
+        {
+          "action": "subagent",
+          "resource": "researcher",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "*.env",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.env.*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.pem",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.key",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*credentials*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*auth.json",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.p12",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.pfx",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.keystore",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.env",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.env.*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.pem",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.key",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*credentials*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*auth.json",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.p12",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.pfx",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.keystore",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/grilling/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/how/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/codebase-design/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/writing-plans/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/verification-before-completion/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/milestone-coordination/*",
+          "effect": "allow"
+        },
+        {
+          "action": "edit",
+          "resource": ".opencode",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.opencode",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".agents/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.agents/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".codex/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.codex/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "opencode.json",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "opencode.jsonc",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/opencode.json",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/opencode.jsonc",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "~/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/karpathy-guidelines/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/karpathy-guidelines/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/grill-with-docs/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/grill-with-docs/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/domain-modeling/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/domain-modeling/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/gtd/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/gtd/*",
+          "effect": "allow"
+        }
+      ]
+    },
+    "reviewer": {
+      "mode": "subagent",
+      "model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+      "permissions": [
+        {
+          "action": "*",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "glob",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "grep",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "poseidon_workspace",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": ".git",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".git",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "skill",
+          "resource": "karpathy-guidelines",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "how",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "codebase-design",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "code-review",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "tdd",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "superpowers-test-driven-development",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "systematic-debugging",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "diagnosing-bugs",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "verification-before-completion",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "code-quality",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "verification",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "humanizer",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "human-writing",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "seo-content",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "seo-technical",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "ecommerce-product-pages",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/how/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/codebase-design/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/code-review/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/tdd/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/superpowers-test-driven-development/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/systematic-debugging/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/diagnosing-bugs/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/verification-before-completion/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/code-quality/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/verification/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/humanizer/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/human-writing/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/seo-content/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/seo-technical/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/ecommerce-product-pages/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "*.env",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.env.*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.pem",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.key",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*credentials*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*auth.json",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.p12",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.pfx",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.keystore",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.env",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.env.*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.pem",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.key",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*credentials*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*auth.json",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.p12",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.pfx",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.keystore",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "~/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/how/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/codebase-design/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/code-review/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/tdd/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/superpowers-test-driven-development/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/systematic-debugging/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/diagnosing-bugs/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/verification-before-completion/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/code-quality/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/verification/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/humanizer/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/human-writing/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/seo-content/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/seo-technical/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/ecommerce-product-pages/*",
+          "effect": "allow"
+        },
+        {
+          "action": "poseidon_workspace",
+          "resource": "configure",
+          "effect": "deny"
+        },
+        {
+          "action": "poseidon_workspace",
+          "resource": "end_sandbox",
+          "effect": "deny"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/karpathy-guidelines/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/karpathy-guidelines/*",
+          "effect": "allow"
+        },
+        {
+          "action": "subagent",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
+    },
+    "maintainer": {
+      "mode": "subagent",
+      "model": "openai/gpt-6-sol",
+      "permissions": [
+        {
+          "action": "*",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "glob",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "grep",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": ".git",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".git",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "skill",
+          "resource": "karpathy-guidelines",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "domain-modeling",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "how",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "codebase-design",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "code-review",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "systematic-debugging",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "diagnosing-bugs",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "verification-before-completion",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "code-quality",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "verification",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "milestone-coordination",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "seo-technical",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/domain-modeling/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/how/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/codebase-design/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/code-review/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/systematic-debugging/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/diagnosing-bugs/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/verification-before-completion/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/code-quality/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/verification/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/milestone-coordination/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/seo-technical/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "*.env",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.env.*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.pem",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.key",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*credentials*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*auth.json",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.p12",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.pfx",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.keystore",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.env",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.env.*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.pem",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.key",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*credentials*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*auth.json",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.p12",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.pfx",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.keystore",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "~/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/domain-modeling/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/how/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/codebase-design/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/code-review/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/systematic-debugging/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/diagnosing-bugs/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/verification-before-completion/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/code-quality/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/verification/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/milestone-coordination/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/seo-technical/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/karpathy-guidelines/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/karpathy-guidelines/*",
+          "effect": "allow"
+        },
+        {
+          "action": "subagent",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
+    },
+    "researcher": {
+      "mode": "subagent",
+      "model": "openrouter/thinkingmachines/inkling:free",
+      "permissions": [
+        {
+          "action": "*",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "glob",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "grep",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "webfetch",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "websearch",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "opencode_list_mcp_resources",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "opencode_read_mcp_resource",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "grilling",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "grill-with-docs",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "domain-modeling",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "karpathy-guidelines",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "frontend-design",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "*.env",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.env.*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.pem",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.key",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*credentials*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*auth.json",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.p12",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.pfx",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.keystore",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "execute",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "external_directory",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "poseidon_workspace",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/karpathy-guidelines/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/karpathy-guidelines/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/frontend-design/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/frontend-design/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/grilling/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/grilling/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/grill-with-docs/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/grill-with-docs/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/domain-modeling/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/domain-modeling/*",
+          "effect": "allow"
+        },
+        {
+          "action": "subagent",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
+    },
+    "team-lead": {
+      "mode": "subagent",
+      "model": "openai/gpt-6-sol",
+      "permissions": [
+        {
+          "action": "*",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "glob",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "grep",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": ".git",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".git",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "skill",
+          "resource": "karpathy-guidelines",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "grilling",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "grill-with-docs",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "domain-modeling",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "how",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "codebase-design",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "to-spec",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "to-tickets",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "writing-plans",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "verification-before-completion",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "milestone-coordination",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "humanizer",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "human-writing",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "seo-content",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "seo-technical",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "ecommerce-brand-voice",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "ecommerce-copywriting",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "ecommerce-product-pages",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/grilling/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/grill-with-docs/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/domain-modeling/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/how/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/codebase-design/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/to-spec/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/to-tickets/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/writing-plans/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/verification-before-completion/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/milestone-coordination/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/humanizer/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/human-writing/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/seo-content/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/seo-technical/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/ecommerce-brand-voice/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/ecommerce-copywriting/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/ecommerce-product-pages/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "*.env",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.env.*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.pem",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.key",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*credentials*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*auth.json",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.p12",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.pfx",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.keystore",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.env",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.env.*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.pem",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.key",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*credentials*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*auth.json",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.p12",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.pfx",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.keystore",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "~/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/grilling/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/grill-with-docs/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/domain-modeling/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/how/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/codebase-design/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/to-spec/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/to-tickets/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/writing-plans/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/verification-before-completion/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/milestone-coordination/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/humanizer/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/human-writing/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/seo-content/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/seo-technical/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/ecommerce-brand-voice/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/ecommerce-copywriting/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/ecommerce-product-pages/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/karpathy-guidelines/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/karpathy-guidelines/*",
+          "effect": "allow"
+        },
+        {
+          "action": "subagent",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
+    },
+    "coder": {
+      "mode": "subagent",
+      "model": "openai/gpt-6-sol",
+      "permissions": [
+        {
+          "action": "*",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "glob",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "grep",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "shell",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "poseidon_workspace",
+          "resource": "*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": ".git",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".git",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.git/*",
+          "effect": "deny"
+        },
+        {
+          "action": "skill",
+          "resource": "karpathy-guidelines",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "tdd",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "superpowers-test-driven-development",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "systematic-debugging",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "diagnosing-bugs",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "codebase-design",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "verification-before-completion",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "code-quality",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "verification",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "humanizer",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "human-writing",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "seo-content",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "seo-technical",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "ecommerce-brand-voice",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "ecommerce-copywriting",
+          "effect": "allow"
+        },
+        {
+          "action": "skill",
+          "resource": "ecommerce-product-pages",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/tdd/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/superpowers-test-driven-development/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/systematic-debugging/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/diagnosing-bugs/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/codebase-design/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/verification-before-completion/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/code-quality/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/verification/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/humanizer/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/human-writing/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/seo-content/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/seo-technical/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/ecommerce-brand-voice/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/ecommerce-copywriting/*",
+          "effect": "allow"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/ecommerce-product-pages/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "*.env",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.env.*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.pem",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.key",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*credentials*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*auth.json",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.p12",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.pfx",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*.keystore",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": ".gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "*/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.env",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.env.*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.pem",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.key",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*credentials*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*auth.json",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.p12",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.pfx",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*.keystore",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".ssh/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".aws/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".gnupg/*",
+          "effect": "deny"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/tdd/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/superpowers-test-driven-development/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/systematic-debugging/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/diagnosing-bugs/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/codebase-design/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/verification-before-completion/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/code-quality/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/verification/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/humanizer/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/human-writing/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/seo-content/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/seo-technical/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/ecommerce-brand-voice/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/ecommerce-copywriting/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/ecommerce-product-pages/*",
+          "effect": "allow"
+        },
+        {
+          "action": "edit",
+          "resource": ".opencode",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.opencode",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".agents/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.agents/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": ".codex/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.codex/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "opencode.json",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "opencode.jsonc",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/opencode.json",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/opencode.jsonc",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "~/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "edit",
+          "resource": "*/.config/opencode/*",
+          "effect": "deny"
+        },
+        {
+          "action": "poseidon_workspace",
+          "resource": "configure",
+          "effect": "deny"
+        },
+        {
+          "action": "poseidon_workspace",
+          "resource": "end_sandbox",
+          "effect": "deny"
+        },
+        {
+          "action": "external_directory",
+          "resource": "~/.config/opencode/skills/karpathy-guidelines/*",
+          "effect": "allow"
+        },
+        {
+          "action": "read",
+          "resource": "~/.config/opencode/skills/karpathy-guidelines/*",
+          "effect": "allow"
+        },
+        {
+          "action": "subagent",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
+    }
+  },
+  "initialGitStatus": " M .opencode/agents/coder.md\n M .opencode/agents/maintainer.md\n M .opencode/agents/poseidon.md\n M .opencode/agents/reviewer.md\n M .opencode/agents/team-lead.md\n M .opencode/opencode.json\n M .opencode/plugins/poseidon-workspace/index.js\n M .opencode/runtime/runtime.py\n M .opencode/runtime/sandbox.py\n M .opencode/runtime/skillctl.py\n M .opencode/runtime/workspace.py\n M .opencode/skills/SOURCES.json\n M ATTRIBUTION.md\n M README.md\n M docs/SKILL_PROVENANCE.md\n M docs/validation.md\n M install.ps1\n M install.sh\n M tests/test_install.py\n M tests/test_native_agents.py\n M tests/test_runtime.py\n M tests/test_sandbox.py\n M tests/test_skills.py\n M tests/test_workspace_plugin.mjs\n?? .opencode/agents/researcher.md\n?? .opencode/runtime/resource-governor/\n?? .opencode/skill-sources/upstream/frontend-design/\n?? .opencode/skill-sources/upstream/gtd/\n?? .opencode/skill-sources/upstream/karpathy-guidelines/\n?? .opencode/skills/frontend-design/\n?? .opencode/skills/gtd/\n?? .opencode/skills/karpathy-guidelines/\n?? docs/AGENT_EVALUATION.md\n?? docs/AUTHORITY.md\n?? docs/IMPLEMENTATION_REPORT.md\n?? docs/MIGRATION.md\n?? docs/RESOURCE_BASELINE.md\n?? docs/RESOURCE_GOVERNOR.md\n?? tests/agent_evals/\n?? tests/test_agent_eval_runner.py\n?? tests/test_hierarchy.py\n?? tests/test_live_permissions.py\n?? tests/test_resource_governor.mjs\n",
+  "fileHashes": {
+    "LICENSE": "1aebcff5b3ef8c0c0d862d5952c52946df4fca3e2e76e74c73b14a7f1b595bd8",
+    "ATTRIBUTION.md": "53963910df912689ab700808cbe8ca206852133cb1f5c790598de496ae4f01a1",
+    "install.sh": "9b32a417b9657483c229128143d0c7a4ed7324e52c5ac98332075475bb3040c6",
+    "README.md": "596d44154cd48abc1bc727dd68195732c6a79829359f9b9d60ccf80af4da0da3",
+    "install.ps1": "093a4e4a8befad8cd9c5f15eab2de52f602a6a2ace80e96c2c5e91b2e11f21b7",
+    ".gitignore": "8de31814387033a0094846fa08d66f6b7cf23b5d07bb1509864bdcfa8409936c",
+    ".opencode/opencode.json": "d8431428e4c6b101425fc6a0624b591fa22d0e2111014f21db467c77f17d8be0",
+    "tests/test_runtime.py": "e8cac50006c37f9eb91805971371c748be5f57190492187865e5883060fac4c5",
+    "tests/test_native_agents.py": "d4f7517ba6d1a9e0f9c2e50ca15bbe38786240438acfa40e29209987271a594e",
+    "tests/test_workspace_plugin.mjs": "8d650e6f57079bafe55cdf14cf04d101b3f0fc77bc61f60b1b945b5e5c8ebd6e",
+    "tests/test_workspace.py": "03f0553228c4911f9a5589968b8af0a0afd7aacc208f1508f79e2910de9661a0",
+    "tests/test_logs.py": "59ada42259e02afa432db15c63131c72642d9b45d4564e00ab2a855e9b68664e",
+    "tests/test_sandbox.py": "1e661b377f32ba657d6faa51844e98eb19157c5a46a9a1a1107fbf13cf30526d",
+    "tests/test_skills.py": "bac09854b5d724b1e5d1d606e649e329bcee1b42873294d4759547c66e8a1aa4",
+    "tests/test_hierarchy.py": "daa6f7350b1fde1098bd782a3c5d247433b7fbf55b3be78e3cab3bd4cb3dc7b7",
+    "tests/test_live_permissions.py": "9620e849ab114b3e82fc6032684b9295a5d466cfbc3fe9ec1625f347c4ae9d30",
+    "tests/test_install.py": "2e6a803844fdeb46fb3b8c6ae3f7a5b60ea01cd860e779cea9c2ec26e1feefab",
+    "tests/test_agent_eval_runner.py": "b71f11968fec7ee9c7e2f57613a645fbe9f55f869a4f204c8fa5cf185af7a808",
+    "tests/test_resource_governor.mjs": "b8100e5395a26ede685626af58089307906a1789a7d6db75615d3d38e70cd3a3",
+    "docs/IMPLEMENTATION_REPORT.md": "a2f4bf2205b4b49615ea3cc6f4a112851ba37324383fb6995fc592eb6c71ab0f",
+    "docs/AUTHORITY.md": "b0a818ff85f97d37547b0c07a020462059817b88d33bfffbccb8228f154b5596",
+    "docs/RESOURCE_BASELINE.md": "be0b1a54551527f4cd3a7d5be82e199778f19d47dd00c1754f7e29ca34fcad92",
+    "docs/validation.md": "5b91195075e95e0ea6beedc8ab50798f65815fb7c621aa4a4aab3c11330a714e",
+    "docs/MIGRATION.md": "e03665fb704bd5ba865a004fd08b6e834b0649f2f18307510115b275d5326fba",
+    "docs/RESOURCE_GOVERNOR.md": "e152db9204e7bc2d0b279e5803f90a4443daa0592bb3559173d43c72ec3a9655",
+    "docs/AGENT_EVALUATION.md": "5e2ef9000d80fa2aa79f33eb6b0c8c0dac071889ae425b4817aa626a269fd2fe",
+    "docs/SKILL_PROVENANCE.md": "3bcf56c93252343d290fe9fc8a216342ace631a46157c744ae7126560302420d",
+    "tests/agent_evals/run_eval.py": "337e779f3ecb40fd3ba15a0152ff0328a7a674a6c1e39c9ff3ad4fbc45750b33",
+    "tests/agent_evals/repair-prompt.txt": "cc228e20a58f112fad90e28607ce68d41cc90fa52db620d67acba13cdcb35949",
+    "tests/agent_evals/vision-correction-prompt.txt": "1b66986b30b5d5a2f1022bfbb21225cfee41fe899e6b4c3d94ae463c4db710c3",
+    "tests/agent_evals/research-followup.txt": "075a2b548a12011c7d8eee475b3e38de454dad000c453c221215a1b673515e44",
+    "tests/agent_evals/diagnose-prompt.txt": "ae73bfdb28b1d6ad042f7fe8e598d2091a52e24b1049fa1c6a1ed0c4c3a1325d",
+    "tests/agent_evals/research-runnable-followup.txt": "59cd3fa3f242e278d6f3c310d954b8688a31350d735ca40c2db558339866a271",
+    "tests/agent_evals/planning-prompt.txt": "aed4248c429c16ba159d4e1cc3255c810aeb33361a1f07b732191fdfe2b3e22b",
+    "tests/agent_evals/review-prompt.txt": "55a9be51d244c5a2358f058f386ad418e2d5647dd78da022ed13c3bebbc85883",
+    "tests/agent_evals/vision-prompt.txt": "22a67e0efa43f5f42c13efca6f209b1c713523ec6dc52a1cd6ddd3ddb6d48757",
+    "tests/agent_evals/vision-delegated-prompt.txt": "21ac5aada49ced459aca3707e8e107f0511b655191b1d9036af2565a4682c671",
+    "tests/agent_evals/research-prompt.txt": "19a211af22d5e190ae1e463a6510669e2a37da1d5250fda60e951f1736592cda",
+    "tests/agent_evals/vision-research-prompt.txt": "f2b0c71a1e715b2076e46d495ee69b65a4d814b334f25431ed0e33e885347ce1",
+    "tests/agent_evals/vision-gtd-prompt.txt": "8f76005eafb21a5b802dcd9ad581843e5f1b30a04fabe64476a21aec77faef5b",
+    "tests/agent_evals/coordination-prompt.txt": "6054d29098ce0644b1933a86075452241d997a99d019b6819d0094eaef16c24e",
+    "tests/agent_evals/vision/index.html": "734a82792dd46c91901587f054f36d4ae91b80c82444d996c2e65239457975bf",
+    "tests/agent_evals/vision/README.md": "f4f3a3e8faa6208a75c8ae6d8788e0c3273e49e8723997407d48e9fa01c67e73",
+    "tests/agent_evals/diagnose/README.md": "d8b8c2c524ff716e66663f1433a93bb3b822d6ef6e08d505595909e905c840e2",
+    "tests/agent_evals/diagnose/app.py": "0ebeda1a320c86e22900c31e7075ec5bb2f1295e1dc351281fa79501b969cb23",
+    "tests/agent_evals/diagnose/AGENTS.md": "d3d43d60e53c7557562adc9718e271403d3b3c9d551a862d4beb6c349015757b",
+    "tests/agent_evals/diagnose/test_app.py": "579bd011b7107fa45581003c496d9b99cc1bce7e56a84a5c5d8b354b281f2c28",
+    "tests/agent_evals/review/README.md": "e1573beb436b73fcee140825f15e2a214e26dc612876a623c09ff4e18e0b223f",
+    "tests/agent_evals/review/candidate-evidence.md": "970a15821d9b835e248c4598bf9c6782ab778d5188857e85283872fe8d1ca038",
+    "tests/agent_evals/review/test_eligibility.py": "0602b065a5bb55c05249666b7dc3c32ac6ae8de5d37e3e6e04c1767c691364b6",
+    "tests/agent_evals/review/AGENTS.md": "1f496706f8a81e4b950974d235a84afb6b89c4cbae3f0ea821e09f606711512f",
+    "tests/agent_evals/review/eligibility.py": "8857ed60b33d61ec19cb459ccac51c8a4bdef8d06acd3d28295f14cfb41fd03b",
+    "tests/agent_evals/repair/README.md": "3d87eda28a75a262af3f82dfe091332b153f5854738e651be2aa7d56b1f53ca6",
+    "tests/agent_evals/repair/test_eligibility.py": "fda843e5ccfc29b41349febb912f1bbda1834ca91b828b1dc38e1210446c6fbc",
+    "tests/agent_evals/repair/AGENTS.md": "6262e666bc2f8b5cb46cda10fd71aad7ec0686d04e291819436b7230519ac54c",
+    "tests/agent_evals/repair/eligibility.py": "279c8625403f015b254b9c97d9d5c3276d834109e9ccb7de5c79af54818a2df3",
+    ".opencode/skill-sources/SCRIPT_INSPECTION.json": "ec99597fb0a16c714cc5afb4e3e11ac2640944ef4e03910f891ca8d12a202747",
+    ".opencode/runtime/settings.example.json": "03455e2a9fbbbc6839970276c65d58470cbdb3031c73eb0da14827a765ae419c",
+    ".opencode/runtime/runtime.py": "03d566c837ecec9a874bd33c83bf4b9ebb1ac55e6a08c000b2d914068f346f05",
+    ".opencode/runtime/sandbox.py": "9db2e9d7af584f0e2cf49352909613af9e7f29529aef877d14dda1a089a60eff",
+    ".opencode/runtime/logs.py": "3ebdd15423510b412c4f68c77c6d202c1bbd314e872c7ca09b537146061167be",
+    ".opencode/runtime/workspace.py": "1f19f40280de314982e7e3f5a0ae6bb3da1fd5272297b57c495f4f680902b430",
+    ".opencode/runtime/skillctl.py": "0d81c30ba2f0a6e305f7f738c4d89ddd0d14250434c029377e008042cb532588",
+    ".opencode/agents/poseidon.md": "7aaca53b8dc48a009fce711c34105d55148f34395aa0d5a7925839125fd7ca7e",
+    ".opencode/agents/reviewer.md": "8448ca44200f661f0b5e80feb3f30852c7b7084480969aa58bd828879f2b4de5",
+    ".opencode/agents/maintainer.md": "09955e2202cf9516962c37c1dbccfaedb3ef0645d1290fbc3cd60e4ea9b71139",
+    ".opencode/agents/researcher.md": "e31b056540f62871a634ac5f9ba5b78d40a1f6cae27b262eb1c4760d89c4b8d5",
+    ".opencode/agents/team-lead.md": "65f2c616b81dc40bbc8258d3a8df0c2938916e62fb4ffc0cb08168b1d067aae4",
+    ".opencode/agents/coder.md": "b14ba15e0876d6cc34e276cf349cde00e1be81cb1a435df6a994496379115f40",
+    ".opencode/skills/SOURCES.json": "50d7c30b82a394b35353ab69ca1caa8d111615624aacfa04dd94bdac55e30caf",
+    ".opencode/skills/domain-modeling/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    ".opencode/skills/domain-modeling/GLOSSARY-FORMAT.md": "21dcc40cdec8e151a829b98ab1517c1867bc444e3665134a98c6983411996801",
+    ".opencode/skills/domain-modeling/SKILL.md": "7b925d7b1e341a2eeae33ad68a8a8c0ab889a38ddd22a7598e4c240e5a7556a3",
+    ".opencode/skills/domain-modeling/ADR-FORMAT.md": "944c92aa790e8fbdc9199640b170979abb8a34ba8d0fe18c2a01a63bce140ca0",
+    ".opencode/skills/superpowers-test-driven-development/writing-good-tests.md": "51471c853306ff92ca8bb41dcaea05f31c0e46b03651f8f3c99754b7172f4ae1",
+    ".opencode/skills/superpowers-test-driven-development/LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+    ".opencode/skills/superpowers-test-driven-development/SKILL.md": "64b03fce4aee5a97a93160cea8111f3ba13a17b7c001db4bd5836d67fd10705d",
+    ".opencode/skills/seo-technical/LICENSE": "a42b3b0253cecea9af810c5207a67b0be8c9a0cfbf52b9302c3d26b063e7a86b",
+    ".opencode/skills/seo-technical/SKILL.md": "c7ca95bca9dd8d96fe784b400a3070401063c91f4d3c9f2f391c81c07e68057a",
+    ".opencode/skills/seo-technical/LICENSE.txt": "5c617ae0aa59b995e19b3e774fcc2f2ba91b864e0b4c3e18475b139526a2da1e",
+    ".opencode/skills/systematic-debugging/LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+    ".opencode/skills/systematic-debugging/test-pressure-1.md": "0b6a915db0054577819834c79be9eb614e97bddba10d73768e1fbe91cfed048a",
+    ".opencode/skills/systematic-debugging/condition-based-waiting.md": "e89fec8400d6cd50f43407cec9fab50976ba4d55d0ec2eb51c0bd68036b54c26",
+    ".opencode/skills/systematic-debugging/test-pressure-2.md": "b2030aeffba07050e8ad573ddf87486457c4a016a786bb326235bebd856f2016",
+    ".opencode/skills/systematic-debugging/CREATION-LOG.md": "c24733a5b1821bd6bed1fc950261f0b9f4e90097e0bbb96459d8179713730789",
+    ".opencode/skills/systematic-debugging/test-academic.md": "fe2ba480d78ac0d686dc025f41c2a32a43d642bf533f91b0c6053a04d35d6486",
+    ".opencode/skills/systematic-debugging/defense-in-depth.md": "1e175fb86fc357e58c6aebf5441e481e1b7868b4380c0456b63a17eefbd18ba7",
+    ".opencode/skills/systematic-debugging/SKILL.md": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+    ".opencode/skills/systematic-debugging/test-pressure-3.md": "96b50a52e2c7989c9cf20fb752c47c1e9a3a70dc362f8f7989f8f5b64dac7708",
+    ".opencode/skills/systematic-debugging/root-cause-tracing.md": "75b933b6a8c40bdb2031b10f21654395b56ec6ab6bc7b018c18d3fe57aeb7fb8",
+    ".opencode/skills/systematic-debugging/condition-based-waiting-example.ts": "40ae5ebe497fdf310200e43fe986552546d0a22837c0d39e855db1cfd33eb88e",
+    ".opencode/skills/systematic-debugging/find-polluter.sh": "dd7b8f13c4cc2a24b33ff87b18da9248f3e1c80a085c3316224f69ff0fa5c43c",
+    ".opencode/skills/how/LICENSE": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e",
+    ".opencode/skills/how/SKILL.md": "2dd4d2818db0667cb5c34d35aeb515079bc8489390c03aafa7b3fb201ca1264c",
+    ".opencode/skills/seo-content/LICENSE": "a42b3b0253cecea9af810c5207a67b0be8c9a0cfbf52b9302c3d26b063e7a86b",
+    ".opencode/skills/seo-content/SKILL.md": "19b2e2bf9402e5a4f28a7054c7b61d079c266b408f1d516229e25ce52b628c1c",
+    ".opencode/skills/seo-content/LICENSE.txt": "5c617ae0aa59b995e19b3e774fcc2f2ba91b864e0b4c3e18475b139526a2da1e",
+    ".opencode/skills/diagnosing-bugs/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    ".opencode/skills/diagnosing-bugs/SKILL.md": "849198df88cdb65fd0d97236604c1fca7ff2f22d2f705f9724a800d0266b118d",
+    ".opencode/skills/ecommerce-brand-voice/SKILL.md": "7e4c1d019c32180b64644a4fdcb1b2044609a5e134ebe8c6dead8402273c05aa",
+    ".opencode/skills/code-review/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    ".opencode/skills/code-review/SKILL.md": "9c921a8d88138a41401d8897ca1bb852088ab1b7b605cdd04edc13e3e8aab6dd",
+    ".opencode/skills/to-tickets/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    ".opencode/skills/to-tickets/SKILL.md": "56ec23c5b2782785d4e65bff9e315b6d3aeb4ef977c174a219e99489fada1995",
+    ".opencode/skills/human-writing/LICENSE": "1b86d4a4e2bc1c5e6be531dfff17bfbefec64272f7030e8bfa42bb6aa06eca5d",
+    ".opencode/skills/human-writing/INSTALL.md": "30a7e61699376e8d5705c43fc2fdd2e9a73548ed2ec82d8c16856778411fce44",
+    ".opencode/skills/human-writing/SKILL.md": "579cd70cb33920302834ed945b6c4096d9f59546b48587e31ddb1f7841af7353",
+    ".opencode/skills/to-spec/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    ".opencode/skills/to-spec/SKILL.md": "43ad9cf318e5e7d3d1fa360253a37021796dc87a0c2e595ad262661a10f85088",
+    ".opencode/skills/codebase-design/DESIGN-IT-TWICE.md": "c222ab5a82e0405672eb9062d62496139a08828e45d07fc5f18e4952c10fac1a",
+    ".opencode/skills/codebase-design/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    ".opencode/skills/codebase-design/SKILL.md": "2c20617f87ec8af6a434859f381b2f061a69b530444e74eb39e78bb016a6d1e2",
+    ".opencode/skills/codebase-design/DEEPENING.md": "f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1",
+    ".opencode/skills/ecommerce-copywriting/SKILL.md": "1224fbfbdc3e78f0226c7a6c601ff65f8659fd59454f21dd2979465f3676b19a",
+    ".opencode/skills/verification/SKILL.md": "24eedd0869893eb98ae91e1df390c4cf4de4236f36c4c4fcb2b500e10801f7a3",
+    ".opencode/skills/grill-with-docs/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    ".opencode/skills/grill-with-docs/SKILL.md": "7de372c13488f1ee96cc11cd8907b56b6809cc93eef776eeddd37de6b6cbe3fe",
+    ".opencode/skills/karpathy-guidelines/SKILL.md": "6e22cc54cb02a5e98ae42d06d9d7292db0c1b43894831b32879beb0166b2aea7",
+    ".opencode/skills/writing-plans/LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+    ".opencode/skills/writing-plans/SKILL.md": "a6c67c1900064347c2a329990dd3c555657c51c3ec53b259a08aa01a2c26139a",
+    ".opencode/skills/code-quality/SKILL.md": "91469c147edd1575252ebbdaf97d2a8321fc24fecdc4fcc203e94409689cd868",
+    ".opencode/skills/frontend-design/THIRD_PARTY_NOTICES.md": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+    ".opencode/skills/frontend-design/SKILL.md": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3",
+    ".opencode/skills/frontend-design/LICENSE.txt": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+    ".opencode/skills/gtd/LICENSE": "610d3423423dbf1a19e704229e464cda2679ae0e14b21e050f3890bc6f1a6a59",
+    ".opencode/skills/gtd/README.md": "c8163b276b5656640ba250b1134633190dc15ac38fdc360d89a3e8e41f39c0dc",
+    ".opencode/skills/gtd/.gitignore": "1bbb1f296754fcd5e15329d3368b058e06bc7a16acdc42ec221e34f55637103e",
+    ".opencode/skills/gtd/SKILL.md": "4833479c3654894535801b2089d54d754efa82a521d0c112222a46c667890a26",
+    ".opencode/skills/humanizer/LICENSE": "4ac4810254ab36d45419141aeb8e69bf50652cfafe5b2dab947d06d44e5cbf96",
+    ".opencode/skills/humanizer/SKILL.md": "0612f1dfb1672b0ea9b97e139bf1f06cabe98d8b27424fe8ff01e1fb4cc99cad",
+    ".opencode/skills/verification-before-completion/LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+    ".opencode/skills/verification-before-completion/SKILL.md": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3",
+    ".opencode/skills/tdd/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    ".opencode/skills/tdd/mocking.md": "3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef",
+    ".opencode/skills/tdd/tests.md": "859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a",
+    ".opencode/skills/tdd/SKILL.md": "5505d25bbaa8fc14a79e4d20163936958992a2995b7f1dd1d6197edc9ed722e0",
+    ".opencode/skills/grilling/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    ".opencode/skills/grilling/SKILL.md": "a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b82242d4e2",
+    ".opencode/skills/milestone-coordination/SKILL.md": "29792237fb9df947c6106cd5a81e217e3c9c2805df7638490a3aa7e5015574a4",
+    ".opencode/skills/ecommerce-product-pages/SKILL.md": "584d048cdbeb3702426657abe0169f0adf68e8e4ef7ec09acd651b25075a4e1e",
+    ".opencode/skills/grilling/agents/openai.yaml": "1411d7df7d99b7e621a1ff8283c8133cc2464be63d064e52d8ce169c6800ee9b",
+    ".opencode/skills/tdd/agents/openai.yaml": "ea6f01cf1b8c06a4b0f5b649d74b1b8ce8685e72af1b38d70d877693e092af0b",
+    ".opencode/skills/gtd/references/01-the-engine.md": "2d094773b8716ff91c37adb4be95429c4c583cff6035cc7668fdaffc5408f193",
+    ".opencode/skills/gtd/references/diagnostic.md": "f1de325e2b3f5ea204fda667761139f4f975754c4799d054399a089bf4b7b56c",
+    ".opencode/skills/gtd/references/05-review.md": "f82579e0daaa49b71aec778dd42e9b54db0b11963f3d10b614dcc0799a3f2f7e",
+    ".opencode/skills/gtd/references/07-power-principles.md": "04ba98eca063e4a54c1c7db88e16819c295263f8eb6d8b70b7ae79ffd7726687",
+    ".opencode/skills/gtd/references/03-clarify-and-organize.md": "c665abde728c8d73bd8309508f69aabf8d14463ec595d8645f8776402ba54f58",
+    ".opencode/skills/gtd/references/06-engage-and-choose.md": "4a54e81751c0e7b4927acc2568e5bff72e247e5525ad3147d22bed2464170e24",
+    ".opencode/skills/gtd/references/00-foundations.md": "1b2d9dafc43a3562807de699d06b416f44467f4cd9b7bb468f252b9c76d0e10d",
+    ".opencode/skills/gtd/references/02-capture-and-setup.md": "5ccff7d527fe4c771e9116d3aaa1f45e380d39ce57d75755519fab6d73c17a8f",
+    ".opencode/skills/gtd/references/04-natural-planning.md": "6e5127b352268d7612bf8f0362f9c2264d4126e7fb8555f3efe3090944aaf46f",
+    ".opencode/skills/grill-with-docs/agents/openai.yaml": "94cd0ab161fb468a836349f5ed482ba58ce8e709a05c57ce533d739dbd35cca9",
+    ".opencode/skills/codebase-design/agents/openai.yaml": "edebc9e4fcfe102114012575eaa9600b9b5fd08c311664f389c36e7bc717740f",
+    ".opencode/skills/to-spec/agents/openai.yaml": "1c5b4d1e3d8e52287ef19cc2742fdbbfae1914ac75d33af3e4c8174f08cc55bb",
+    ".opencode/skills/human-writing/evals/case-02-scientific-abstract.md": "3bbf18fc7c5d7eb2cb67cfd9a965c203e4d0847a8158c7965ffa807fb2430203",
+    ".opencode/skills/human-writing/evals/case-01-marketing-blurb.md": "d3a699b37106ea55ab487e75e88c28bfeff1f2e14458c98dc1a657ebe1ce5177",
+    ".opencode/skills/human-writing/evals/README.md": "45a68a4d03e2330d45f833a1fa4f4a6c1c0ec59d4f0668c4aee33599527be0db",
+    ".opencode/skills/human-writing/evals/case-03-chat-dm.md": "27b1ea2dcec7da68a2cc7388426cdd3284250d42e67956e8ab3db6916e85fe48",
+    ".opencode/skills/human-writing/evals/case-04-voice-match.md": "5576218b96b59876058bac4e636454f82bf9b5503008158ce7276a0cc371572a",
+    ".opencode/skills/human-writing/references/examples.md": "72379846137633fd0b4c1420681b40ccc0a0c15a9ea6abe4b6bd61a1c62eb29a",
+    ".opencode/skills/human-writing/references/quick-check.md": "70f9236f1ecd0ad7baadbc13a65073b1295d8522e7907ef35c5a9c54e3aa3cf3",
+    ".opencode/skills/human-writing/references/voice-matching.md": "97fe1ab99ed1a0fd2564f1cefcf7bc81aff3b9ac51cf73d8891feaa5fda6fabc",
+    ".opencode/skills/human-writing/references/detector-matrix.md": "09c65c96645dc957bba72447fcd0115b364ece87b1af8197a36a26a372ce0517",
+    ".opencode/skills/human-writing/references/techniques.md": "1c6429ab669b26d9c10cd91bce304b724a4171cac62b75b644fb5b53bc52cbc8",
+    ".opencode/skills/human-writing/references/adversarial-paraphrasing.md": "963d0ef7d4c50a74579db0098575169965d10641f7ee03a8b04189db5441f03e",
+    ".opencode/skills/human-writing/references/ai-tells.md": "cee058cab937f04e09de77c5d27c7544bc6f732010bcf3e6699e56346dad72ea",
+    ".opencode/skills/to-tickets/agents/openai.yaml": "21bc6215fffcd7614e9f772bb1760e87cc5fc7dcc707e7d282bc9414267a6090",
+    ".opencode/skills/code-review/agents/openai.yaml": "8229ca854e11dc8e6aef2131ee03f31fb1561cf905fab9ccc325180cf3331352",
+    ".opencode/skills/diagnosing-bugs/agents/openai.yaml": "3e430dbe4334a87597488c060cb3dc3786bb00c9182877d6f5ec41f62490e90b",
+    ".opencode/skills/diagnosing-bugs/scripts/hitl-loop.template.sh": "35103539fc36873eea36074769ad454f9379d6fc8b2dc0e26ce987fd3bfe5503",
+    ".opencode/skills/how/references/critique-rubric.md": "8ac5786e430f5043e6eae1ed81e9b8cef5fb5825bf1043428dd5fcfe57f4ed2a",
+    ".opencode/skills/how/references/explorer-prompt.md": "0cf798751cf535d35697b7902d19d257da0a1e046337d18a40759fd5ec109f76",
+    ".opencode/skills/how/references/critic-prompt.md": "384dbe2e16b558f7139b22d6b6acdf07f0a36aa4e000d6402e9b00388b52a422",
+    ".opencode/skills/how/references/explainer-prompt.md": "5a5223f5fe1c22447638fa285cc74f1be98ea53c4941aaa4231260ee84a384e0",
+    ".opencode/skills/seo-technical/references/stack-cve-exposure.md": "a6aa63975ac47dc3a1fcdfe6e17b2a2c4db91d98e8c5593aeea09bd3c1681170",
+    ".opencode/skills/domain-modeling/agents/openai.yaml": "f6bf2aa996c6e6f53fdd0708e18a0d16a56aed8322cca59fedbe3c0d2c75f06b",
+    ".opencode/runtime/resource-governor/benchmark.mjs": "6262cfd820be99e517a5877b9d37f572b6256f3ce5fd2d4f46f8b44c684935eb",
+    ".opencode/runtime/resource-governor/config.json": "2ab2e9bae989c6ea70e559c89d9edda73ab5495117903d6ab0aef51ae6f2659a",
+    ".opencode/runtime/resource-governor/sample.py": "f95591c9eb0a45f334f5499e987d928fefb6f1a26dd2763bc8cdc8657bf4bcdd",
+    ".opencode/runtime/resource-governor/governor.mjs": "32d0f679366cc1b40168fb641c19f70608ac4e7d8e2693dfd7967666e02316da",
+    ".opencode/runtime/resource-governor/cli.mjs": "fb705a8f3f95a25ac940960d4aa4c65c6b30d93f187b4ab34cf7507087dd034b",
+    ".opencode/plugins/poseidon-workspace/index.js": "baf8948739f5439594759e35f3300468c9c89c622e0aaef09633b5d8199e5ddf",
+    ".opencode/plugins/poseidon-workspace/package.json": "b9dcd6bd9c28f4dc4c8e9ff0757410d58e9fd36ba92611316214564cd369533d",
+    ".opencode/skill-resources/claude-seo/LICENSE": "a42b3b0253cecea9af810c5207a67b0be8c9a0cfbf52b9302c3d26b063e7a86b",
+    ".opencode/skill-resources/claude-seo/requirements.txt": "0d36b4a6c9268290d63ab7d0834d4c9e5a865d9acad6a74c95749e72fdacb829",
+    ".opencode/skill-resources/claude-seo/uv.lock": "8220f2f3b9b6bc763f236221c869ee093fa439a31c9b4e16eb28062909bba3a1",
+    ".opencode/skill-resources/claude-seo/pyproject.toml": "2533463940d95cc8d1582f61bc0837a5fa05a4adc89a8ea8b3c3ad4ec860b237",
+    ".opencode/skill-resources/claude-seo/SECURITY.md": "b64ddd41a890873fac3eb67a23ffdebd0757a1356bd61675dbd71c6de05f057e",
+    ".opencode/skill-resources/claude-seo/scripts/bing_webmaster.py": "eb9d30b3e99e3baa7dba8816da0092838bb1d843c905ca72efce9dd9a80983e9",
+    ".opencode/skill-resources/claude-seo/scripts/sitemap_discovery.py": "923395d470ab05098678f2f7337b7f9c76fe9b5942265f1b226733bed21feb72",
+    ".opencode/skill-resources/claude-seo/scripts/verify_release.py": "7868e3e6bf0dcec87a36ce3ec30ca197a4ef940dae8bb25897ec6a9a74e5d02f",
+    ".opencode/skill-resources/claude-seo/scripts/backlinks_auth.py": "d0a82c941bdc5ce8b4c5fb67eda2392f5f38805da82cdcacdeb7329d74e672d9",
+    ".opencode/skill-resources/claude-seo/scripts/google_auth.py": "2a0548cc66869902b40922c3f26e8182299e17302850d6a283068d429ed9d9d8",
+    ".opencode/skill-resources/claude-seo/scripts/content_quality.py": "7ffa979fef4ef3311ed5693b094ef3f6bf677dd0d2cf0a1379be1a11a0535945",
+    ".opencode/skill-resources/claude-seo/scripts/matomo_auth.py": "272dcfac8791864e2290e08c4d648df807c203291fe89d907be5277235c93d9c",
+    ".opencode/skill-resources/claude-seo/scripts/schema_generate.py": "355c1d79378e99b603e3a9909d02197943b28f2b353043a32258f7b1b8c51995",
+    ".opencode/skill-resources/claude-seo/scripts/agentic_check.py": "b770f949dd8d00c56b2a72c3233f0663a2c37944afed3d48b3c5207450ad6cbd",
+    ".opencode/skill-resources/claude-seo/scripts/drift_report.py": "d1b522100ef9a3d4b4572e6966a376fabd47faf4d769acd47de6985486d3f540",
+    ".opencode/skill-resources/claude-seo/scripts/iptc_ai_label.py": "49277f6c651bbeaa579939ac9dc705861c6351644c2b8e7d915403c67a7b89a8",
+    ".opencode/skill-resources/claude-seo/scripts/google_report.py": "db0917afe02a852c31061cd1d9816a15668e72ecb84e9ef1cc571f519ade2aa6",
+    ".opencode/skill-resources/claude-seo/scripts/gbp_deprecation_lint.py": "cec4d1c5bc102cbf280861b080a6214e8fe48ceb6c4430be3e07241cf7cdd053",
+    ".opencode/skill-resources/claude-seo/scripts/drift_compare.py": "2e493900b27b540126650a433f9509ef59adc82e69e961a7eb7b3eb47315e739",
+    ".opencode/skill-resources/claude-seo/scripts/capture_screenshot.py": "6888c89afceb3102e885da0b47bd83ea86bed73c4029b02c53dd10c96b5cd926",
+    ".opencode/skill-resources/claude-seo/scripts/claude-seo": "ff87975206a143084486c9e381be29b78cf28af4deab6c510abb611d230deb30",
+    ".opencode/skill-resources/claude-seo/scripts/dataforseo_normalize.py": "588d87b6efb0dfef3b4ba9206655959b2218208d7cbb0d39c953ac12e0859974",
+    ".opencode/skill-resources/claude-seo/scripts/ga4_report.py": "0cf748ece7580043066ef462183a7d0c30c0a9b787905971fbb3861cd0ddc773",
+    ".opencode/skill-resources/claude-seo/scripts/url_safety.py": "d6813572ed75cdbf9bb3c7879a6243c323ffe56b4893a858e42c83a8bd86302a",
+    ".opencode/skill-resources/claude-seo/scripts/schema_ecommerce_validate.py": "70075b3d6175dca37523d004f108844921224ea9ac0b3eb0b8ba525c0a9a7edc",
+    ".opencode/skill-resources/claude-seo/scripts/drift_history.py": "d31e35b1cc86748535411b2bb39f5d66a909c7b1ddac97f26aa3acc8187b27a1",
+    ".opencode/skill-resources/claude-seo/scripts/commoncrawl_graph.py": "33b21f9873407371e98da96f9a0a2c96e1dd7e07fd6319dc506de695b9b6d8a5",
+    ".opencode/skill-resources/claude-seo/scripts/ucp_check.py": "6b172f605f52092637cdb44b33d5beefee4609c1a620f79a9baab2d65fd10911",
+    ".opencode/skill-resources/claude-seo/scripts/parse_html.py": "978ffe0431f6ed8b4aa96ac905c2ba262f4f2e9b99abd89cab58be2e078dc66b",
+    ".opencode/skill-resources/claude-seo/scripts/dataforseo_costs.py": "001d086ea778ec3412455d9a14e7a12eba7688851d079403d40ecb5a6f8763c9",
+    ".opencode/skill-resources/claude-seo/scripts/gsc_query.py": "6397c8c7b26a92fe3c69add1718efa995f0ffb38822d5f20a5e5dbe714ff5732",
+    ".opencode/skill-resources/claude-seo/scripts/indexing_notify.py": "94b5feeaf8ae3e454f3bcc98a96c80f091ed3dde63b65606a147d28e2709bb7c",
+    ".opencode/skill-resources/claude-seo/scripts/nlp_analyze.py": "327686432f1fc5a77a9732e1330ba64f416bc97480e7dc288aca6a5ab90ca7aa",
+    ".opencode/skill-resources/claude-seo/scripts/analyze_visual.py": "03e930f7813775abb5992da85db3d8eb23577bbce00e1bb33c38255db98e9757",
+    ".opencode/skill-resources/claude-seo/scripts/drift_baseline.py": "416cc3a39fba37933fc87facfe95887c0db1809c6d0ec0011ad8517c7f22738f",
+    ".opencode/skill-resources/claude-seo/scripts/parasite_risk.py": "b4cccea1275f9f6f82c0b04d66495297ddcce87632d6805392af759a7e483ae9",
+    ".opencode/skill-resources/claude-seo/scripts/crux_history.py": "3a6e0bdaea0d9e39bff410672f262eb66ca4a7ac0aee2eb08afd2328d51099c6",
+    ".opencode/skill-resources/claude-seo/scripts/sync_flow.py": "9759792787b5f05990d77df0a79cc99c2454d9d7fcf5e256d987698a4c929adf",
+    ".opencode/skill-resources/claude-seo/scripts/pagespeed_check.py": "e7e853e3d6ad6ab8690fce7c379bc9482d64408754db76b97560f069d0b917f6",
+    ".opencode/skill-resources/claude-seo/scripts/runtime.py": "0745fcb2ee0b50633718ce445055aed136161b93258cbb3b94d11235be00560b",
+    ".opencode/skill-resources/claude-seo/scripts/agent_ux_check.py": "78ee10a25551728f820ff9c5e3e7c2f17473f868207aa2218a4471c898caf6da",
+    ".opencode/skill-resources/claude-seo/scripts/matomo_report.py": "08a6d3253bd09027e92c2f6ce06e6f3f3ab9fda857411726c121c689d9a91222",
+    ".opencode/skill-resources/claude-seo/scripts/metadata_template.py": "28d7bcd1a98c96b010d93a48659a17dcad05f65732728025c0da9bb96ef27734",
+    ".opencode/skill-resources/claude-seo/scripts/indexnow_submit.py": "0063aa107991d7345e4aa4876dfd4bbc7f6ff4956565ec8bd6705fe3bd9c73ef",
+    ".opencode/skill-resources/claude-seo/scripts/lighthouse_agentic.py": "5ff42f007411e8bed34f35b143f7c7d19f81b26abd99bf8baf981bfa87ddc324",
+    ".opencode/skill-resources/claude-seo/scripts/release_sign.py": "97a04488f5f23419422e3c6ba4fa36028e4aa1e7168c87bed851dbbabe616e2b",
+    ".opencode/skill-resources/claude-seo/scripts/seo_updates.py": "cc78bdd184ba74d0d4f9c1caab40bd79d68b7450180460d44598a2307ef54f7e",
+    ".opencode/skill-resources/claude-seo/scripts/lcp_subparts.py": "92662c91275f4b2b30cfb78939efb3a9bb7e33ae18402336c7cc32e770a0cf06",
+    ".opencode/skill-resources/claude-seo/scripts/agentic_fix.py": "a25ba5c56d4bf85ddb78f81ae2a3c66a059f909a98fe426d4a02351cec43c294",
+    ".opencode/skill-resources/claude-seo/scripts/keyword_planner.py": "498a808a62f27abba04aba92568e85a309ffc0da6a93a290411dae56c20c0528",
+    ".opencode/skill-resources/claude-seo/scripts/youtube_search.py": "f34e6a4ffdda436e42d457a09f3f26d4f907d440d50ba780e7102aeebda0e670",
+    ".opencode/skill-resources/claude-seo/scripts/validate_backlink_report.py": "9eba82a54f5584c6dff8bbfd9754ef4de04d783362813600852a18a372fa8642",
+    ".opencode/skill-resources/claude-seo/scripts/domain_history.py": "f94d6b02100a978a792c060345785e07f01a5005add1732dcf5023c05222afc1",
+    ".opencode/skill-resources/claude-seo/scripts/portability_check.py": "0875531ab12c929dc339a29d48383ac3e04f42db3fdd59a1a28ed657edeaacc1",
+    ".opencode/skill-resources/claude-seo/scripts/keywordseverywhere_api.py": "c2c58f68d75f360e91b09b618d94dae557c8261a11fb8d4493e5009c22c1e4f6",
+    ".opencode/skill-resources/claude-seo/scripts/content_humanize.py": "8a2b262042ec3b2b3b13d7f1e9072526787cda14e981fb67896ea31e94dbfe8c",
+    ".opencode/skill-resources/claude-seo/scripts/moz_api.py": "0dfa4d0d8c2f92c261d03e4082fb5869f38b4c4356760d037b4dec50aa3692c5",
+    ".opencode/skill-resources/claude-seo/scripts/gsc_inspect.py": "6782618db25496e915540714f8bb768a603ede3c199b25d9b0938755b990f161",
+    ".opencode/skill-resources/claude-seo/scripts/render_page.py": "ff72e8d38130502391702cd1e5cabd35814c5ad70ecf538711bba4f8c7a0a1c2",
+    ".opencode/skill-resources/claude-seo/scripts/preload_check.py": "45745c90755f4cbfb13ec812aef076544e19a48ce9151c18f8749db0a78256b7",
+    ".opencode/skill-resources/claude-seo/scripts/dataforseo_merchant.py": "461ad8329668720cfd6d90c2aac5d195db35ae5ec758537a8fef10797bd9d2c1",
+    ".opencode/skill-resources/claude-seo/scripts/verify_backlinks.py": "de25ef422ca03079a0bc4bb2fe6ddd79aacccc895c199632efe1b5f14c4406f4",
+    ".opencode/skill-resources/claude-seo/scripts/content_verify.py": "f16f94d17d9556bf6e847b9abd0a28b0ddf6deef0af0cc2fd277489a0e83b913",
+    ".opencode/skill-resources/claude-seo/scripts/consistency_check.py": "f83fc0220d5b83f0eb7b66c8da5b584f3a492abd37ea696a8ea34e5595803b0f",
+    ".opencode/skill-resources/claude-seo/scripts/unlighthouse_run.py": "9709031a95082a4e03ebc63bd792fa21987483d222858ada27df39c84f0004ab",
+    ".opencode/skill-resources/claude-seo/scripts/fetch_page.py": "57404eb918e31fb11676a5d698d94c5ae5086aacdb978514eea2eec76bb7d9a7",
+    ".opencode/skill-resources/claude-seo/.claude-plugin/plugin.json": "223a22a55272aa63d18893e56252f05b7746d3af9162affc50d80cf21e0d6246",
+    ".opencode/skill-resources/claude-seo/data/google-updates.json": "5639ebffd195a0c3ba5200ec8b85fdd29ab01c3fed56369522098ecd00b16c52",
+    ".opencode/skill-resources/claude-seo/skills/seo/references/eeat-framework.md": "7d1f45cc9f42e9208c936af9e0d57dbdf29e52e733b5a8bed6eb65fa19475972",
+    ".opencode/skill-resources/claude-seo/skills/seo/references/quality-gates.md": "5652ec5f0328f3f2129d0873d69091e66ea69d99cf6f566d1391e3a3d0db6ef1",
+    ".opencode/skill-resources/claude-seo/skills/seo/references/eeat-scoring-guide.md": "da90342f0c97af529345d7824147c0a19c1a20de57d1470150c8838f5c445228",
+    ".opencode/skill-resources/claude-seo/skills/seo/references/cwv-thresholds.md": "bd1d28773d7ee94bbdd1c1230f0f6be3cf4d1689c22dd6dfd52cc0e043732d16",
+    ".opencode/skill-resources/claude-seo/skills/seo/references/thinking-framework-validate-act.md": "8109404dfee9e732a10a8be10e48a311b3b6c000a1a542972bbd11c7b57f0c75",
+    ".opencode/skill-resources/claude-seo/skills/seo/references/thinking-framework.md": "e15560608df0b8216b06967f72658f35b320ebe314cd8e15a1b99d66ec2aa96f",
+    ".opencode/skill-resources/claude-seo/skills/seo/references/maps-gbp-checklist.md": "779c3e5de1c8c5182db4791be859f6f0b7001d25daa7a742b8cdf9d80738dcdc",
+    ".opencode/skill-resources/claude-seo/skills/seo/references/local-search-behavior.md": "f7870f17345a7d57e9d42b77ec85834f9aedc5ac5b54da57409e3f77f7fd47ba",
+    ".opencode/skill-resources/claude-seo/skills/seo/references/maps-free-apis.md": "18323486ddd52eaa8e86f7f22930fc065f7c9b529352eadda8c27dca44299b91",
+    ".opencode/skill-resources/claude-seo/skills/seo/references/maps-api-endpoints.md": "7b5b15d2e50feb15d6d4c523a89e9a6f5291b82a0cd8c384053243119e35d9ab",
+    ".opencode/skill-resources/claude-seo/skills/seo/references/free-backlink-sources.md": "eaa18f4608c3bd889267c9723d632340ca72d3856f972651364dcbce42f3ed8e",
+    ".opencode/skill-resources/claude-seo/skills/seo/references/backlink-quality.md": "86a39d009b19f4f17a3dc4461afe209111dc2e8df56b6bd3eecedf5b4a03f742",
+    ".opencode/skill-resources/claude-seo/skills/seo/references/local-schema-types.md": "65f4e35e065afb7af24ac130f39f23e536e9ca3268ab81447f34fde143407d4e",
+    ".opencode/skill-resources/claude-seo/skills/seo/references/maps-geo-grid.md": "76e08cd3fefb4d0367e0647895c482e1914a932dc86de4a82dc2d03b987855e4",
+    ".opencode/skill-resources/claude-seo/skills/seo/references/local-schema-multilocation.md": "15fcdea286dde09d6e2633973d67f5040b6dadabf92b8e2f3855f2e301da5524",
+    ".opencode/skill-resources/claude-seo/skills/seo/references/schema-types.md": "fed009afae2148c7790dc0bb5d0d9ac3fc3f7bda65e7e537fa3aad64a2005e6b",
+    ".opencode/skill-resources/claude-seo/skills/seo/references/local-seo-signals.md": "a0fd5c9ad9160e076002d8b6d6c904e5e98cae62aa79e6c6b0ecb5c9401f6bae",
+    ".opencode/skill-resources/claude-seo/skills/seo-geo/references/llmstxt-evidence.md": "6cc60538738ddabdb6da0657d43cd187d63f377140a3d4deed52dac634c344a1",
+    ".opencode/skill-resources/claude-seo/skills/seo-geo/references/google-ai-optimization-guide.md": "587dfbe3a298b625341883cffe389441f6acff61fb4e12be7586c7e1cf455348",
+    ".opencode/skill-sources/patches/seo-content.json": "4929ad6e76394c289454d8e2115e713467a83fe97514f6d1d82411774e40c40e",
+    ".opencode/skill-sources/patches/seo-technical.json": "f364208dd07dcc28c5fd35eb6b171d78a31b685c65bd9c5f63ceb6619a38f57f",
+    ".opencode/skill-sources/upstream/domain-modeling/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    ".opencode/skill-sources/upstream/domain-modeling/GLOSSARY-FORMAT.md": "21dcc40cdec8e151a829b98ab1517c1867bc444e3665134a98c6983411996801",
+    ".opencode/skill-sources/upstream/domain-modeling/SKILL.md": "7b925d7b1e341a2eeae33ad68a8a8c0ab889a38ddd22a7598e4c240e5a7556a3",
+    ".opencode/skill-sources/upstream/domain-modeling/ADR-FORMAT.md": "944c92aa790e8fbdc9199640b170979abb8a34ba8d0fe18c2a01a63bce140ca0",
+    ".opencode/skill-sources/upstream/superpowers-test-driven-development/writing-good-tests.md": "51471c853306ff92ca8bb41dcaea05f31c0e46b03651f8f3c99754b7172f4ae1",
+    ".opencode/skill-sources/upstream/superpowers-test-driven-development/LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+    ".opencode/skill-sources/upstream/superpowers-test-driven-development/SKILL.md": "64b03fce4aee5a97a93160cea8111f3ba13a17b7c001db4bd5836d67fd10705d",
+    ".opencode/skill-sources/upstream/seo-technical/LICENSE": "a42b3b0253cecea9af810c5207a67b0be8c9a0cfbf52b9302c3d26b063e7a86b",
+    ".opencode/skill-sources/upstream/seo-technical/SKILL.md": "52b591511274158c11b40cdcbaaea3ef7fc36eb7caf740f46dfefed25ed290d9",
+    ".opencode/skill-sources/upstream/seo-technical/LICENSE.txt": "5c617ae0aa59b995e19b3e774fcc2f2ba91b864e0b4c3e18475b139526a2da1e",
+    ".opencode/skill-sources/upstream/systematic-debugging/LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+    ".opencode/skill-sources/upstream/systematic-debugging/test-pressure-1.md": "0b6a915db0054577819834c79be9eb614e97bddba10d73768e1fbe91cfed048a",
+    ".opencode/skill-sources/upstream/systematic-debugging/condition-based-waiting.md": "e89fec8400d6cd50f43407cec9fab50976ba4d55d0ec2eb51c0bd68036b54c26",
+    ".opencode/skill-sources/upstream/systematic-debugging/test-pressure-2.md": "b2030aeffba07050e8ad573ddf87486457c4a016a786bb326235bebd856f2016",
+    ".opencode/skill-sources/upstream/systematic-debugging/CREATION-LOG.md": "c24733a5b1821bd6bed1fc950261f0b9f4e90097e0bbb96459d8179713730789",
+    ".opencode/skill-sources/upstream/systematic-debugging/test-academic.md": "fe2ba480d78ac0d686dc025f41c2a32a43d642bf533f91b0c6053a04d35d6486",
+    ".opencode/skill-sources/upstream/systematic-debugging/defense-in-depth.md": "1e175fb86fc357e58c6aebf5441e481e1b7868b4380c0456b63a17eefbd18ba7",
+    ".opencode/skill-sources/upstream/systematic-debugging/SKILL.md": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+    ".opencode/skill-sources/upstream/systematic-debugging/test-pressure-3.md": "96b50a52e2c7989c9cf20fb752c47c1e9a3a70dc362f8f7989f8f5b64dac7708",
+    ".opencode/skill-sources/upstream/systematic-debugging/root-cause-tracing.md": "75b933b6a8c40bdb2031b10f21654395b56ec6ab6bc7b018c18d3fe57aeb7fb8",
+    ".opencode/skill-sources/upstream/systematic-debugging/condition-based-waiting-example.ts": "40ae5ebe497fdf310200e43fe986552546d0a22837c0d39e855db1cfd33eb88e",
+    ".opencode/skill-sources/upstream/systematic-debugging/find-polluter.sh": "dd7b8f13c4cc2a24b33ff87b18da9248f3e1c80a085c3316224f69ff0fa5c43c",
+    ".opencode/skill-sources/upstream/how/LICENSE": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e",
+    ".opencode/skill-sources/upstream/how/SKILL.md": "2dd4d2818db0667cb5c34d35aeb515079bc8489390c03aafa7b3fb201ca1264c",
+    ".opencode/skill-sources/upstream/seo-content/LICENSE": "a42b3b0253cecea9af810c5207a67b0be8c9a0cfbf52b9302c3d26b063e7a86b",
+    ".opencode/skill-sources/upstream/seo-content/SKILL.md": "b167c03c9cde9b973aee4930b4eb6b7dc14b0f994b9a75d265a3864852d9f323",
+    ".opencode/skill-sources/upstream/seo-content/LICENSE.txt": "5c617ae0aa59b995e19b3e774fcc2f2ba91b864e0b4c3e18475b139526a2da1e",
+    ".opencode/skill-sources/upstream/diagnosing-bugs/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    ".opencode/skill-sources/upstream/diagnosing-bugs/SKILL.md": "849198df88cdb65fd0d97236604c1fca7ff2f22d2f705f9724a800d0266b118d",
+    ".opencode/skill-sources/upstream/code-review/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    ".opencode/skill-sources/upstream/code-review/SKILL.md": "9c921a8d88138a41401d8897ca1bb852088ab1b7b605cdd04edc13e3e8aab6dd",
+    ".opencode/skill-sources/upstream/to-tickets/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    ".opencode/skill-sources/upstream/to-tickets/SKILL.md": "56ec23c5b2782785d4e65bff9e315b6d3aeb4ef977c174a219e99489fada1995",
+    ".opencode/skill-sources/upstream/human-writing/LICENSE": "1b86d4a4e2bc1c5e6be531dfff17bfbefec64272f7030e8bfa42bb6aa06eca5d",
+    ".opencode/skill-sources/upstream/human-writing/INSTALL.md": "30a7e61699376e8d5705c43fc2fdd2e9a73548ed2ec82d8c16856778411fce44",
+    ".opencode/skill-sources/upstream/human-writing/SKILL.md": "579cd70cb33920302834ed945b6c4096d9f59546b48587e31ddb1f7841af7353",
+    ".opencode/skill-sources/upstream/to-spec/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    ".opencode/skill-sources/upstream/to-spec/SKILL.md": "43ad9cf318e5e7d3d1fa360253a37021796dc87a0c2e595ad262661a10f85088",
+    ".opencode/skill-sources/upstream/codebase-design/DESIGN-IT-TWICE.md": "c222ab5a82e0405672eb9062d62496139a08828e45d07fc5f18e4952c10fac1a",
+    ".opencode/skill-sources/upstream/codebase-design/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    ".opencode/skill-sources/upstream/codebase-design/SKILL.md": "2c20617f87ec8af6a434859f381b2f061a69b530444e74eb39e78bb016a6d1e2",
+    ".opencode/skill-sources/upstream/codebase-design/DEEPENING.md": "f3dd099ce99289bd213914d8ee3e2429b78309c3957ca4583f7659551b1d53c1",
+    ".opencode/skill-sources/upstream/grill-with-docs/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    ".opencode/skill-sources/upstream/grill-with-docs/SKILL.md": "7de372c13488f1ee96cc11cd8907b56b6809cc93eef776eeddd37de6b6cbe3fe",
+    ".opencode/skill-sources/upstream/karpathy-guidelines/SKILL.md": "6e22cc54cb02a5e98ae42d06d9d7292db0c1b43894831b32879beb0166b2aea7",
+    ".opencode/skill-sources/upstream/writing-plans/LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+    ".opencode/skill-sources/upstream/writing-plans/SKILL.md": "a6c67c1900064347c2a329990dd3c555657c51c3ec53b259a08aa01a2c26139a",
+    ".opencode/skill-sources/upstream/frontend-design/THIRD_PARTY_NOTICES.md": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+    ".opencode/skill-sources/upstream/frontend-design/SKILL.md": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3",
+    ".opencode/skill-sources/upstream/frontend-design/LICENSE.txt": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+    ".opencode/skill-sources/upstream/gtd/LICENSE": "610d3423423dbf1a19e704229e464cda2679ae0e14b21e050f3890bc6f1a6a59",
+    ".opencode/skill-sources/upstream/gtd/README.md": "c8163b276b5656640ba250b1134633190dc15ac38fdc360d89a3e8e41f39c0dc",
+    ".opencode/skill-sources/upstream/gtd/.gitignore": "1bbb1f296754fcd5e15329d3368b058e06bc7a16acdc42ec221e34f55637103e",
+    ".opencode/skill-sources/upstream/gtd/SKILL.md": "4833479c3654894535801b2089d54d754efa82a521d0c112222a46c667890a26",
+    ".opencode/skill-sources/upstream/humanizer/LICENSE": "4ac4810254ab36d45419141aeb8e69bf50652cfafe5b2dab947d06d44e5cbf96",
+    ".opencode/skill-sources/upstream/humanizer/SKILL.md": "0612f1dfb1672b0ea9b97e139bf1f06cabe98d8b27424fe8ff01e1fb4cc99cad",
+    ".opencode/skill-sources/upstream/verification-before-completion/LICENSE": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+    ".opencode/skill-sources/upstream/verification-before-completion/SKILL.md": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3",
+    ".opencode/skill-sources/upstream/tdd/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    ".opencode/skill-sources/upstream/tdd/mocking.md": "3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef",
+    ".opencode/skill-sources/upstream/tdd/tests.md": "859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a",
+    ".opencode/skill-sources/upstream/tdd/SKILL.md": "5505d25bbaa8fc14a79e4d20163936958992a2995b7f1dd1d6197edc9ed722e0",
+    ".opencode/skill-sources/upstream/claude-seo-resources/LICENSE": "a42b3b0253cecea9af810c5207a67b0be8c9a0cfbf52b9302c3d26b063e7a86b",
+    ".opencode/skill-sources/upstream/claude-seo-resources/requirements.txt": "0d36b4a6c9268290d63ab7d0834d4c9e5a865d9acad6a74c95749e72fdacb829",
+    ".opencode/skill-sources/upstream/claude-seo-resources/uv.lock": "8220f2f3b9b6bc763f236221c869ee093fa439a31c9b4e16eb28062909bba3a1",
+    ".opencode/skill-sources/upstream/claude-seo-resources/pyproject.toml": "2533463940d95cc8d1582f61bc0837a5fa05a4adc89a8ea8b3c3ad4ec860b237",
+    ".opencode/skill-sources/upstream/claude-seo-resources/SECURITY.md": "b64ddd41a890873fac3eb67a23ffdebd0757a1356bd61675dbd71c6de05f057e",
+    ".opencode/skill-sources/upstream/grilling/LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+    ".opencode/skill-sources/upstream/grilling/SKILL.md": "a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b82242d4e2",
+    ".opencode/skill-sources/upstream/grilling/agents/openai.yaml": "1411d7df7d99b7e621a1ff8283c8133cc2464be63d064e52d8ce169c6800ee9b",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/bing_webmaster.py": "eb9d30b3e99e3baa7dba8816da0092838bb1d843c905ca72efce9dd9a80983e9",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/sitemap_discovery.py": "923395d470ab05098678f2f7337b7f9c76fe9b5942265f1b226733bed21feb72",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/verify_release.py": "7868e3e6bf0dcec87a36ce3ec30ca197a4ef940dae8bb25897ec6a9a74e5d02f",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/backlinks_auth.py": "d0a82c941bdc5ce8b4c5fb67eda2392f5f38805da82cdcacdeb7329d74e672d9",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/google_auth.py": "2a0548cc66869902b40922c3f26e8182299e17302850d6a283068d429ed9d9d8",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/content_quality.py": "7ffa979fef4ef3311ed5693b094ef3f6bf677dd0d2cf0a1379be1a11a0535945",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/matomo_auth.py": "272dcfac8791864e2290e08c4d648df807c203291fe89d907be5277235c93d9c",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/schema_generate.py": "355c1d79378e99b603e3a9909d02197943b28f2b353043a32258f7b1b8c51995",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/agentic_check.py": "b770f949dd8d00c56b2a72c3233f0663a2c37944afed3d48b3c5207450ad6cbd",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/drift_report.py": "d1b522100ef9a3d4b4572e6966a376fabd47faf4d769acd47de6985486d3f540",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/iptc_ai_label.py": "49277f6c651bbeaa579939ac9dc705861c6351644c2b8e7d915403c67a7b89a8",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/google_report.py": "db0917afe02a852c31061cd1d9816a15668e72ecb84e9ef1cc571f519ade2aa6",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/gbp_deprecation_lint.py": "cec4d1c5bc102cbf280861b080a6214e8fe48ceb6c4430be3e07241cf7cdd053",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/drift_compare.py": "2e493900b27b540126650a433f9509ef59adc82e69e961a7eb7b3eb47315e739",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/capture_screenshot.py": "6888c89afceb3102e885da0b47bd83ea86bed73c4029b02c53dd10c96b5cd926",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/claude-seo": "ff87975206a143084486c9e381be29b78cf28af4deab6c510abb611d230deb30",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/dataforseo_normalize.py": "588d87b6efb0dfef3b4ba9206655959b2218208d7cbb0d39c953ac12e0859974",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/ga4_report.py": "0cf748ece7580043066ef462183a7d0c30c0a9b787905971fbb3861cd0ddc773",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/url_safety.py": "d6813572ed75cdbf9bb3c7879a6243c323ffe56b4893a858e42c83a8bd86302a",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/schema_ecommerce_validate.py": "70075b3d6175dca37523d004f108844921224ea9ac0b3eb0b8ba525c0a9a7edc",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/drift_history.py": "d31e35b1cc86748535411b2bb39f5d66a909c7b1ddac97f26aa3acc8187b27a1",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/commoncrawl_graph.py": "33b21f9873407371e98da96f9a0a2c96e1dd7e07fd6319dc506de695b9b6d8a5",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/ucp_check.py": "6b172f605f52092637cdb44b33d5beefee4609c1a620f79a9baab2d65fd10911",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/parse_html.py": "978ffe0431f6ed8b4aa96ac905c2ba262f4f2e9b99abd89cab58be2e078dc66b",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/dataforseo_costs.py": "001d086ea778ec3412455d9a14e7a12eba7688851d079403d40ecb5a6f8763c9",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/gsc_query.py": "6397c8c7b26a92fe3c69add1718efa995f0ffb38822d5f20a5e5dbe714ff5732",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/indexing_notify.py": "94b5feeaf8ae3e454f3bcc98a96c80f091ed3dde63b65606a147d28e2709bb7c",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/nlp_analyze.py": "327686432f1fc5a77a9732e1330ba64f416bc97480e7dc288aca6a5ab90ca7aa",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/analyze_visual.py": "03e930f7813775abb5992da85db3d8eb23577bbce00e1bb33c38255db98e9757",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/drift_baseline.py": "416cc3a39fba37933fc87facfe95887c0db1809c6d0ec0011ad8517c7f22738f",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/parasite_risk.py": "b4cccea1275f9f6f82c0b04d66495297ddcce87632d6805392af759a7e483ae9",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/crux_history.py": "3a6e0bdaea0d9e39bff410672f262eb66ca4a7ac0aee2eb08afd2328d51099c6",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/sync_flow.py": "9759792787b5f05990d77df0a79cc99c2454d9d7fcf5e256d987698a4c929adf",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/pagespeed_check.py": "e7e853e3d6ad6ab8690fce7c379bc9482d64408754db76b97560f069d0b917f6",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/runtime.py": "0745fcb2ee0b50633718ce445055aed136161b93258cbb3b94d11235be00560b",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/agent_ux_check.py": "78ee10a25551728f820ff9c5e3e7c2f17473f868207aa2218a4471c898caf6da",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/matomo_report.py": "08a6d3253bd09027e92c2f6ce06e6f3f3ab9fda857411726c121c689d9a91222",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/metadata_template.py": "28d7bcd1a98c96b010d93a48659a17dcad05f65732728025c0da9bb96ef27734",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/indexnow_submit.py": "0063aa107991d7345e4aa4876dfd4bbc7f6ff4956565ec8bd6705fe3bd9c73ef",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/lighthouse_agentic.py": "5ff42f007411e8bed34f35b143f7c7d19f81b26abd99bf8baf981bfa87ddc324",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/release_sign.py": "97a04488f5f23419422e3c6ba4fa36028e4aa1e7168c87bed851dbbabe616e2b",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/seo_updates.py": "cc78bdd184ba74d0d4f9c1caab40bd79d68b7450180460d44598a2307ef54f7e",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/lcp_subparts.py": "92662c91275f4b2b30cfb78939efb3a9bb7e33ae18402336c7cc32e770a0cf06",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/agentic_fix.py": "a25ba5c56d4bf85ddb78f81ae2a3c66a059f909a98fe426d4a02351cec43c294",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/keyword_planner.py": "498a808a62f27abba04aba92568e85a309ffc0da6a93a290411dae56c20c0528",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/youtube_search.py": "f34e6a4ffdda436e42d457a09f3f26d4f907d440d50ba780e7102aeebda0e670",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/validate_backlink_report.py": "9eba82a54f5584c6dff8bbfd9754ef4de04d783362813600852a18a372fa8642",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/domain_history.py": "f94d6b02100a978a792c060345785e07f01a5005add1732dcf5023c05222afc1",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/portability_check.py": "0875531ab12c929dc339a29d48383ac3e04f42db3fdd59a1a28ed657edeaacc1",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/keywordseverywhere_api.py": "c2c58f68d75f360e91b09b618d94dae557c8261a11fb8d4493e5009c22c1e4f6",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/content_humanize.py": "8a2b262042ec3b2b3b13d7f1e9072526787cda14e981fb67896ea31e94dbfe8c",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/moz_api.py": "0dfa4d0d8c2f92c261d03e4082fb5869f38b4c4356760d037b4dec50aa3692c5",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/gsc_inspect.py": "6782618db25496e915540714f8bb768a603ede3c199b25d9b0938755b990f161",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/render_page.py": "ff72e8d38130502391702cd1e5cabd35814c5ad70ecf538711bba4f8c7a0a1c2",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/preload_check.py": "45745c90755f4cbfb13ec812aef076544e19a48ce9151c18f8749db0a78256b7",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/dataforseo_merchant.py": "461ad8329668720cfd6d90c2aac5d195db35ae5ec758537a8fef10797bd9d2c1",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/verify_backlinks.py": "de25ef422ca03079a0bc4bb2fe6ddd79aacccc895c199632efe1b5f14c4406f4",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/content_verify.py": "f16f94d17d9556bf6e847b9abd0a28b0ddf6deef0af0cc2fd277489a0e83b913",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/consistency_check.py": "f83fc0220d5b83f0eb7b66c8da5b584f3a492abd37ea696a8ea34e5595803b0f",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/unlighthouse_run.py": "9709031a95082a4e03ebc63bd792fa21987483d222858ada27df39c84f0004ab",
+    ".opencode/skill-sources/upstream/claude-seo-resources/scripts/fetch_page.py": "57404eb918e31fb11676a5d698d94c5ae5086aacdb978514eea2eec76bb7d9a7",
+    ".opencode/skill-sources/upstream/claude-seo-resources/.claude-plugin/plugin.json": "223a22a55272aa63d18893e56252f05b7746d3af9162affc50d80cf21e0d6246",
+    ".opencode/skill-sources/upstream/claude-seo-resources/data/google-updates.json": "5639ebffd195a0c3ba5200ec8b85fdd29ab01c3fed56369522098ecd00b16c52",
+    ".opencode/skill-sources/upstream/claude-seo-resources/skills/seo/references/eeat-framework.md": "7d1f45cc9f42e9208c936af9e0d57dbdf29e52e733b5a8bed6eb65fa19475972",
+    ".opencode/skill-sources/upstream/claude-seo-resources/skills/seo/references/quality-gates.md": "5652ec5f0328f3f2129d0873d69091e66ea69d99cf6f566d1391e3a3d0db6ef1",
+    ".opencode/skill-sources/upstream/claude-seo-resources/skills/seo/references/eeat-scoring-guide.md": "da90342f0c97af529345d7824147c0a19c1a20de57d1470150c8838f5c445228",
+    ".opencode/skill-sources/upstream/claude-seo-resources/skills/seo/references/cwv-thresholds.md": "bd1d28773d7ee94bbdd1c1230f0f6be3cf4d1689c22dd6dfd52cc0e043732d16",
+    ".opencode/skill-sources/upstream/claude-seo-resources/skills/seo/references/thinking-framework-validate-act.md": "8109404dfee9e732a10a8be10e48a311b3b6c000a1a542972bbd11c7b57f0c75",
+    ".opencode/skill-sources/upstream/claude-seo-resources/skills/seo/references/thinking-framework.md": "e15560608df0b8216b06967f72658f35b320ebe314cd8e15a1b99d66ec2aa96f",
+    ".opencode/skill-sources/upstream/claude-seo-resources/skills/seo/references/maps-gbp-checklist.md": "779c3e5de1c8c5182db4791be859f6f0b7001d25daa7a742b8cdf9d80738dcdc",
+    ".opencode/skill-sources/upstream/claude-seo-resources/skills/seo/references/local-search-behavior.md": "f7870f17345a7d57e9d42b77ec85834f9aedc5ac5b54da57409e3f77f7fd47ba",
+    ".opencode/skill-sources/upstream/claude-seo-resources/skills/seo/references/maps-free-apis.md": "18323486ddd52eaa8e86f7f22930fc065f7c9b529352eadda8c27dca44299b91",
+    ".opencode/skill-sources/upstream/claude-seo-resources/skills/seo/references/maps-api-endpoints.md": "7b5b15d2e50feb15d6d4c523a89e9a6f5291b82a0cd8c384053243119e35d9ab",
+    ".opencode/skill-sources/upstream/claude-seo-resources/skills/seo/references/free-backlink-sources.md": "eaa18f4608c3bd889267c9723d632340ca72d3856f972651364dcbce42f3ed8e",
+    ".opencode/skill-sources/upstream/claude-seo-resources/skills/seo/references/backlink-quality.md": "86a39d009b19f4f17a3dc4461afe209111dc2e8df56b6bd3eecedf5b4a03f742",
+    ".opencode/skill-sources/upstream/claude-seo-resources/skills/seo/references/local-schema-types.md": "65f4e35e065afb7af24ac130f39f23e536e9ca3268ab81447f34fde143407d4e",
+    ".opencode/skill-sources/upstream/claude-seo-resources/skills/seo/references/maps-geo-grid.md": "76e08cd3fefb4d0367e0647895c482e1914a932dc86de4a82dc2d03b987855e4",
+    ".opencode/skill-sources/upstream/claude-seo-resources/skills/seo/references/local-schema-multilocation.md": "15fcdea286dde09d6e2633973d67f5040b6dadabf92b8e2f3855f2e301da5524",
+    ".opencode/skill-sources/upstream/claude-seo-resources/skills/seo/references/schema-types.md": "fed009afae2148c7790dc0bb5d0d9ac3fc3f7bda65e7e537fa3aad64a2005e6b",
+    ".opencode/skill-sources/upstream/claude-seo-resources/skills/seo/references/local-seo-signals.md": "a0fd5c9ad9160e076002d8b6d6c904e5e98cae62aa79e6c6b0ecb5c9401f6bae",
+    ".opencode/skill-sources/upstream/claude-seo-resources/skills/seo-geo/references/llmstxt-evidence.md": "6cc60538738ddabdb6da0657d43cd187d63f377140a3d4deed52dac634c344a1",
+    ".opencode/skill-sources/upstream/claude-seo-resources/skills/seo-geo/references/google-ai-optimization-guide.md": "587dfbe3a298b625341883cffe389441f6acff61fb4e12be7586c7e1cf455348",
+    ".opencode/skill-sources/upstream/tdd/agents/openai.yaml": "ea6f01cf1b8c06a4b0f5b649d74b1b8ce8685e72af1b38d70d877693e092af0b",
+    ".opencode/skill-sources/upstream/gtd/references/01-the-engine.md": "2d094773b8716ff91c37adb4be95429c4c583cff6035cc7668fdaffc5408f193",
+    ".opencode/skill-sources/upstream/gtd/references/diagnostic.md": "f1de325e2b3f5ea204fda667761139f4f975754c4799d054399a089bf4b7b56c",
+    ".opencode/skill-sources/upstream/gtd/references/05-review.md": "f82579e0daaa49b71aec778dd42e9b54db0b11963f3d10b614dcc0799a3f2f7e",
+    ".opencode/skill-sources/upstream/gtd/references/07-power-principles.md": "04ba98eca063e4a54c1c7db88e16819c295263f8eb6d8b70b7ae79ffd7726687",
+    ".opencode/skill-sources/upstream/gtd/references/03-clarify-and-organize.md": "c665abde728c8d73bd8309508f69aabf8d14463ec595d8645f8776402ba54f58",
+    ".opencode/skill-sources/upstream/gtd/references/06-engage-and-choose.md": "4a54e81751c0e7b4927acc2568e5bff72e247e5525ad3147d22bed2464170e24",
+    ".opencode/skill-sources/upstream/gtd/references/00-foundations.md": "1b2d9dafc43a3562807de699d06b416f44467f4cd9b7bb468f252b9c76d0e10d",
+    ".opencode/skill-sources/upstream/gtd/references/02-capture-and-setup.md": "5ccff7d527fe4c771e9116d3aaa1f45e380d39ce57d75755519fab6d73c17a8f",
+    ".opencode/skill-sources/upstream/gtd/references/04-natural-planning.md": "6e5127b352268d7612bf8f0362f9c2264d4126e7fb8555f3efe3090944aaf46f",
+    ".opencode/skill-sources/upstream/grill-with-docs/agents/openai.yaml": "94cd0ab161fb468a836349f5ed482ba58ce8e709a05c57ce533d739dbd35cca9",
+    ".opencode/skill-sources/upstream/codebase-design/agents/openai.yaml": "edebc9e4fcfe102114012575eaa9600b9b5fd08c311664f389c36e7bc717740f",
+    ".opencode/skill-sources/upstream/to-spec/agents/openai.yaml": "1c5b4d1e3d8e52287ef19cc2742fdbbfae1914ac75d33af3e4c8174f08cc55bb",
+    ".opencode/skill-sources/upstream/human-writing/evals/case-02-scientific-abstract.md": "3bbf18fc7c5d7eb2cb67cfd9a965c203e4d0847a8158c7965ffa807fb2430203",
+    ".opencode/skill-sources/upstream/human-writing/evals/case-01-marketing-blurb.md": "d3a699b37106ea55ab487e75e88c28bfeff1f2e14458c98dc1a657ebe1ce5177",
+    ".opencode/skill-sources/upstream/human-writing/evals/README.md": "45a68a4d03e2330d45f833a1fa4f4a6c1c0ec59d4f0668c4aee33599527be0db",
+    ".opencode/skill-sources/upstream/human-writing/evals/case-03-chat-dm.md": "27b1ea2dcec7da68a2cc7388426cdd3284250d42e67956e8ab3db6916e85fe48",
+    ".opencode/skill-sources/upstream/human-writing/evals/case-04-voice-match.md": "5576218b96b59876058bac4e636454f82bf9b5503008158ce7276a0cc371572a",
+    ".opencode/skill-sources/upstream/human-writing/references/examples.md": "72379846137633fd0b4c1420681b40ccc0a0c15a9ea6abe4b6bd61a1c62eb29a",
+    ".opencode/skill-sources/upstream/human-writing/references/quick-check.md": "70f9236f1ecd0ad7baadbc13a65073b1295d8522e7907ef35c5a9c54e3aa3cf3",
+    ".opencode/skill-sources/upstream/human-writing/references/voice-matching.md": "97fe1ab99ed1a0fd2564f1cefcf7bc81aff3b9ac51cf73d8891feaa5fda6fabc",
+    ".opencode/skill-sources/upstream/human-writing/references/detector-matrix.md": "09c65c96645dc957bba72447fcd0115b364ece87b1af8197a36a26a372ce0517",
+    ".opencode/skill-sources/upstream/human-writing/references/techniques.md": "1c6429ab669b26d9c10cd91bce304b724a4171cac62b75b644fb5b53bc52cbc8",
+    ".opencode/skill-sources/upstream/human-writing/references/adversarial-paraphrasing.md": "963d0ef7d4c50a74579db0098575169965d10641f7ee03a8b04189db5441f03e",
+    ".opencode/skill-sources/upstream/human-writing/references/ai-tells.md": "cee058cab937f04e09de77c5d27c7544bc6f732010bcf3e6699e56346dad72ea",
+    ".opencode/skill-sources/upstream/to-tickets/agents/openai.yaml": "21bc6215fffcd7614e9f772bb1760e87cc5fc7dcc707e7d282bc9414267a6090",
+    ".opencode/skill-sources/upstream/code-review/agents/openai.yaml": "8229ca854e11dc8e6aef2131ee03f31fb1561cf905fab9ccc325180cf3331352",
+    ".opencode/skill-sources/upstream/diagnosing-bugs/agents/openai.yaml": "3e430dbe4334a87597488c060cb3dc3786bb00c9182877d6f5ec41f62490e90b",
+    ".opencode/skill-sources/upstream/diagnosing-bugs/scripts/hitl-loop.template.sh": "35103539fc36873eea36074769ad454f9379d6fc8b2dc0e26ce987fd3bfe5503",
+    ".opencode/skill-sources/upstream/how/references/critique-rubric.md": "8ac5786e430f5043e6eae1ed81e9b8cef5fb5825bf1043428dd5fcfe57f4ed2a",
+    ".opencode/skill-sources/upstream/how/references/explorer-prompt.md": "0cf798751cf535d35697b7902d19d257da0a1e046337d18a40759fd5ec109f76",
+    ".opencode/skill-sources/upstream/how/references/critic-prompt.md": "384dbe2e16b558f7139b22d6b6acdf07f0a36aa4e000d6402e9b00388b52a422",
+    ".opencode/skill-sources/upstream/how/references/explainer-prompt.md": "5a5223f5fe1c22447638fa285cc74f1be98ea53c4941aaa4231260ee84a384e0",
+    ".opencode/skill-sources/upstream/seo-technical/references/stack-cve-exposure.md": "a6aa63975ac47dc3a1fcdfe6e17b2a2c4db91d98e8c5593aeea09bd3c1681170",
+    ".opencode/skill-sources/upstream/domain-modeling/agents/openai.yaml": "f6bf2aa996c6e6f53fdd0708e18a0d16a56aed8322cca59fedbe3c0d2c75f06b",
+    ".opencode/skill-sources/legacy/domain-modeling/SKILL.md": "76546e77ba446be9bb8c53c9a90f3c7edea1fb41b81fe5b53587e6e538a2cb0d",
+    ".opencode/skill-sources/legacy/specification-design/SKILL.md": "c47dbe50035891a32f4127b82ab2f73ef238701a3471da9742aca14c9099dc4f",
+    ".opencode/skill-sources/legacy/completion-audit/SKILL.md": "6aabea84b45ed58486f7642c9ebea128e344b01992decfe1e7efdf88ccca1172",
+    ".opencode/skill-sources/legacy/test-driven-development/SKILL.md": "189238bdf47f1b23ce8bc069eb7e3c6b3bc800f5220366297ce30f627ed6d6e4",
+    ".opencode/skill-sources/legacy/seo-technical/SKILL.md": "6b3906ef2692084877a362db0da9c970f7c18d55d2329cde8b1d7ac790b3ea8d",
+    ".opencode/skill-sources/legacy/systematic-debugging/SKILL.md": "b4b0f9384bcd4aa488752db3493b5a912d94c5203b620e649def33e0bea3de38",
+    ".opencode/skill-sources/legacy/natural-writing/SKILL.md": "7e85d26e49199b72f529472afe7504b8fb9b33bdf36194d41d557500515942a7",
+    ".opencode/skill-sources/legacy/seo-content/SKILL.md": "0dfe070f56c7a5cf1810bdcde9b733458bf202e0275bc3ed05fb3154a915a022",
+    ".opencode/skill-sources/legacy/ecommerce-brand-voice/SKILL.md": "7e4c1d019c32180b64644a4fdcb1b2044609a5e134ebe8c6dead8402273c05aa",
+    ".opencode/skill-sources/legacy/codebase-understanding/SKILL.md": "c9dc228e4b59ff3aa9653d10cb0080852ecee7528247b0fa9e0747dccef4e868",
+    ".opencode/skill-sources/legacy/requirements-grilling/SKILL.md": "f7cadc28e879ff0ba74c7fff86ec10b5b8fba2099f7d75cf7a41cf89bd443f77",
+    ".opencode/skill-sources/legacy/ecommerce-copywriting/SKILL.md": "1224fbfbdc3e78f0226c7a6c601ff65f8659fd59454f21dd2979465f3676b19a",
+    ".opencode/skill-sources/legacy/verification/SKILL.md": "24eedd0869893eb98ae91e1df390c4cf4de4236f36c4c4fcb2b500e10801f7a3",
+    ".opencode/skill-sources/legacy/code-quality/SKILL.md": "91469c147edd1575252ebbdaf97d2a8321fc24fecdc4fcc203e94409689cd868",
+    ".opencode/skill-sources/legacy/task-decomposition/SKILL.md": "e57a1830cc2dc5be7f7294b7d8a7d0d352a4239592be92096d24ec9c67e7e660",
+    ".opencode/skill-sources/legacy/milestone-coordination/SKILL.md": "29792237fb9df947c6106cd5a81e217e3c9c2805df7638490a3aa7e5015574a4",
+    ".opencode/skill-sources/legacy/ecommerce-product-pages/SKILL.md": "584d048cdbeb3702426657abe0169f0adf68e8e4ef7ec09acd651b25075a4e1e"
+  },
+  "globalInstallationChanged": false,
+  "baselinePluginDiscovery": {
+    "global": "active poseidon-workspace",
+    "project": "failed: Duplicate plugin ID: poseidon-workspace"
+  },
+  "grades": {
+    "coder": "B+",
+    "maintainer": "B",
+    "poseidon": "B",
+    "team-lead": "B (low confidence)",
+    "reviewer": "C+",
+    "researcher": "D"
+  }
+}

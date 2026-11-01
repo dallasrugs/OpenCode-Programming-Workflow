@@ -1,0 +1,153 @@
+{
+  "date": "2026-11-01",
+  "scope": "Task-agnostic prompt-body tuning only",
+  "project": {
+    "poseidon": {
+      "before": "6037a930c512cc324bc57ca74b924ce6405ad5179da7c7a8dab8343756560ae2",
+      "after": "0d7006c7d01bc23c7e7901cf8a63537ffeb3e354c752d5f817493a3d5aa752d9",
+      "frontmatter": "a4ee682d34928054df903c1fee2c8cf8fc8b0064996c3ce65e1fbbea1d107a8c",
+      "addedWords": 149
+    },
+    "team-lead": {
+      "before": "067ea7ef2f5c57f1b065803351c04efb4b00475633f25715a122f0c9437becf5",
+      "after": "6ccf9d15c7f93db1645ba32f27c5f5fc3676c5ab3e1faddc105580e611f526c9",
+      "frontmatter": "b69a64922bf0b2d26ebebb55763a6e3cb0bc193f8573af73f7161181e41ad33d",
+      "addedWords": 135
+    },
+    "researcher": {
+      "before": "0c5a9eaecfc2d06207f2c4742d905815910d24d99e18fa61e74cc38e6779d485",
+      "after": "adc0ed2de7440fb9f352b83a669a27d812d67ace234a69affd3584b79077d7da",
+      "frontmatter": "ec78e4c5fc7924ae07c62b82c28c7c4942cfd5bdb4915e317280ce587ad3f514",
+      "addedWords": 124
+    },
+    "maintainer": {
+      "before": "e26e45fd76560e0dafeae53152e56e4a5d4ccb9dd9060aeca0b271ea7931e641",
+      "after": "00303fb1dfd3e4694a71c1fb192462aca56e7206fe89ca91b3c9e6f56c911cd4",
+      "frontmatter": "369687f5f55a82c0e3d71bd87f7a5e7445c90515eba7abac227a69470cda0776",
+      "addedWords": 115
+    },
+    "coder": {
+      "before": "ea7ef907c8adcf14651f1f617f2779b25646080cc98768b63900122ea214e0ec",
+      "after": "61108ff78172cab3587e386842a0a3d685e0165a12a931ddcc231eedebc07d78",
+      "frontmatter": "70dc6b5e2d3eb3ea6c90e30b97b44bbd975c143f4a9081f9c38b3d5ffaa4881e",
+      "addedWords": 140
+    },
+    "reviewer": {
+      "before": "1afe02b52d7ef020764ac0bc926e1bb75b788363fb5b221aa686286b5afae40b",
+      "after": "db17076922e4ecb9a7dd99581a802d657881ec4744dc943977214c99df1082dd",
+      "frontmatter": "2eaadebd41059d5c07e53a783e0c740b1933088011a40ffd7a1b7110f7fb1de9",
+      "addedWords": 136
+    }
+  },
+  "global": {
+    "poseidon": {
+      "before": "844bbd019dc47ebdd60084164adb47961f4829394f257cc78698497b6eb356d0",
+      "after": "9212aa3fa02d65244470f22e1b0960410d379365fc59c0a2269f07697bd174ba",
+      "frontmatter": "e26e4a7f75b2c5331ff6fb2bd8611c48ea25492ee7681d979b52987b562f9bcc",
+      "addedWords": 149
+    },
+    "team-lead": {
+      "before": "d9f779da919311fccf845856501e94cf19b06dfd76f2d29e7e40dd8baaa0c0a1",
+      "after": "6884911a8b586cd667631f6c6473bea4368fe639e84c94d94f30c80ebc1ddbea",
+      "frontmatter": "cc0b11e0b5d0ba6fa248451c85f6dbb6d2b8a21ef90f1a05238eed5d2952db63",
+      "addedWords": 135
+    },
+    "researcher": {
+      "before": "048260158aac53f1cd7c74569fa157a875e5ca72ebb28b5d1296bb3e07564011",
+      "after": "0f92412c6a8f5902c88a4f101a96535f0e7f4944dc5eabe861930a48ffe08411",
+      "frontmatter": "253e64e590dc772005a4a9b1e21ba6d3d902fcd5de5d66592fd21cc0865fc120",
+      "addedWords": 124
+    },
+    "maintainer": {
+      "before": "80220da2e240eb0a1e9aa98435d569604602221e14df3f12ff209c16fc788204",
+      "after": "3e40e445d993ee203c10f6772ddae7ba05edf8e51284a6aa6d6843eeb468de48",
+      "frontmatter": "455768817d9722b66bf724c9b4cabcdf88264d1e60b44c78479eeee6192c41b4",
+      "addedWords": 115
+    },
+    "coder": {
+      "before": "38eea9cd46d95870a7862bee57588bec796d81181dd1fbb9f2bffa8febde9789",
+      "after": "2b555113bd38d2a3773d2902b79a0394cde0bea775aa01209f71bbcefb7c3a1c",
+      "frontmatter": "698435fa88ded3d6ece856dcdda62b8aa1a67ce65276b5f82bec68b9e6d8eb7a",
+      "addedWords": 140
+    },
+    "reviewer": {
+      "before": "29031ba635fa0cb230f2bc9420fb2b11143fa33b2bd5274bd66f3573f4dabc60",
+      "after": "ea918dff681fc56f6f9d8972d360d272a27cb6d87b63b4fba808570dfcfac9ad",
+      "frontmatter": "07c3b42b7e0c6254edae0471ebe7b5df76ee877339473f58acc6db21947677f5",
+      "addedWords": 136
+    }
+  },
+  "globalBackup": "/private/tmp/opencode-outcome-prompts-backup-j3gk97g4",
+  "modelEvaluations": "NOT_RUN",
+  "postTuningProductOutcomes": 0,
+  "activeGlobalDiscovery": [
+    {
+      "agent": "poseidon",
+      "mode": "primary",
+      "outcomeProtocolLoaded": true,
+      "model": {
+        "id": "gpt-6-sol",
+        "providerID": "openai"
+      }
+    },
+    {
+      "agent": "coder",
+      "mode": "subagent",
+      "outcomeProtocolLoaded": true,
+      "model": {
+        "id": "gpt-6-sol",
+        "providerID": "openai"
+      }
+    },
+    {
+      "agent": "maintainer",
+      "mode": "subagent",
+      "outcomeProtocolLoaded": true,
+      "model": {
+        "id": "gpt-6-sol",
+        "providerID": "openai"
+      }
+    },
+    {
+      "agent": "researcher",
+      "mode": "subagent",
+      "outcomeProtocolLoaded": true,
+      "model": {
+        "id": "thinkingmachines/inkling:free",
+        "providerID": "openrouter"
+      }
+    },
+    {
+      "agent": "reviewer",
+      "mode": "subagent",
+      "outcomeProtocolLoaded": true,
+      "model": {
+        "id": "nvidia/nemotron-3-ultra-550b-a55b:free",
+        "providerID": "openrouter"
+      }
+    },
+    {
+      "agent": "team-lead",
+      "mode": "subagent",
+      "outcomeProtocolLoaded": true,
+      "model": {
+        "id": "gpt-6-sol",
+        "providerID": "openai"
+      }
+    }
+  ],
+  "discoveryMadeModelRequest": false,
+  "verification": {
+    "pythonTests": {
+      "run": 77,
+      "passed": 72,
+      "skipped": 5
+    },
+    "skillConfiguration": "PASS",
+    "frontmatterPreserved": "PASS for all six project and all six global prompts",
+    "replacementIdempotence": "PASS",
+    "gitDiffWhitespace": "PASS",
+    "baselineCriticalGate": "BLOCKED: three failures, one unverified criterion",
+    "newBehavioralOutcome": "NOT_RUN"
+  }
+}

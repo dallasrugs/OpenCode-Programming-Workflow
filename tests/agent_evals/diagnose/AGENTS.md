@@ -1,0 +1,1 @@
+This is a disposable evaluation. Read only. Do not delegate, edit, run tests, start services, configure Docker or load skills. Inspect only app.py and test_app.py. Return the root cause with file/line references and one deterministic repair. Do not claim execution evidence.

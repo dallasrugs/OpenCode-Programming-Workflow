@@ -1,0 +1,3 @@
+This is a ceramics studio's journal, not a shop. I explicitly delegate typography, spacing and layout choices to you: surprise me within a quiet editorial style. Preserve the existing words, forest-green text on white, and journal navigation. Add no features, animation or commerce. Consider that the confirmed brief; do not ask me to approve it again.
+
+For this exercise, do not delegate. If implementing is outside your role, return a scoped handoff instead.

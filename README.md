@@ -1,165 +1,247 @@
-# OpenCode Programming Workflow
+# OpenCode Multi-Agent Starter
 
-This project turns OpenCode into a small programming team. You describe what you
-want to build or fix, and talk to **Poseidon**, the coordinating agent. Poseidon brings in
-other agents to plan the work, write code, check the design and review the result.
-You stay in one conversation and make the final decisions.
+A six-agent workflow for turning a user's idea into working software: clarify the
+intended outcome, challenge assumptions, plan the work, implement it, and review
+actual evidence. Prompts emphasize completing the user's main workflow rather
+than producing an attractive interface with missing behavior.
 
-The agents do the reasoning. A few small Python helpers manage Docker test
-sandboxes, project settings and test logs. There is no separate controller to
-start and no request file or authorization token to prepare.
+Built with this workflow: **[PocketCalc](https://github.com/tlynx538/calc)**, a native
+macOS calculator whose application code, checks and packaging were created by
+OpenCode agents from an empty repository. See [the project story](#projects-built-with-the-agents).
 
-## Meet the team
+## What it does
 
-| Agent | What it does | Model |
-|---|---|---|
-| **Poseidon** | Your main contact; coordinates the work and reports the result | OpenAI GPT-6 Sol |
-| **Team Lead** | Turns requirements into a practical plan | OpenAI GPT-6 Sol |
-| **Maintainer** | Checks architecture, compatibility and maintainability | OpenAI GPT-6 Sol |
-| **Coder** | Makes the code changes and addresses feedback | OpenAI GPT-6 Sol |
-| **Reviewer** | Independently reviews the changes and test evidence | NVIDIA Nemotron via OpenRouter |
+- Clarifies consequential choices before implementation: audience, platform,
+  primary workflows, state, outputs and external effects.
+- Separates confirmed user decisions, observed facts, assumptions and proposals.
+  Existing code or a familiar reference product does not define user intent.
+- Gives Researcher an independent challenge of ambiguous product briefs so an
+  early coordinator assumption does not propagate unchecked.
+- Passes the original request and confirmed answers through planning, scoped
+  implementation and independent review.
+- Keeps question rounds small and relevant. Required questions default to ordinary
+  numbered chat; agents wait for actual answers or explicit delegation before
+  changing dependent behavior. Precise fixes skip unnecessary interviews.
+- Provides bounded runtime tools, Docker test workspaces, skill provenance checks,
+  and an offline benchmark for evaluating prompt changes against task outcomes.
 
-Poseidon decides how much planning and review a task needs. A small fix can stay small;
-a larger change can involve all four specialists. Delegation appears directly in
-OpenCode, so you can see which agent is working.
+## Agents and responsibilities
 
-The definitions live in [.opencode/agents](.opencode/agents). Poseidon is the default
-agent. The first four use `openai/gpt-6-sol`; Reviewer uses
-`openrouter/nvidia/nemotron-3-ultra-550b-a55b:free`. To change a model, edit its
-agent's `model` field. OpenCode uses your existing provider connections; this
-project adds no login system and stores no model credentials.
+| Agent | Responsibility | Configured model |
+| --- | --- | --- |
+| **Team Lead** | Execution, task decomposition, dependencies, assignments, acceptance checks and escalation | `openai/gpt-6-sol` |
+| **Poseidon** | User intent, first-principles discovery, focused questioning, design briefs and fidelity checks | `openai/gpt-6-sol` |
+| **Researcher** | Read-only evidence gathering; challenges assumptions and overlooked workflows; distinguishes facts from preferences | `openrouter/thinkingmachines/inkling:free` |
+| **Maintainer** | Architecture, platform feasibility, compatibility and capability fit | `openai/gpt-6-sol` |
+| **Coder** | Scoped implementation, working user journeys and regression checks | `openai/gpt-6-sol` |
+| **Reviewer** | Independent correctness and requirement review; checks claims against source and actual test evidence | `openrouter/nvidia/nemotron-3-ultra-550b-a55b:free` |
 
-## Set it up
+The human remains the final authority. Research and agent consensus cannot answer
+preference questions on the user's behalf. Provider access depends on your own
+OpenCode connections and model availability.
 
-You need:
+### Repository bundle versus the tested installation
 
-- **OpenCode v2** and connections for the configured OpenAI/OpenRouter models.
-- **Git** and **Python 3.10 or newer** for the workspace helpers.
-- A running **Docker engine** for sandbox tests. On macOS, start Docker Desktop.
+This repository's current bundle makes **Team Lead the primary coordinator** and
+Poseidon its user-intent specialist. Only Team Lead delegates; workers cannot
+launch other agents. The bundle includes explicit assignment/handoff contracts,
+versioned brief confirmation, bounded tools and research critique gates.
 
-For a project installation, run these commands from this starter's directory:
+The installed configuration that built PocketCalc was the earlier **Poseidon-led
+native workflow**, with Team Lead as a planning worker. Discovery v2 prompt updates
+were installed into that configuration while preserving its models, permissions
+and hierarchy. Its workers had native host tools; it did not use the repository's
+stricter no-host-shell policy. PocketCalc is evidence for that tested workflow,
+not proof that every newer runtime control in this bundle has been live-validated.
+See [the discovery update](docs/usage-reviews/2026-11-01-discovery-v2.md) and
+[calculator session review](docs/usage-reviews/2026-11-01-calculator-session-reflection.md).
 
-```sh
-./install.sh --project /path/to/your/project --dry-run
-./install.sh --project /path/to/your/project
+## How the workflow works
+
+1. **Discover intent.** Inspect available facts and reconstruct the main user
+   journey before choosing a solution. For ambiguous products or broad audits,
+   Poseidon asks one to three dependency-aware questions per round and carries
+   actual answers forward. Missing responses and interrupted widgets are not consent.
+2. **Challenge the interpretation.** The coordinator gives Researcher the original
+   request, confirmed answers and proposed scope. Researcher surfaces unsupported
+   assumptions, factual constraints and overlooked steps. Material preference
+   questions return to the user; factual questions receive bounded investigation.
+3. **Form a shared brief and plan.** Record confirmed outcomes, constraints, action
+   semantics, acceptance checks and material unknowns. Team Lead maps requirements
+   to owners and observable checks. Maintainer checks feasibility before a stack
+   or architecture is committed to.
+4. **Implement the core journey.** Coder builds the smallest useful end-to-end
+   slice before optional polish. Necessary choices must be discoverable, and
+   cancellation, failures and unintended side effects receive relevant checks.
+5. **Review and deliver.** Reviewer assesses both patch correctness and coverage
+   of the original request. Source inspection, unit checks, interactive evidence
+   and user feedback remain distinct. Passing a build does not prove a usable UI.
+
+In the current repository bundle, Poseidon proposes a versioned brief for design
+work. Inspect the actual proposal and invoke the returned operator command:
+
+```text
+/confirm-brief ID VERSION HASH
 ```
 
-Or install globally, so the team is available in all your repositories:
+The hash binds confirmation to what you saw. Agents cannot self-confirm or silently
+replace accepted decisions. Reuse settled choices; precise tasks stay lightweight.
+The earlier Poseidon-led installation uses conversational clarification rather
+than this contract command. Do not mix installation profiles accidentally.
+
+First-principles and Socratic **discovery methods are embedded in the prompts**.
+They support direct answers and delivery; the tutor-only rule that refuses answers
+was not adopted. Original upstream grilling skill files remain unchanged.
+
+## Skills available to the agents
+
+Skills load on demand and only where assigned. This is the bundled catalog, not a
+claim that every skill runs on every project. Exact role grants, upstream revisions,
+file hashes and licenses are in [SOURCES.json](.opencode/skills/SOURCES.json).
+
+| Purpose | Native skill IDs |
+| --- | --- |
+| Clarification and domain discovery | `grilling`, `grill-with-docs`, `domain-modeling` |
+| Reasoning and planning | `how`, `codebase-design`, `to-spec`, `to-tickets`, `writing-plans`, `milestone-coordination` |
+| Implementation and diagnosis | `tdd`, `superpowers-test-driven-development`, `systematic-debugging`, `diagnosing-bugs`, `code-quality` |
+| Review and verification | `code-review`, `verification-before-completion`, `verification` |
+| User outcomes and next actions | `karpathy-guidelines`, `gtd` |
+| Interface design | `frontend-design` |
+| Writing and discoverability | `humanizer`, `human-writing`, `seo-content`, `seo-technical` |
+| Commerce tasks | `ecommerce-brand-voice`, `ecommerce-copywriting`, `ecommerce-product-pages` |
+
+“Grill me”, “grill-me” and “grill” refer to `grilling`. `grill-with-docs` is used
+when explicitly requested. GTD helps clarify outcomes and next actions; it does
+not authorize messages, calendar events or unrelated product features.
+
+The catalog contains 27 native skills: 21 verified imports and six preserved legacy
+adaptations marked `SOURCE_UNVERIFIED` (`milestone-coordination`, `code-quality`,
+`verification`, and the three commerce skills). Original licenses and notices are
+retained. See [ATTRIBUTION.md](ATTRIBUTION.md) and
+[skill provenance](docs/SKILL_PROVENANCE.md). Discovery method references:
+[First Principles Thinking](https://github.com/awesome-skills/first-principles-skill)
+and [Socrates](https://github.com/bevibing/socrates-skill); these were adapted
+conceptually in prompts, not installed as unchanged additional skills.
+
+## Projects built with the agents
+
+### PocketCalc — native macOS calculator
+
+**Repository: [tlynx538/calc](https://github.com/tlynx538/calc)**
+
+OpenCode's agents created the calculator from an empty Git repository. The human
+provided the idea and answered product questions; the agents produced the SwiftUI
+application, arithmetic engine, executable checks, documentation and `.app`
+packaging script. This later publishing pass added provenance documentation and
+GitHub publication; it did not write the calculator implementation.
+
+The questions changed the outcome: the user chose a native macOS desktop app over
+a proposed web app, mathematical precedence, a dark body, raised keys and an
+LCD-style display. The app includes keyboard controls, basic arithmetic, percent,
+square root, sign changes, memory, entry correction and error recovery.
+
+Recorded evidence includes passing engine assertions, a successful build, final
+`.app` packaging and launch smoke checks. Poseidon also caught a clear-entry bug
+and ensured the corrected source was repackaged. The user reported a successful
+result. Visual inspection and an interactive keyboard walkthrough were not
+performed by the agents; those are distinct from a launch check. See the
+[session assessment](docs/usage-reviews/2026-11-01-calculator-session-reflection.md).
+
+**Embertext is a fresh build under evaluation.** The older editor's usability
+failures informed the discovery prompts; it is not listed as a completed success.
+One positive calculator task is useful evidence, not a general benchmark score.
+
+## Install
+
+Requirements: OpenCode v2 (validated against v2.2.5), Git, Python 3.10+, Node for
+local runtime checks, and Docker for configured sandbox tests. Use your existing
+provider logins; no credentials are bundled.
 
 ```sh
+./install.sh --project /path/to/project --dry-run
+./install.sh --project /path/to/project
+# Or install missing files globally:
 ./install.sh --global
 ```
 
-On Windows, use `./install.ps1 -Project 'C:\Projects\MyApp'` or
-`./install.ps1 -Global`. Add `-DryRun` to preview the changes.
+Windows: `./install.ps1 -Project 'C:\Projects\MyApp'` or `-Global`; use `-DryRun`
+to preview. Native PowerShell execution has not been verified on the macOS host.
 
-Installers preserve existing files. They do not overwrite an older installation
-or remove its files automatically. Review an existing installed bundle before
-replacing it. Restart OpenCode after deliberately updating its configuration.
+Installers preserve existing files. An existing installation needs a deliberate
+[merge/migration](docs/MIGRATION.md), validation and a fresh chat. Running the
+installer or restarting alone does not replace an old profile. A fresh installation
+of this bundle starts with Team Lead; the author's existing global installation
+still uses the tested Poseidon-led profile described above.
 
-## Give it a task
+The workspace plugin uses an installation-specific ID to avoid project/global
+collisions. When a legacy global workspace tool is already registered, local guards
+reuse it rather than starting duplicate sandbox hooks and monitors. Verify actual
+agent and plugin discovery when comparing installations.
 
-Open a new OpenCode chat in your repository:
+## Tools, testing and resource controls
 
-```sh
-cd /path/to/your/project
-opencode
-```
+The **repository bundle** denies agent host shell, Code Mode and arbitrary MCP
+mutation access. Coder writes require a scoped assignment; Reviewer stays read-only.
+`project_search` bounds literal source searches and excludes protected paths.
+Unknown tools are denied; connected resource access requires task approval. These
+controls are not an OS sandbox or proof of semantic prompt-injection resistance.
+Trusted server plugins and operator actions remain privileged.
 
-Then send a normal request, for example:
+The operator configures Docker images and commands. Agents run configured tests
+through `poseidon_workspace`; missing setup is an explicit verification limitation.
+Sandbox snapshots exclude protected files and run without host mounts or runtime
+network. Settings/logs remain under the Git common directory's `.git/bdfl/` storage.
+See [settings examples](.opencode/runtime/settings.example.json).
 
-> Refine the notebook layout for desktop and mobile. Preserve autosave and the
-> existing API. Run the frontend and browser tests, then explain what changed.
+Default resource admission is one worker, one heavy tool and one delegation level.
+[agent-limits.json](.opencode/runtime/agent-limits.json) adds per-role step, call,
+time and output budgets. Research defaults to three searches, four retrievals,
+eight calls, eight steps, 120 seconds and a 300-word handoff. A final submission
+slot is reserved. Limits do not make incomplete evidence a successful result.
 
-Poseidon inspects the project, delegates the appropriate work, and brings back the
-changes, actual test results and any unresolved issues. You do not need to switch
-agents manually or supply a controller run ID. Agents should preserve unrelated
-changes and commit or publish only when you ask them to.
+The provider budget guard caps observed NVIDIA/Nemotron requests at **20/minute
+and 1,000/rolling day**, with shared atomic state across guarded processes. Requests
+from uninstrumented clients remain outside its accounting; allow for total account
+usage. Live model evaluations are opt-in and bounded.
 
-## What Docker is for
+Useful operator commands:
 
-Docker provides an isolated place to run your project's tests. The container image
-contains the tools those tests need: for example Python, Node and a browser.
-The image is specific to the project; it is not an AI agent.
+- `/poseidon-logs LOG_ID`: read bounded saved operation evidence.
+- `/poseidon-end`: end the chat's sandbox while preserving work and settings.
+- `/poseidon-resources`: inspect resource-governor diagnostics.
+- `/agent-audit`: inspect registered tool executors and admission counters in the contract-enabled bundle.
 
-On first use, Poseidon inspects the project and saves its test setup. It can reuse an
-existing image or build one from a saved Dockerfile recipe. Once configured, the
-sandbox starts when you send a request and is reused during that chat. Delegated
-agents share their parent chat's sandbox.
+Details: [contracts](docs/AGENT_CONTRACTS.md), [authority](docs/AUTHORITY.md),
+[resource governance](docs/RESOURCE_GOVERNOR.md),
+[implementation status](docs/IMPLEMENTATION_REPORT.md), and
+[historical evaluations](docs/AGENT_EVALUATION.md).
 
-For each test run, the helpers copy the current source into the container and run
-the configured commands. Tests run without network access or host mounts; image
-building can download dependencies. Results include real command output and a
-source fingerprint. If the code changes during validation, the result is marked
-stale instead of being reported as a pass.
+## Evaluate prompt changes
 
-The agents still edit your repository through native OpenCode tools. The Docker
-sandbox isolates tests; it does not enclose every agent action. Standard OpenCode
-permissions in the agent definitions control tool access. Coder has native edit
-and shell access. Reviewer also has shell access for inspection and tests, with
-instructions to leave application source unchanged.
+The [offline benchmark](benchmarks/prompt_effectiveness/README.md) freezes prompts,
+original requirements, starting artifacts and environment, archives review evidence,
+and compares matched task outcomes. Different models, permissions, runtime, inputs
+or requirements invalidate a prompt-only comparison. Critical workflow failures
+block readiness even when visual scores are high. Repeats are grouped by task;
+small samples do not establish general improvement.
 
-## Logs, settings and cleanup
+The locally installed candidate is `discovery-v2`, with `discovery-v2-before` saved
+as its matching prompt baseline. Ten cases cover discovery, question recovery,
+precise fixes, user journeys and transfer tasks. No controlled product-effect delta
+is claimed. Historical project reviews remain separate from scored benchmark runs.
+Snapshots and run artifacts are local and ignored by Git; setup/scoring makes no
+model requests.
 
-Ask Poseidon to show test output in OpenCode's shell. Structured workspace tool calls
-also report progress. Full helper logs and test evidence are saved with the project:
-
-```text
-.git/bdfl/
-  settings.json       # Docker setup and test commands
-  image-cache.json    # Reusable image build information
-  sessions/           # Which sandbox belongs to each chat
-  operations/         # Setup and test logs
-  evidence/           # Test results tied to the source that was tested
-```
-
-The `bdfl` storage-directory name is retained so existing project settings, logs
-and sandbox ownership continue to work. These files are local to the project
-and survive OpenCode restarts. They are
-outside the application working tree, so saving settings does not create source
-changes. Git worktrees share their Git common directory's settings.
-
-Two commands are available in OpenCode:
-
-- `/poseidon-logs LOG_ID` asks Poseidon to show a saved workspace operation's log.
-- `/poseidon-end` removes the current chat's sandbox and keeps its settings and work.
-
-Archiving or deleting the parent chat also removes its container. Deleting a
-worker agent's session does not remove the parent's sandbox. A later request can
-recreate the sandbox from the saved configuration. Closing the UI alone does not
-end a saved chat. Docker must be reachable for container cleanup to succeed.
-
-The [example settings](.opencode/runtime/settings.example.json) show the available
-test and sandbox options. Poseidon can configure these through `poseidon_workspace`; you
-do not have to write the file yourself. Existing version 1 project settings remain
-readable, but their old model/retry fields do not control the native agents.
-
-## What's in this repository
-
-| Location | Purpose |
-|---|---|
-| `.opencode/agents/` | The five agents, their models, permissions and instructions |
-| `.opencode/plugins/poseidon-workspace/` | OpenCode integration for sandbox lifecycle and workspace tools |
-| `.opencode/runtime/` | Small sandbox, settings, logging and source-validation helpers |
-| `.opencode/skills/` | Skills available to the agents |
-| `.opencode/skill-sources/` | Pinned originals, licenses and audit records for those skills |
-| `.opencode/skill-resources/` | Supporting material required by imported skills |
-| `tests/` | Checks for the current agents, helpers, plugin and installers |
-
-Skill source snapshots and original licenses are intentionally retained. They are
-used to verify provenance, not loaded as duplicate agents or skills. See
-[skill provenance](docs/SKILL_PROVENANCE.md) and [attribution](ATTRIBUTION.md).
-
-## Check the starter
-
-These checks do not invoke models or require model credits:
+## Verify the repository
 
 ```sh
 python3 -m unittest discover -s tests -v
-node --test tests/test_workspace_plugin.mjs
+node --test tests/test_agent_contracts.mjs tests/test_reliability_plugin.mjs tests/test_workspace_plugin.mjs tests/test_resource_governor.mjs tests/test_provider_budget.mjs
 python3 .opencode/runtime/skillctl.py validate
 bash -n install.sh
 ```
 
-[Validation notes](docs/validation.md) record what has actually been checked and
-what still needs live-environment testing.
+Resource-governor integration tests need macOS process-metric access. A restrictive
+execution sandbox may block those metrics, which deliberately fails admission
+closed. Deterministic tests need no provider requests. Passing infrastructure tests
+does not establish every live agent or GUI outcome. See [validation notes](docs/validation.md).

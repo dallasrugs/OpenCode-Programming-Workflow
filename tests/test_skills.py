@@ -35,9 +35,9 @@ class ProvenanceTests(unittest.TestCase):
 
     def test_complete_catalog_and_all_seventeen_audit_inputs(self):
         result = s.validate(self.bundle)
-        self.assertEqual(result['verifiedImports'], 18)
+        self.assertEqual(result['verifiedImports'], 21)
         self.assertEqual(result['unverifiedPreserved'], 6)
-        self.assertEqual(result['nativeSkills'], 24)
+        self.assertEqual(result['nativeSkills'], 27)
         self.assertEqual(len(self.manifest['audit']), 17)
         for u in self.manifest['skills']:
             self.assertEqual(s.inventory(self.bundle / u['destination']),
@@ -52,6 +52,70 @@ class ProvenanceTests(unittest.TestCase):
         self.assertIn('### Phase 1: Root Cause Investigation', debugging)
         self.assertNotIn('## Governed execution', debugging)
         self.assertTrue((self.bundle / 'skills/systematic-debugging/root-cause-tracing.md').is_file())
+
+    def test_karpathy_guidelines_available_to_every_agent_and_global_install(self):
+        for role in s.ROLES:
+            front, body = s.read_agent(self.bundle, role)
+            self.assertIn('karpathy-guidelines', self.manifest['agents'][role])
+            for action, resource in [('skill', 'karpathy-guidelines'),
+                                     ('read', '~/.config/opencode/skills/karpathy-guidelines/SKILL.md'),
+                                     ('external_directory', '~/.config/opencode/skills/karpathy-guidelines/SKILL.md')]:
+                with self.subTest(role=role, action=action):
+                    self.assertEqual(s.permission(front['permissions'], action, resource), 'allow')
+        files = s.installation_files(self.bundle)
+        self.assertIn('skills/karpathy-guidelines/SKILL.md', files)
+        self.assertIn('skill-sources/upstream/karpathy-guidelines/SKILL.md', files)
+
+    def test_karpathy_source_license_declaration_cannot_be_silently_changed(self):
+        def mutate(source):
+            source['skills/karpathy-guidelines/SKILL.md'] = source['skills/karpathy-guidelines/SKILL.md'].replace(b'license: MIT', b'license: UNKNOWN')
+        report = s.plan_update(self.bundle, 'karpathy-guidelines', 'main', self.fetcher(mutate))
+        data = s.encoded(report)
+        with self.assertRaises(s.SkillError):
+            s.apply_update(self.bundle, data, s.sha(data))
+
+    def test_vision_interview_skills_and_dependencies_have_scoped_access(self):
+        for role in ('poseidon',):
+            front, _ = s.read_agent(self.bundle, role)
+            for skill in ('grilling', 'grill-with-docs', 'domain-modeling'):
+                self.assertIn(skill, self.manifest['agents'][role])
+                for action, resource in [('skill', skill),
+                                         ('read', '~/.config/opencode/skills/' + skill + '/SKILL.md'),
+                                         ('external_directory', '~/.config/opencode/skills/' + skill + '/SKILL.md')]:
+                    with self.subTest(role=role, skill=skill, action=action):
+                        self.assertEqual(s.permission(front['permissions'], action, resource), 'allow')
+        for role in s.ROLES:
+            front, _ = s.read_agent(self.bundle, role)
+            self.assertEqual(s.permission(front['permissions'], 'skill', 'gtd'),
+                             'allow' if role == 'poseidon' else 'deny')
+        researcher, _ = s.read_agent(self.bundle, 'researcher')
+        self.assertEqual(s.permission(researcher['permissions'], 'read', '~/.config/opencode/opencode.json'), 'deny')
+        self.assertEqual(s.permission(researcher['permissions'], 'external_directory', '~/.config/opencode/skills/gtd/SKILL.md'), 'deny')
+
+    def test_gtd_root_import_preserves_references_license_and_update_paths(self):
+        unit = next(u for u in self.manifest['skills'] if u['skill'] == 'gtd')
+        self.assertEqual(unit['upstreamCommit'], 'e192366199ba543505ff8d5caf88d31c40a4ae90')
+        self.assertEqual(len(list((self.bundle / unit['destination'] / 'references').glob('*.md'))), 9)
+        license_text = (self.bundle / unit['destination'] / 'LICENSE').read_text()
+        self.assertIn('Copyright (c) 2026 Zerui Wang', license_text)
+        self.assertIn('this MIT grant does not extend to those', license_text)
+        files = s.installation_files(self.bundle)
+        for prefix in ('skills/gtd', 'skill-sources/upstream/gtd'):
+            for path in ('LICENSE', 'SKILL.md', 'references/04-natural-planning.md'):
+                self.assertIn(prefix + '/' + path, files)
+        report = s.plan_update(self.bundle, 'gtd', 'main', self.fetcher())
+        self.assertEqual(report['diff'], '')
+        self.assertEqual(report['blockedReasons'], [])
+        self.assertEqual(report['units'][0]['upstreamPaths']['references/04-natural-planning.md'],
+                         'references/04-natural-planning.md')
+        data = s.encoded(report)
+        s.apply_update(self.bundle, data, s.sha(data))
+        s.validate(self.bundle)
+
+    def test_missing_gtd_reference_fails_validation(self):
+        (self.bundle / 'skills/gtd/references/04-natural-planning.md').unlink()
+        with self.assertRaises(s.SkillError):
+            s.validate(self.bundle)
 
     def test_unverified_inputs_remain_byte_identical(self):
         for a in self.manifest['audit']:
@@ -103,7 +167,7 @@ class ProvenanceTests(unittest.TestCase):
                 self.assertEqual(s.permission(front['permissions'], 'skill', skill),
                                  'allow' if skill in self.manifest['agents'][role] else 'deny')
             for action in ('edit', 'shell', 'subagent', 'execute', 'unknown_tool', 'random_mcp_tool'):
-                expected = 'allow' if (role in ('poseidon', 'coder') and action in ('edit', 'shell')) or (role == 'reviewer' and action == 'shell') else 'deny'
+                expected = 'allow' if role == 'coder' and action == 'edit' else 'deny'
                 self.assertEqual(s.permission(front['permissions'], action, '*'), expected)
             # Definitions explain integration, not embedded author methodologies.
             self.assertNotIn('NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST', body)

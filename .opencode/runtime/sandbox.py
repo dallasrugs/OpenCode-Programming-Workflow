@@ -277,7 +277,7 @@ class SessionDockerTests:
                     archive.seek(0)
                     argv = docker(config) + ['exec', '-i', self.sandbox.name, '/bin/sh', '-c',
                             'rm -rf /tmp/project && mkdir /tmp/project && tar --no-same-owner -xf - -C /tmp/project']
-                    copied = subprocess.run(argv, stdin=archive, capture_output=True, timeout=60)
+                    copied = b.capture(argv, stdin=archive, timeout=60)
                     b.require(copied.returncode == 0, 'Sandbox source transfer failed: ' + copied.stderr.decode(errors='replace')[-4000:])
                 for command in config.get('prepare_commands', []) + policy['tests']['commands']:
                     self.sandbox.active(self.settings)
@@ -293,5 +293,9 @@ class SessionDockerTests:
                 records.append({'argv': list(error.cmd) if isinstance(error.cmd, list) else [str(error.cmd)],
                                 'exit_code': 124, 'stdout': '', 'stderr': 'Sandbox test/transfer timeout; container removed'})
             except OSError as error:
+                self.sandbox.end()
                 raise b.SandboxError(f'Session Docker runner unavailable; no host fallback: {error}') from error
+            except BaseException:
+                self.sandbox.end()
+                raise
             return {'passed': bool(records) and all(record['exit_code'] == 0 for record in records), 'records': records}

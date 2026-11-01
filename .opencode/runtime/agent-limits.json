@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "roles": {
+    "team-lead": {
+      "steps": 16,
+      "tools": 24,
+      "seconds": 300,
+      "words": 500
+    },
+    "poseidon": {
+      "steps": 10,
+      "tools": 12,
+      "seconds": 180,
+      "words": 400
+    },
+    "researcher": {
+      "steps": 8,
+      "tools": 8,
+      "searches": 3,
+      "pages": 4,
+      "seconds": 120,
+      "words": 300
+    },
+    "maintainer": {
+      "steps": 8,
+      "tools": 8,
+      "seconds": 120,
+      "words": 300
+    },
+    "coder": {
+      "steps": 20,
+      "tools": 30,
+      "seconds": 300,
+      "words": 400
+    },
+    "reviewer": {
+      "steps": 8,
+      "tools": 8,
+      "seconds": 120,
+      "words": 300
+    }
+  },
+  "providerLimits": {
+    "nvidia": {
+      "requestsPerMinute": 20,
+      "requestsPerDay": 1000
+    }
+  }
+}
