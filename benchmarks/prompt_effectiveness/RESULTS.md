@@ -1,5 +1,10 @@
 # Benchmark baseline — November 1, 2026
 
+Latest prompt-only candidate: **evidence-v3**, with **discovery-v2** as baseline.
+Cases, rubric, scorer, harness, metadata and non-prompt configuration match.
+No v3 task outcomes have been scored; improved accuracy or efficiency is not yet
+measured. See the [v3 tuning report](../../docs/usage-reviews/2026-11-01-evidence-v3.md).
+
 Later prompt-only update: **discovery-v2** is installed locally, with matching
 **discovery-v2-before** retained for comparisons using the same expanded v2 cases.
 Both have zero prepared/scored runs. No improvement is measured. The record below

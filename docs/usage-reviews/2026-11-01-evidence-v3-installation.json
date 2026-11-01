@@ -1,0 +1,157 @@
+{
+  "version": "evidence-v3",
+  "date": "2026-11-01",
+  "scope": "Prompt bodies only; all agent metadata and runtime unchanged",
+  "stage": "/private/tmp/opencode-evidence-v3-mxpd7v6s",
+  "project": {
+    "coder": {
+      "before": "09e6ae32fefa58d4bec826bc7972ef71a738f9a17a3d789931978d28ab8d3319",
+      "after": "b2413fb502888c4f87acf8d05245e4048d78b57c79251976a38604a2e85067d8",
+      "frontmatter": "70dc6b5e2d3eb3ea6c90e30b97b44bbd975c143f4a9081f9c38b3d5ffaa4881e",
+      "mode": "subagent",
+      "addedWords": 144
+    },
+    "maintainer": {
+      "before": "24465d65ff27c4b61cea2c87af6b646637bf701906966133c6efe49e5cc89139",
+      "after": "c1010a13fb99c97ceb4331e7642db1f5120021ad4692e47f546dc2d17ae1014d",
+      "frontmatter": "369687f5f55a82c0e3d71bd87f7a5e7445c90515eba7abac227a69470cda0776",
+      "mode": "subagent",
+      "addedWords": 75
+    },
+    "poseidon": {
+      "before": "4f6f6fff958fc3cb651cf9d0a2e3382ed73038af5eb1318400e9758ce356b9ed",
+      "after": "060c907040a74579c84c0ff8d765873718c535fe7fca106a15b8045cbfb4fdc8",
+      "frontmatter": "a4ee682d34928054df903c1fee2c8cf8fc8b0064996c3ce65e1fbbea1d107a8c",
+      "mode": "subagent",
+      "addedWords": 89
+    },
+    "researcher": {
+      "before": "8a5eabf03a090daf53893dd25bc9dddb20ff9a505ab95b7e875af3833889e58e",
+      "after": "f750d52de903877ff3fa7b908d4b56ffce0556649be5e9c9cf0a2937fe1ca76d",
+      "frontmatter": "ec78e4c5fc7924ae07c62b82c28c7c4942cfd5bdb4915e317280ce587ad3f514",
+      "mode": "subagent",
+      "addedWords": 124
+    },
+    "reviewer": {
+      "before": "3d4e154b9384437c091adcd4369a4ec44e5e9a421691753b5e2b6155eec32e4b",
+      "after": "3624f323877d5bdce98a9bb7415a7f3bda44709f28a4405ed73d8b3a60a57094",
+      "frontmatter": "2eaadebd41059d5c07e53a783e0c740b1933088011a40ffd7a1b7110f7fb1de9",
+      "mode": "subagent",
+      "addedWords": 223
+    },
+    "team-lead": {
+      "before": "96ed2c3d26f577081c234d5f98f0547ac5a934060d57818c49592c17930f61bf",
+      "after": "2deb2cb930df4fbf34b24964a995703821fcb33f8177ebd4cf84b46b70c88a54",
+      "frontmatter": "b69a64922bf0b2d26ebebb55763a6e3cb0bc193f8573af73f7161181e41ad33d",
+      "mode": "primary",
+      "addedWords": 238
+    }
+  },
+  "global": {
+    "coder": {
+      "before": "390c9d112ccea5cc1df11a5c490a7c026e89a0d693ac69d279d856b25bcba247",
+      "after": "4778450e20b70a493566bb5e9b91f27afc13ff65aab9f57d568f5a15aef41632",
+      "frontmatter": "698435fa88ded3d6ece856dcdda62b8aa1a67ce65276b5f82bec68b9e6d8eb7a",
+      "mode": "subagent",
+      "addedWords": 144
+    },
+    "maintainer": {
+      "before": "ebe5945afa374d2c1e51c7ad13fc0cdc1f860df57c55e2c45db8faa883d5c269",
+      "after": "360dec3b0625bdb889bbe8e36b82ea3702a643856b537c184c29b4a219919ebe",
+      "frontmatter": "455768817d9722b66bf724c9b4cabcdf88264d1e60b44c78479eeee6192c41b4",
+      "mode": "subagent",
+      "addedWords": 75
+    },
+    "poseidon": {
+      "before": "2fa104b73e784a4ee89baac5d8d594125af5016079da8b1ac06fe6bc80e84883",
+      "after": "bfde28534a6764a461f3a384faff5d95cba50955930702ddbe961a2741cee4b6",
+      "frontmatter": "e26e4a7f75b2c5331ff6fb2bd8611c48ea25492ee7681d979b52987b562f9bcc",
+      "mode": "primary",
+      "addedWords": 153
+    },
+    "researcher": {
+      "before": "31fe1a8a4807d142445c7bb80014a9f87bb6ed6f1b49e47aa2240bd36a866b43",
+      "after": "14b91ec13bf5aa636bf4c14ef65b2caba473c36888598de006e98f8755cbbea7",
+      "frontmatter": "253e64e590dc772005a4a9b1e21ba6d3d902fcd5de5d66592fd21cc0865fc120",
+      "mode": "subagent",
+      "addedWords": 124
+    },
+    "reviewer": {
+      "before": "a99f6a2c7615e08c1a3332e563f84720b5e8f2c1177b2399fd3dbe9b666dbaa6",
+      "after": "ffeef35093d60770963fae99f743e53cc0f9e689e0c04035414483a2a2d22af2",
+      "frontmatter": "07c3b42b7e0c6254edae0471ebe7b5df76ee877339473f58acc6db21947677f5",
+      "mode": "subagent",
+      "addedWords": 223
+    },
+    "team-lead": {
+      "before": "795829a93379471eaee8f1a915f7e1aa526acfd4c45a1bc16068ceda3bafd192",
+      "after": "951052b68a864e64899c7cb32cdf74396d30feed268e007971d8550c52ac2d6f",
+      "frontmatter": "cc0b11e0b5d0ba6fa248451c85f6dbb6d2b8a21ef90f1a05238eed5d2952db63",
+      "mode": "subagent",
+      "addedWords": 85
+    }
+  },
+  "activeGlobalDiscovery": [
+    {
+      "agent": "poseidon",
+      "mode": "primary",
+      "model": {
+        "id": "gpt-6-sol",
+        "providerID": "openai"
+      },
+      "installedBodyLoaded": true
+    },
+    {
+      "agent": "coder",
+      "mode": "subagent",
+      "model": {
+        "id": "gpt-6-sol",
+        "providerID": "openai"
+      },
+      "installedBodyLoaded": true
+    },
+    {
+      "agent": "maintainer",
+      "mode": "subagent",
+      "model": {
+        "id": "gpt-6-sol",
+        "providerID": "openai"
+      },
+      "installedBodyLoaded": true
+    },
+    {
+      "agent": "researcher",
+      "mode": "subagent",
+      "model": {
+        "id": "thinkingmachines/inkling:free",
+        "providerID": "openrouter"
+      },
+      "installedBodyLoaded": true
+    },
+    {
+      "agent": "reviewer",
+      "mode": "subagent",
+      "model": {
+        "id": "nvidia/nemotron-3-ultra-550b-a55b:free",
+        "providerID": "openrouter"
+      },
+      "installedBodyLoaded": true
+    },
+    {
+      "agent": "team-lead",
+      "mode": "subagent",
+      "model": {
+        "id": "gpt-6-sol",
+        "providerID": "openai"
+      },
+      "installedBodyLoaded": true
+    }
+  ],
+  "globalBackup": "/private/tmp/opencode-evidence-v3-mxpd7v6s/global-before",
+  "modelEvaluations": "NOT_RUN",
+  "postTuningProductOutcomes": 0,
+  "evidenceSessions": [
+    "ses_e67a7c0feffeTe8TFRHWzqvGTl",
+    "ses_e6784fda9ffeOwoh145oFKHM7f"
+  ]
+}

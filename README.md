@@ -6,8 +6,9 @@ actual evidence. Prompts emphasize completing the user's main workflow rather
 than producing an attractive interface with missing behavior.
 
 Built with this workflow: **[PocketCalc](https://github.com/tlynx538/calc)**, a native
-macOS calculator whose application code, checks and packaging were created by
-OpenCode agents from an empty repository. See [the project story](#projects-built-with-the-agents).
+macOS calculator, and **[EmberText](https://github.com/tlynx538/embertext)**, a graphical
+desktop text editor. OpenCode agents created both from empty repositories. See
+[the project stories](#projects-built-with-the-agents).
 
 ## What it does
 
@@ -147,9 +148,26 @@ result. Visual inspection and an interactive keyboard walkthrough were not
 performed by the agents; those are distinct from a launch check. See the
 [session assessment](docs/usage-reviews/2026-11-01-calculator-session-reflection.md).
 
-**Embertext is a fresh build under evaluation.** The older editor's usability
-failures informed the discovery prompts; it is not listed as a completed success.
-One positive calculator task is useful evidence, not a general benchmark score.
+### EmberText — lightweight desktop text editor
+
+**Repository: [tlynx538/embertext](https://github.com/tlynx538/embertext)**
+
+The Poseidon-led OpenCode agents built this graphical editor from an empty
+repository after clarifying desktop delivery, arbitrary filename extensions and
+the user's lightweight preference. They produced a standard-library Python/Tkinter
+application with tabs, local Open/Save/Save As, dirty-change prompts, find/replace,
+undo/redo, line numbers, keyboard shortcuts and basic syntax highlighting.
+
+The final agent run recorded 20 passing tests, including real Tk widget workflows
+with mocked dialog choices for saves, cancellation, failed file operations and
+editing. The user reported a positive result. Visual inspection and Windows/Linux
+validation remain unavailable. A later review reproduced a Find Next bug when the
+caret is at the document start; the published README documents it. See the
+[EmberText session assessment](docs/usage-reviews/2026-11-01-embertext-session-reflection.md).
+
+PocketCalc and EmberText are positive human-reviewed examples with documented
+limits, not controlled benchmark scores. The older browser-editor failure remains
+historical evidence that informed these prompts.
 
 ## Install
 
@@ -225,8 +243,10 @@ or requirements invalidate a prompt-only comparison. Critical workflow failures
 block readiness even when visual scores are high. Repeats are grouped by task;
 small samples do not establish general improvement.
 
-The locally installed candidate is `discovery-v2`, with `discovery-v2-before` saved
-as its matching prompt baseline. Ten cases cover discovery, question recovery,
+The locally installed candidate is `evidence-v3`, with `discovery-v2` saved
+as its matching prompt baseline. The [latest tuning](docs/usage-reviews/2026-11-01-evidence-v3.md)
+targets review accuracy, ordinary boundary states and reuse of validation evidence
+based on the calculator and editor sessions. Ten cases cover discovery, question recovery,
 precise fixes, user journeys and transfer tasks. No controlled product-effect delta
 is claimed. Historical project reviews remain separate from scored benchmark runs.
 Snapshots and run artifacts are local and ignored by Git; setup/scoring makes no
