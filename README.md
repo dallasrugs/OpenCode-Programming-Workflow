@@ -1,4 +1,4 @@
-# OpenCode Multi-Agent Starter
+# OpenCode Programming Workflow
 
 A six-agent workflow for turning a user's idea into working software: clarify the
 intended outcome, challenge assumptions, plan the work, implement it, and review
