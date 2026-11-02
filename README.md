@@ -43,16 +43,18 @@ OpenCode connections and model availability.
 
 ### Repository bundle versus the tested installation
 
-This repository's current bundle makes **Team Lead the primary coordinator** and
-Poseidon its user-intent specialist. Only Team Lead delegates; workers cannot
-launch other agents. The bundle includes explicit assignment/handoff contracts,
-versioned brief confirmation, bounded tools and research critique gates.
+This repository's bundle starts with **Poseidon as the sole primary coordinator**.
+Poseidon owns discovery and execution, and delegates to Team Lead for planning or
+to the other specialists through explicit assignment/handoff contracts. Workers
+cannot launch agents. Agents retain their scoped read, search, edit, skill and
+configured sandbox test tools. Permitted native tools are exposed directly
+without Code Mode; host shell remains denied.
 
 The installed configuration that built PocketCalc was the earlier **Poseidon-led
 native workflow**, with Team Lead as a planning worker. Discovery v2 prompt updates
 were installed into that configuration while preserving its models, permissions
 and hierarchy. Its workers had native host tools; it did not use the repository's
-stricter no-host-shell policy. PocketCalc is evidence for that tested workflow,
+assignment and evidence controls. PocketCalc is evidence for that tested workflow,
 not proof that every newer runtime control in this bundle has been live-validated.
 See [the discovery update](docs/usage-reviews/2026-11-01-discovery-v2.md) and
 [calculator session review](docs/usage-reviews/2026-11-01-calculator-session-reflection.md).

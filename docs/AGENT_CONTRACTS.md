@@ -2,9 +2,9 @@
 
 ## Authority
 
-The human remains final authority. **Team Lead** is the sole primary coordinator
+The human remains final authority. **Poseidon** is the sole primary coordinator
 and the only agent permitted to delegate to the five exact worker IDs.
-**Poseidon** is subordinate in execution and authoritative for user intent/design.
+**Team Lead** is a planning adviser; Poseidon also owns user intent and design.
 **Researcher** supplies evidence only. **Maintainer** advises on architecture.
 **Coder** owns implementation within assigned scope. **Reviewer** independently
 verifies and may reject based on evidence, never preference alone.
@@ -28,8 +28,8 @@ skips known protected files/directories and symlinks, caps inspected files/bytes
 and explicitly reports partial coverage. Known filename protection cannot detect
 semantic secrets hidden in arbitrary ordinary source files.
 
-The operator configures sandbox images/commands outside agent tools. Team Lead,
-Coder and Reviewer may run already configured Docker tests; only Team Lead ends
+The operator configures sandbox images/commands outside agent tools. Poseidon,
+Coder and Reviewer may run already configured Docker tests; only Poseidon ends
 the sandbox. Missing setup is NOT_RUN. No host-shell workaround is authorized.
 `/poseidon-logs` is an operator-owned fixed-argv log reader, not a shell instruction
 to an agent. Existing global legacy workspace infrastructure can be reused under
@@ -37,7 +37,7 @@ the new outer guards; no second monitor or provisioning hook is needed.
 
 ## Assignments and ownership
 
-Use `agent_contracts assign` as Team Lead with:
+Use `agent_contracts assign` as Poseidon with:
 
 ```json
 {
@@ -71,8 +71,8 @@ bounded research slice. No agent changes its own limits.
 
 | Role | Model steps | Admitted calls | Runtime seconds | Human handoff words |
 |---|---:|---:|---:|---:|
-| Team Lead | 16 | 24 | 300 | 500 |
-| Poseidon | 10 | 12 | 180 | 400 |
+| Team Lead | 10 | 12 | 180 | 400 |
+| Poseidon | 16 | 24 | 300 | 500 |
 | Researcher | 8 | 8 | 120 | 300 |
 | Maintainer | 8 | 8 | 120 | 300 |
 | Coder | 20 | 30 | 300 | 400 |
@@ -137,3 +137,18 @@ The operator-only `/agent-evaluate` initializes a direct disposable evaluation
 contract; `/agent-export` writes bounded evaluation evidence into Git-local storage.
 These are privileged user commands, not agent tools. Test repositories use ordinary
 `.git` directories; export from worktree-style `.git` files is not verified.
+
+## November 2 tool-access repair
+
+Native read, discovery, web and custom tools are registered with
+`codemode: false`, so denying Code Mode does not hide permitted tools. Runtime
+guards still check role, source type, task scope and budget before execution.
+Reading `.` is permitted within a project-wide assignment. Text-array tool
+results are recorded as ordinary text for exact-quote evidence checks. Prompt
+admission retains retrieved source IDs across user follow-ups.
+
+A new session resolves the default to Poseidon. Existing sessions retain their
+selected agent; switch them explicitly to Poseidon after reloading configuration.
+The installers preserve existing configuration by default. Use `python3 .opencode/runtime/skillctl.py compare-install DESTINATION` to
+review differences, back up custom settings, and copy the reviewed configuration,
+agent definitions and runtime files together to update a separate installation. Repository edits alone do not update global copies.

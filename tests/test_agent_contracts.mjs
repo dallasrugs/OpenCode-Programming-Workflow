@@ -7,7 +7,7 @@ import { assignment,validateBrief,handoff,fallback,spend,scopedPath,editPaths } 
 const budget={tools:8,steps:8,searches:3,pages:4,words:300,seconds:120}
 const task=()=>assignment({id:'r1',to:'researcher',objective:'Check evidence',question:'What is supported?',purpose:'Decide',scope:['src'],exclusions:[],sourceTypes:['local'],skills:[],acceptance:['Cited support'],nextAction:'Report',design:false},budget)
 const state=()=>({started:0,calls:0,sources:[{id:'S1',excerpt:'The foreground is green.'}]})
-const result=()=>({taskID:'r1',from:'researcher',to:'team-lead',objective:'Check evidence',scope:['src'],exclusions:[],briefVersion:null,status:'PARTIAL',summary:'Only the foreground is established.',claims:[{id:'C1',type:'VERIFIED_FACT',text:'The foreground is green.',sourceIDs:['S1'],quote:'The foreground is green.'}],verification:[],uncertainty:['User taste unknown.'],nextAction:'Ask Poseidon to clarify intent.'})
+const result=()=>({taskID:'r1',from:'researcher',to:'poseidon',objective:'Check evidence',scope:['src'],exclusions:[],briefVersion:null,status:'PARTIAL',summary:'Only the foreground is established.',claims:[{id:'C1',type:'VERIFIED_FACT',text:'The foreground is green.',sourceIDs:['S1'],quote:'The foreground is green.'}],verification:[],uncertainty:['User taste unknown.'],nextAction:'Ask Poseidon to clarify intent.'})
 test('admission prevents overruns including concurrent reservations and failed attempts',()=>{
  const s=state();for(let i=0;i<8;i++)spend(s,'read',budget,1)
  assert.throws(()=>spend(s,'read',budget,2),/Tool budget/);assert.equal(s.calls,8)
@@ -67,4 +67,17 @@ test('brief revision cannot silently drop prior prohibitions or confirmed decisi
  const previous=validateBrief(b)
  assert.throws(()=>validateBrief({...b,version:2,reason:'Spacing update',prohibitions:[]},previous),/explicit change provenance/)
  assert.equal(validateBrief({...b,version:2,reason:'User changed scope',prohibitions:[],changes:[{field:'prohibitions',previous:'No shop',reason:'User now requested commerce',provenance:'User correction message 2'}]},previous).version,2)
+})
+test('project root can be read without weakening scope or external path checks',async()=>{
+ const {mkdtemp,mkdir,rm}=await import('node:fs/promises')
+ const {tmpdir}=await import('node:os')
+ const root=await mkdtemp(path.join(tmpdir(),'root-read-'))
+ try{
+  const task={...result(),to:'researcher',scope:['.'],exclusions:[]}
+  assert.equal(await scopedPath(root,'.',task),root)
+  assert.equal(await scopedPath(root,root,task),root)
+  await mkdir(path.join(root,'src'))
+  await assert.rejects(scopedPath(root,'.',{...task,scope:['src']}),/outside task scope/)
+  await assert.rejects(scopedPath(root,'..',task),/escapes project/)
+ }finally{await rm(root,{recursive:true,force:true})}
 })

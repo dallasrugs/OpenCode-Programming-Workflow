@@ -2,16 +2,16 @@
   "version": 1,
   "roles": {
     "team-lead": {
-      "steps": 16,
-      "tools": 24,
-      "seconds": 300,
-      "words": 500
-    },
-    "poseidon": {
       "steps": 10,
       "tools": 12,
       "seconds": 180,
       "words": 400
+    },
+    "poseidon": {
+      "steps": 16,
+      "tools": 24,
+      "seconds": 300,
+      "words": 500
     },
     "researcher": {
       "steps": 8,

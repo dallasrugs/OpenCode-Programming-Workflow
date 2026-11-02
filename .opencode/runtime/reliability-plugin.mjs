@@ -11,7 +11,7 @@ const readTools = new Set(['read','glob','grep','webfetch','websearch','skill','
 const writes = new Set(['edit','write','patch','apply_patch'])
 const native = new Set([...readTools,...writes,'question','subagent','agent_contracts','project_search','poseidon_workspace'])
 const unwrap = r => r?.data ?? r
-const sourceText = r => typeof r?.content === 'string' ? r.content : JSON.stringify(r?.content ?? r)
+const sourceText = r => Array.isArray(r?.content) ? r.content.filter(x=>x.type==='text').map(x=>x.text).join('\n') : typeof r?.content === 'string' ? r.content : JSON.stringify(r?.content ?? r)
 
 export default {
  id:'agent-reliability',
@@ -42,7 +42,7 @@ export default {
    }
    need(d.sessions[id].role===role,'Session role changed; use a new session');return d.sessions[id]
   }
-  const taskFor=(d,s)=>d.tasks[s.taskID]??{id:'direct-'+s.role,from:'team-lead',to:s.role,objective:'Direct bounded investigation',question:'Answer the current user request',purpose:'Direct session',scope:['.'],exclusions:[],sourceTypes:['local','web'],skills:matrix[s.role],acceptance:['Return evidence within scope'],design:false,budget:limits.roles[s.role]}
+  const taskFor=(d,s)=>d.tasks[s.taskID]??{id:'direct-'+s.role,from:'poseidon',to:s.role,objective:'Direct bounded investigation',question:'Answer the current user request',purpose:'Direct session',scope:['.'],exclusions:[],sourceTypes:['local','web'],skills:matrix[s.role],acceptance:['Return evidence within scope'],design:false,budget:limits.roles[s.role]}
   const stopTimer=id=>{clearTimeout(timers.get(id));timers.delete(id)}
   const arm=(root,id,s,t)=>{
    if(timers.has(id)||s.closed)return
@@ -57,9 +57,9 @@ export default {
     const s=getState(d,context.sessionID,role),task=taskFor(d,s)
     if(s.calls>=task.budget.tools-1)need(input.action==='submit','Final tool slot is reserved for submit')
     spend(s,'agent_contracts',task.budget,Date.now())
-    if(input.action==='status')return {task,state:s,briefs:d.briefs,tasks:role==='team-lead'?d.tasks:undefined,reviewTarget:task.reviewOf?d.tasks[task.reviewOf]?.handoff:undefined}
+    if(input.action==='status')return {task,state:s,briefs:d.briefs,tasks:role==='poseidon'?d.tasks:undefined,reviewTarget:task.reviewOf?d.tasks[task.reviewOf]?.handoff:undefined}
     if(input.action==='assign') {
-     need(role==='team-lead','Only Team Lead assigns work');need(Object.keys(d.tasks).length<128,'Task record limit reached')
+     need(role==='poseidon','Only Poseidon assigns work');need(Object.keys(d.tasks).length<128,'Task record limit reached')
      const t=assignment(input.value,limits.roles[input.value?.to]);need(!d.tasks[t.id],'Task ID already exists')
      need(!Object.values(d.tasks).some(x=>x.to===t.to&&['ASSIGNED','RUNNING'].includes(x.status)),'Recipient already owns active work')
      if(t.design&&t.to==='coder'){const b=d.briefs[t.briefID]?.find(x=>x.version===t.briefVersion);need(b?.confirmed,'User-confirmed brief required');t.briefHash=digest(b)}
@@ -88,7 +88,7 @@ export default {
     throw Error('Unknown contract action')
    })
   }
-  await ctx.tool.transform(editor=>editor.add({name:'agent_contracts',description:'Trusted assignments, read-only evidence ledger, Poseidon brief proposals, and validated handoffs. Actions: status; assign(value=task contract, Team Lead only); propose_brief(value=brief, Poseidon only); submit(value=handoff); critique(value=research critique, assigned Reviewer only). No action can confirm a brief.',options:{permission:'agent_contracts',codemode:false},input:{type:'object',properties:{action:{type:'string',enum:['status','assign','propose_brief','submit','critique']},value:{type:'object',additionalProperties:true}},required:['action'],additionalProperties:false},execute:async(input,c)=>({content:JSON.stringify(await execute(input,c))})}))
+  await ctx.tool.transform(editor=>editor.add({name:'agent_contracts',description:'Trusted assignments, read-only evidence ledger, Poseidon brief proposals, and validated handoffs. Actions: status; assign(value=task contract, Poseidon only); propose_brief(value=brief, Poseidon only); submit(value=handoff); critique(value=research critique, assigned Reviewer only). No action can confirm a brief.',options:{permission:'agent_contracts',codemode:false},input:{type:'object',properties:{action:{type:'string',enum:['status','assign','propose_brief','submit','critique']},value:{type:'object',additionalProperties:true}},required:['action'],additionalProperties:false},execute:async(input,c)=>({content:JSON.stringify(await execute(input,c))})}))
   await ctx.tool.transform(editor=>editor.add({name:'project_search',description:'Bounded literal search of assigned local source paths. Does not follow symlinks or search protected files.',options:{permission:'project_search',codemode:false},input:{type:'object',properties:{query:{type:'string'}},required:['query'],additionalProperties:false},execute:async(input,c)=>{const root=await rootOf(c.sessionID);const task=await transact(root,d=>taskFor(d,getState(d,c.sessionID,c.agent)));return {content:JSON.stringify(await searchProject(ctx.location.directory,task,input.query,c.signal))}}}))
   await ctx.command.transform(editor=>{
    editor.add({name:'confirm-brief',description:'Confirm an inspected proposal: ID VERSION HASH. This operator command is never an agent tool.',execute:async({sessionID,prompt})=>{
@@ -116,7 +116,7 @@ export default {
    const root=await rootOf(event.sessionID),info=unwrap(await ctx.session.get({sessionID:event.sessionID}))
    stopTimer(event.sessionID)
    await transact(root,d=>{const old=d.sessions[event.sessionID];const active=Object.values(d.tasks).find(t=>t.to===info.agent&&t.status==='RUNNING');
-    d.sessions[event.sessionID]={role:info.agent,taskID:active?.id??old?.taskID??null,started:Date.now(),calls:0,searches:0,pages:0,sources:[],denied:0,modelSteps:0,closed:false}
+    d.sessions[event.sessionID]={role:info.agent,taskID:active?.id??old?.taskID??null,started:Date.now(),calls:0,searches:0,pages:0,sources:old?.sources??[],denied:0,modelSteps:0,closed:false}
    })
   })
   await ctx.session.hook('context',async event=>{
@@ -137,6 +137,8 @@ export default {
    for(const info of editor.list()){
     if(info.id==='agent_contracts')continue
     editor.update(info.id,tool=>{
+     // Keep permitted tools on the native list when execute/Code Mode is denied.
+     if(native.has(info.id))tool.options={...tool.options,codemode:false}
      const original=tool.execute;audit.set(info.id,{id:info.id,executor:typeof original==='function',recognized:native.has(info.id)})
      if(typeof original!=='function')return
      tool.execute=async(input,c)=>{
@@ -147,7 +149,7 @@ export default {
        try{
         need(!s.closed,'Task closed');need(info.id!=='grep','Native grep cannot enforce file exclusions; use project_search');need(s.calls<t.budget.tools-1,'Final tool slot reserved for handoff');need(native.has(info.id),'Unclassified tool denied: '+info.id)
         if(info.id==='subagent'){
-         need(role==='team-lead','Only Team Lead delegates');need(roles.includes(input.agent)&&input.agent!=='team-lead','Invalid delegation target')
+         need(role==='poseidon','Only Poseidon delegates');need(roles.includes(input.agent)&&input.agent!=='poseidon','Invalid delegation target')
          delegate=Object.values(d.tasks).find(x=>x.to===input.agent&&x.status==='ASSIGNED');need(delegate,'Validated assignment required before delegation');delegate.status='RUNNING'
          need(typeof input.prompt==='string','Unsupported subagent prompt schema');input={...input,prompt:input.prompt+'\nTrusted assignment: '+JSON.stringify(delegate)}
         }
@@ -166,8 +168,8 @@ export default {
         if(info.id==='skill')need(t.skills.includes(input.id??input.name),'Skill not authorized by assignment')
         if(info.id==='websearch'||info.id==='webfetch')need(t.sourceTypes.includes('web'),'Web sources not approved')
         if(info.id.startsWith('opencode_'))need(t.sourceTypes.includes('mcp'),'MCP sources not approved')
-        if(info.id==='question')need(role==='team-lead'||role==='poseidon','Only coordinator/design owner asks user questions')
-        if(info.id==='poseidon_workspace')need(['settings','status','test'].includes(input.action)||(role==='team-lead'&&input.action==='end_sandbox'),'Operator configures sandbox; workers cannot configure it')
+        if(info.id==='question')need(role==='poseidon'||role==='team-lead','Only coordinator/design owner asks user questions')
+        if(info.id==='poseidon_workspace')need(['settings','status','test'].includes(input.action)||(role==='poseidon'&&input.action==='end_sandbox'),'Operator configures sandbox; workers cannot configure it')
         spend(s,info.id,t.budget,Date.now());arm(root,c.sessionID,s,t)
         d.events.push({type:'admitted',tool:info.id,role,taskID:t.id});return {task:t,remaining:Math.max(1,t.budget.seconds*1000-(Date.now()-s.started))}
        }catch(e){d.events.push({type:'denied',tool:info.id,role});throw e}

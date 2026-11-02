@@ -2,7 +2,7 @@
 import { createHash } from 'node:crypto'
 import { realpath } from 'node:fs/promises'
 import path from 'node:path'
-export const roles = ['team-lead', 'poseidon', 'researcher', 'maintainer', 'coder', 'reviewer']
+export const roles = ['poseidon', 'team-lead', 'researcher', 'maintainer', 'coder', 'reviewer']
 export const types = ['VERIFIED_FACT', 'DOCUMENTED_STANDARD', 'OBSERVED_CONVENTION', 'DESIGN_HYPOTHESIS', 'SUBJECTIVE_OPINION', 'UNSUPPORTED', 'UNKNOWN']
 export const words = text => String(text).trim().split(/\s+/u).filter(Boolean).length
 export const digest = value => createHash('sha256').update(JSON.stringify(value)).digest('hex')
@@ -20,7 +20,7 @@ export function assignment(value, limits) {
   const t = structuredClone(value)
   need(Object.keys(t).every(k=>['id','to','objective','question','purpose','scope','exclusions','sourceTypes','skills','acceptance','nextAction','design','budget','briefID','briefVersion','reviewOf','researchTaskID','from','status'].includes(k)), 'Unknown assignment field')
   text(t.id, 'task id'); need(/^[a-zA-Z0-9_-]{1,64}$/.test(t.id), 'Unsafe task id')
-  need(roles.includes(t.to) && t.to !== 'team-lead', 'Unknown subordinate')
+  need(roles.includes(t.to) && t.to !== 'poseidon', 'Unknown subordinate')
   for (const k of ['objective', 'question', 'purpose', 'nextAction']) text(t[k], k)
   for (const k of ['scope', 'exclusions', 'sourceTypes', 'skills', 'acceptance']) list(t[k], k)
   need(t.scope.length && t.acceptance.length, 'Scope and acceptance required')
@@ -31,7 +31,7 @@ export function assignment(value, limits) {
   need(t.to !== 'researcher' || t.skills.every(s => s === 'karpathy-guidelines'), 'Unauthorized research skill')
   need(typeof t.design === 'boolean', 'Explicit design classification required')
   if (t.design && t.to === 'coder') { text(t.briefID, 'brief id'); need(Number.isInteger(t.briefVersion), 'Brief version required') }
-  return { ...t, from: 'team-lead', status: 'ASSIGNED' }
+  return { ...t, from: 'poseidon', status: 'ASSIGNED' }
 }
 export function validateBrief(b, previous) {
   need(b && typeof b === 'object', 'Brief required'); text(b.id, 'brief id')
@@ -65,7 +65,7 @@ export function handoff(h, task, state, limit) {
   need(h && typeof h === 'object', 'Handoff required')
   need(Object.keys(h).every(k=>['taskID','from','to','objective','scope','exclusions','briefVersion','status','summary','claims','verification','uncertainty','nextAction','verdict','findings'].includes(k)), 'Unknown handoff field')
   for (const k of ['taskID','from','to','objective','summary','nextAction']) text(h[k], k)
-  need(h.taskID === task.id && h.from === task.to && h.to === 'team-lead', 'Unauthorized handoff routing')
+  need(h.taskID === task.id && h.from === task.to && h.to === 'poseidon', 'Unauthorized handoff routing')
   need(h.objective === task.objective, 'Objective changed')
   need(JSON.stringify(h.scope) === JSON.stringify(task.scope) && JSON.stringify(h.exclusions) === JSON.stringify(task.exclusions), 'Scope changed')
   need(h.briefVersion === (task.briefVersion ?? null), 'Brief version changed')
@@ -98,7 +98,7 @@ export function handoff(h, task, state, limit) {
   return structuredClone(h)
 }
 export function fallback(task, state, reason) {
-  return {taskID:task.id,from:task.to,to:'team-lead',objective:task.objective,scope:task.scope,exclusions:task.exclusions,
+  return {taskID:task.id,from:task.to,to:'poseidon',objective:task.objective,scope:task.scope,exclusions:task.exclusions,
     briefVersion:task.briefVersion??null,status:'PARTIAL',summary:'Execution ended without an accepted handoff. Collected sources require review.',
     claims:[],sourceIDs:state.sources.map(s=>s.id),verification:[],uncertainty:[reason],nextAction:'Review collected evidence and explicitly reassign remaining work.',
     ...(task.to === 'reviewer' ? {verdict:'INCONCLUSIVE',findings:[]} : {})}
@@ -118,7 +118,7 @@ export async function scopedPath(root, candidate, task, write=false) {
   while(true) { try { ancestor=await realpath(ancestor);break } catch(e) { if(e.code!=='ENOENT')throw e;const up=path.dirname(ancestor);need(up!==ancestor,'Cannot resolve path');tail.unshift(path.basename(ancestor));ancestor=up } }
   const canonicalRoot=await realpath(root)
   need(ancestor===canonicalRoot || ancestor.startsWith(canonicalRoot+path.sep),'Path escapes project or follows external symlink')
-  const rel=path.relative(canonicalRoot,path.join(ancestor,...tail)).split(path.sep).join('/');safeRelative(rel)
+  const rel=path.relative(canonicalRoot,path.join(ancestor,...tail)).split(path.sep).join('/') || '.';safeRelative(rel)
   const includes = (p,x) => p==='.' || x===p || x.startsWith(p+'/')
   need(task.scope.some(p=>includes(p,rel)) && !task.exclusions.some(p=>includes(p,rel)), 'Path outside task scope')
   if(write) need(task.to==='coder','Only Coder edits assigned implementation')

@@ -25,7 +25,7 @@ class HierarchyTests(unittest.TestCase):
         (self.bundle / 'agents' / (role + '.md')).write_text('---\n' + json.dumps(front) + '\n---' + body)
 
     def test_all_worker_target_pairs_and_unknown_targets_are_denied(self):
-        for role in s.ROLES - {'team-lead'}:
+        for role in s.ROLES - {'poseidon'}:
             front, _ = s.read_agent(self.bundle, role)
             self.assertEqual(front['permissions'][-1], {'action': 'subagent', 'resource': '*', 'effect': 'deny'})
             for target in s.ROLES | {'unknown', '*', 'general', 'explore'}:
@@ -66,7 +66,7 @@ class HierarchyTests(unittest.TestCase):
             ('poseidon', lambda f: f['permissions'].append({'action': 'subagent', 'resource': 'rogue', 'effect': 'allow'})),
             ('coder', lambda f: f['permissions'].append({'action': 'subagent', 'resource': 'reviewer', 'effect': 'allow'})),
             ('researcher', lambda f: f['permissions'].append({'action': 'shell', 'resource': 'pwd', 'effect': 'allow'})),
-            ('poseidon', lambda f: f.update(mode='primary')),
+            ('team-lead', lambda f: f.update(mode='primary')),
             ('researcher', lambda f: f.update(model='openai/gpt-6-sol')),
             ('researcher', lambda f: f['permissions'].append({'action': 'random_mcp_tool', 'resource': '*', 'effect': 'allow'})),
             ('researcher', lambda f: f['permissions'].append({'action': 'websearch', 'resource': '*', 'effect': 'deny'})),

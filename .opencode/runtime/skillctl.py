@@ -156,9 +156,9 @@ def validate(bundle=BUNDLE):
         for action in ('shell', 'subagent', 'execute', 'external_directory', 'edit'):
             expected = 'allow' if role == 'coder' and action == 'edit' else 'deny'
             need(permission(front['permissions'], action, '*') == expected, f'Unexpected native role capability: {role}/{action}')
-        if role == 'team-lead':
-            for child in ROLES - {'team-lead'}:
-                need(permission(front['permissions'], 'subagent', child) == 'allow', f'Team Lead cannot delegate to {child}')
+        if role == 'poseidon':
+            for child in ROLES - {'poseidon'}:
+                need(permission(front['permissions'], 'subagent', child) == 'allow', f'Poseidon cannot delegate to {child}')
     for skill in ids:
         need(re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', skill), f'Unstable native ID: {skill}')
         frontmatter(local(bundle, 'skills/' + skill + '/SKILL.md').read_bytes())
@@ -217,7 +217,7 @@ def validate_agents(bundle, manifest):
     need({p.stem for p in (bundle / 'agents').glob('*.md')} == ROLES, 'Unexpected agent catalog')
     config = json.loads((bundle / 'opencode.json').read_text())
     limits = json.loads((bundle / 'runtime/agent-limits.json').read_text())['roles']
-    need(config.get('default_agent') == 'team-lead', 'Team Lead must remain default')
+    need(config.get('default_agent') == 'poseidon', 'Poseidon must remain default')
     need(all(config.get('agents', {}).get(r, {}).get('disabled') is True
              for r in ('build', 'plan', 'general', 'explore')), 'Built-in agents must remain disabled')
     protected = ('.opencode/opencode.json', '.opencode/agents/poseidon.md',
@@ -233,7 +233,7 @@ def validate_agents(bundle, manifest):
         expected_model = ('openrouter/thinkingmachines/inkling:free' if role == 'researcher' else
                           'openrouter/nvidia/nemotron-3-ultra-550b-a55b:free' if role == 'reviewer' else 'openai/gpt-6-sol')
         need(front.get('model') == expected_model, 'Unexpected model: ' + role)
-        need(front.get('mode') == ('primary' if role == 'team-lead' else 'subagent'), 'Unexpected authority: ' + role)
+        need(front.get('mode') == ('primary' if role == 'poseidon' else 'subagent'), 'Unexpected authority: ' + role)
         need(front.get('steps') == limits[role]['steps'], 'Agent steps differ from runtime limits: ' + role)
         rules = front['permissions']
         need(rules[0] == {'action': '*', 'resource': '*', 'effect': 'deny'}, 'Missing default deny: ' + role)
@@ -242,13 +242,13 @@ def validate_agents(bundle, manifest):
             allowed.add(('question', '*'))
         if role == 'coder':
             allowed.add(('edit', '*'))
-        if role == 'team-lead':
+        if role == 'poseidon':
             allowed.update(('subagent', child) for child in ROLES - {role})
         else:
             need(rules[-1] == {'action': 'subagent', 'resource': '*', 'effect': 'deny'}, 'Missing final worker delegation deny: ' + role)
-        if role in ('team-lead', 'coder', 'reviewer'):
+        if role in ('poseidon', 'coder', 'reviewer'):
             allowed.update(('poseidon_workspace', a) for a in ('settings', 'status', 'test'))
-        if role == 'team-lead':
+        if role == 'poseidon':
             allowed.add(('poseidon_workspace', 'end_sandbox'))
         if role == 'researcher':
             allowed.update((a, '*') for a in ('webfetch', 'websearch', 'opencode_list_mcp_resources', 'opencode_read_mcp_resource'))
