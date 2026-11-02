@@ -2,6 +2,7 @@
 import { createHash } from 'node:crypto'
 import { realpath } from 'node:fs/promises'
 import path from 'node:path'
+import { homedir } from 'node:os'
 export const roles = ['poseidon', 'team-lead', 'researcher', 'maintainer', 'coder', 'reviewer']
 export const types = ['VERIFIED_FACT', 'DOCUMENTED_STANDARD', 'OBSERVED_CONVENTION', 'DESIGN_HYPOTHESIS', 'SUBJECTIVE_OPINION', 'UNSUPPORTED', 'UNKNOWN']
 export const words = text => String(text).trim().split(/\s+/u).filter(Boolean).length
@@ -25,7 +26,7 @@ export function assignment(value, limits) {
   for (const k of ['scope', 'exclusions', 'sourceTypes', 'skills', 'acceptance']) list(t[k], k)
   need(t.scope.length && t.acceptance.length, 'Scope and acceptance required')
   t.scope.forEach(safeRelative); t.exclusions.forEach(safeRelative)
-  need(t.sourceTypes.every(x => ['local','web','mcp'].includes(x)), 'Unknown source type')
+  need(t.sourceTypes.every(x => ['local','web','mcp','system'].includes(x)), 'Unknown source type')
   t.budget = { ...limits, ...(t.budget ?? {}) }
   for (const [k,v] of Object.entries(t.budget)) need(k in limits && Number.isInteger(v) && v > 0 && v <= limits[k], 'Budget needs operator authorization: ' + k)
   need(t.to !== 'researcher' || t.skills.every(s => s === 'karpathy-guidelines'), 'Unauthorized research skill')
@@ -112,16 +113,23 @@ export function spend(state, kind, limits, now) {
   if(kind==='websearch') state.searches=(state.searches??0)+1
   if(kind==='webfetch') state.pages=(state.pages??0)+1
 }
+export function hostControlPath(target, home=homedir()) {
+  return ['.ssh','.aws','.gnupg','.config/opencode','.codex','.agents','.local/share/opencode','.local/state/opencode'].some(name=>{
+    const base=path.join(home,name)
+    return target===base||target.startsWith(base+path.sep)
+  })
+}
 export async function scopedPath(root, candidate, task, write=false) {
   text(candidate,'tool path')
   const absolute=path.resolve(root,candidate);let ancestor=absolute;const tail=[]
   while(true) { try { ancestor=await realpath(ancestor);break } catch(e) { if(e.code!=='ENOENT')throw e;const up=path.dirname(ancestor);need(up!==ancestor,'Cannot resolve path');tail.unshift(path.basename(ancestor));ancestor=up } }
   const canonicalRoot=await realpath(root)
+  need(!hostControlPath(path.join(ancestor,...tail)),'Protected host credentials or agent control storage')
   need(ancestor===canonicalRoot || ancestor.startsWith(canonicalRoot+path.sep),'Path escapes project or follows external symlink')
   const rel=path.relative(canonicalRoot,path.join(ancestor,...tail)).split(path.sep).join('/') || '.';safeRelative(rel)
   const includes = (p,x) => p==='.' || x===p || x.startsWith(p+'/')
   need(task.scope.some(p=>includes(p,rel)) && !task.exclusions.some(p=>includes(p,rel)), 'Path outside task scope')
-  if(write) need(task.to==='coder','Only Coder edits assigned implementation')
+  if(write) need(roles.includes(task.to),'Only known agents edit assigned local development source')
   return absolute
 }
 export function editPaths(input) {

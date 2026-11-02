@@ -32,7 +32,7 @@ desktop text editor. OpenCode agents created both from empty repositories. See
 | --- | --- | --- |
 | **Team Lead** | Execution, task decomposition, dependencies, assignments, acceptance checks and escalation | `openai/gpt-6-sol` |
 | **Poseidon** | User intent, first-principles discovery, focused questioning, design briefs and fidelity checks | `openai/gpt-6-sol` |
-| **Researcher** | Read-only evidence gathering; challenges assumptions and overlooked workflows; distinguishes facts from preferences | `openrouter/thinkingmachines/inkling:free` |
+| **Researcher** | Evidence gathering with remote read-only and scoped local writes; challenges assumptions and overlooked workflows; distinguishes facts from preferences | `openrouter/thinkingmachines/inkling:free` |
 | **Maintainer** | Architecture, platform feasibility, compatibility and capability fit | `openai/gpt-6-sol` |
 | **Coder** | Scoped implementation, working user journeys and regression checks | `openai/gpt-6-sol` |
 | **Reviewer** | Independent correctness and requirement review; checks claims against source and actual test evidence | `openrouter/nvidia/nemotron-3-ultra-550b-a55b:free` |
@@ -48,7 +48,8 @@ Poseidon owns discovery and execution, and delegates to Team Lead for planning o
 to the other specialists through explicit assignment/handoff contracts. Workers
 cannot launch agents. Agents retain their scoped read, search, edit, skill and
 configured sandbox test tools. Permitted native tools are exposed directly
-without Code Mode; host shell remains denied.
+without Code Mode. Host shell belongs to Poseidon/Team Lead; other agents use
+the restricted system-access tool.
 
 The installed configuration that built PocketCalc was the earlier **Poseidon-led
 native workflow**, with Team Lead as a planning worker. Discovery v2 prompt updates
@@ -203,12 +204,12 @@ agent and plugin discovery when comparing installations.
 
 ## Tools, testing and resource controls
 
-The **repository bundle** denies agent host shell, Code Mode and arbitrary MCP
-mutation access. Coder writes require a scoped assignment; Reviewer stays read-only.
-`project_search` bounds literal source searches and excludes protected paths.
-Unknown tools are denied; connected resource access requires task approval. These
-controls are not an OS sandbox or proof of semantic prompt-injection resistance.
-Trusted server plugins and operator actions remain privileged.
+The repository grants Poseidon and Team Lead host shell for authorized
+administration. Researcher, Maintainer, Coder and Reviewer have remote read-only
+operations and scoped local development writes through `system_access` and an
+isolated command runner. See [system access](docs/SYSTEM_ACCESS.md) for setup,
+connection profiles and the enforcement boundaries. Trusted server plugins and
+operator actions remain privileged.
 
 The operator configures Docker images and commands. Agents run configured tests
 through `poseidon_workspace`; missing setup is an explicit verification limitation.

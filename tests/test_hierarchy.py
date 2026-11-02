@@ -38,16 +38,16 @@ class HierarchyTests(unittest.TestCase):
         for action, resources in {
             'read': ['.env', 'design-context/.env', 'design-context/customer.credentials.json',
                      '/home/user/.ssh/id_rsa', '/home/user/.config/opencode/opencode.json', '.git/config'],
-            'edit': ['src/app.tsx', '.opencode/agents/coder.md', '/tmp/file'],
+            'edit': ['.opencode/agents/coder.md'],
             'shell': ['pwd', 'python3 -c pass', 'git diff'],
             'execute': ['*'], 'external_directory': ['/tmp/*', '~/.config/opencode/*'],
-            'poseidon_workspace': ['*', 'settings', 'configure', 'test', 'end_sandbox'],
+            'poseidon_workspace': ['*', 'configure', 'test', 'end_sandbox'],
             'random_mcp_tool': ['*'], 'github_create_issue': ['*'], 'write': ['src/app.tsx']
         }.items():
             for resource in resources:
                 with self.subTest(action=action, resource=resource):
                     self.assertEqual(s.permission(rules, action, resource), 'deny')
-        for action, resource in [('read', 'src/app.tsx'), ('read', 'docs/spec.md'),
+        for action, resource in [('poseidon_workspace', 'settings'), ('poseidon_workspace', 'status'), ('edit', 'src/app.tsx'), ('system_access', '*'), ('read', 'src/app.tsx'), ('read', 'docs/spec.md'),
                                  ('read', 'design-context/reference.png'), ('read', '.'),
                                  ('glob', '**/*.tsx'), ('project_search', 'MenuButton'),
                                  ('webfetch', 'https://example.com'), ('websearch', 'accessible menu'),

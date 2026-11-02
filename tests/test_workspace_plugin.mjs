@@ -26,7 +26,7 @@ async function fixture(prefix = "poseidon-native-", native = [], git = true) {
     },
     permission: { assert: async ({ action, resources, agent }) => {
       assert.equal(action, "poseidon_workspace")
-      if (agent === "researcher" || (agent && agent !== "team-lead" && ["configure", "end_sandbox"].includes(resources[0]))) {
+      if (agent && !["poseidon", "team-lead"].includes(agent) && !["settings", "status"].includes(resources[0])) {
         throw new Error("Permission denied")
       }
     } },
@@ -120,12 +120,12 @@ test("log command follows native operation output with quoted paths and rejects 
 test("workspace checks the calling worker before helper execution", async () => {
   const f = await fixture()
   try {
-    for (const action of ["settings", "configure", "test", "status", "end_sandbox"]) {
-      await assert.rejects(f.tool.execute({ action }, { sessionID: "child", agent: "researcher" }), /Permission denied|Operator configures|Session role changed/)
+    for (const action of ["configure", "test", "end_sandbox"]) {
+      await assert.rejects(f.tool.execute({ action }, { sessionID: "child", agent: "researcher" }), /Permission denied|Top-level agents|Session role changed/)
     }
     for (const agent of ["coder", "reviewer"]) {
       for (const action of ["configure", "end_sandbox"]) {
-        await assert.rejects(f.tool.execute({ action }, { sessionID: "child", agent }), /Permission denied|Operator configures|Session role changed/)
+        await assert.rejects(f.tool.execute({ action }, { sessionID: "child", agent }), /Permission denied|Top-level agents|Session role changed/)
       }
     }
     // Rejection happened before the host helper created settings or operation logs.
@@ -150,7 +150,7 @@ test("native tool transforms admit agent and heavy calls without holding a dispa
   try {
     await Promise.all(Array.from({length:4}, () => f.tools.get("read").execute({path:"a.md"}, {sessionID:"parent", agent:"team-lead"})))
     assert.equal(peak,1)
-    for (const id of ["shell", "remote_mcp", "execute"]) {
+    for (const id of ["remote_mcp", "execute"]) {
       await assert.rejects(f.tools.get(id).execute({}, {sessionID:"parent",agent:"team-lead"}), /Unclassified tool/)
     }
   } finally { await f.cleanup() }
@@ -181,4 +181,15 @@ test("ordinary-folder prompt preparation and log viewing use local workspace sta
     await access(f.marker("parent"))
     await assert.rejects(access(path.join(f.directory,".git")))
   } finally { await f.cleanup() }
+})
+
+test("all workers can read sandbox metadata but cannot mutate a Docker target",async()=>{
+ const f=await fixture()
+ try{
+  for(const role of ['researcher','maintainer','coder','reviewer']){
+   const result=JSON.parse((await f.tool.execute({action:'settings'},{sessionID:role,agent:role})).content)
+   assert.equal(result.settings,null)
+   for(const action of ['configure','test','end_sandbox'])await assert.rejects(f.tool.execute({action},{sessionID:role,agent:role}),/Top-level agents/)
+  }
+ }finally{await f.cleanup()}
 })

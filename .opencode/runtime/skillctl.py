@@ -154,7 +154,7 @@ def validate(bundle=BUNDLE):
         grants = {r['resource'] for r in front['permissions'] if r['action'] == 'skill' and r['effect'] == 'allow'}
         need(grants == set(selected), f'Agent skill permissions differ from manifest: {role}')
         for action in ('shell', 'subagent', 'execute', 'external_directory', 'edit'):
-            expected = 'allow' if role == 'coder' and action == 'edit' else 'deny'
+            expected = 'allow' if action == 'edit' or (role in ('poseidon', 'team-lead') and action in ('shell', 'external_directory')) else 'deny'
             need(permission(front['permissions'], action, '*') == expected, f'Unexpected native role capability: {role}/{action}')
         if role == 'poseidon':
             for child in ROLES - {'poseidon'}:
@@ -237,19 +237,18 @@ def validate_agents(bundle, manifest):
         need(front.get('steps') == limits[role]['steps'], 'Agent steps differ from runtime limits: ' + role)
         rules = front['permissions']
         need(rules[0] == {'action': '*', 'resource': '*', 'effect': 'deny'}, 'Missing default deny: ' + role)
-        allowed = {(a, '*') for a in ('read', 'glob', 'project_search', 'agent_contracts')}
+        allowed = {(a, '*') for a in ('read', 'glob', 'project_search', 'agent_contracts', 'system_access', 'edit')}
         if role in ('team-lead', 'poseidon'):
             allowed.add(('question', '*'))
-        if role == 'coder':
-            allowed.add(('edit', '*'))
+        if role in ('poseidon', 'team-lead'):
+            allowed.update((a, '*') for a in ('shell', 'external_directory'))
         if role == 'poseidon':
             allowed.update(('subagent', child) for child in ROLES - {role})
         else:
             need(rules[-1] == {'action': 'subagent', 'resource': '*', 'effect': 'deny'}, 'Missing final worker delegation deny: ' + role)
-        if role in ('poseidon', 'coder', 'reviewer'):
-            allowed.update(('poseidon_workspace', a) for a in ('settings', 'status', 'test'))
-        if role == 'poseidon':
-            allowed.add(('poseidon_workspace', 'end_sandbox'))
+        allowed.update(('poseidon_workspace', a) for a in ('settings', 'status'))
+        if role in ('poseidon', 'team-lead'):
+            allowed.update(('poseidon_workspace', a) for a in ('configure', 'test', 'end_sandbox'))
         if role == 'researcher':
             allowed.update((a, '*') for a in ('webfetch', 'websearch', 'opencode_list_mcp_resources', 'opencode_read_mcp_resource'))
             need(manifest['agents'][role] == ['karpathy-guidelines'], 'Researcher skill scope changed')
@@ -260,7 +259,7 @@ def validate_agents(bundle, manifest):
         need(grants == allowed, 'Unauthorized or missing capability: ' + role)
         for path in protected:
             need(permission(rules, 'edit', path) == 'deny', 'Unprotected native edit: ' + role + '/' + path)
-        need(permission(rules, 'external_directory', '/home/user/private') == 'deny', 'External directory escalation')
+        need(permission(rules, 'external_directory', '/home/user/private') == ('allow' if role in ('poseidon', 'team-lead') else 'deny'), 'Unexpected external-directory capability')
 
 
 def read_agent(bundle, role):

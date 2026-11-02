@@ -151,3 +151,16 @@ settings, operation logs, session state and evidence in `.opencode/workspace/`.
 Git projects retain their shared Git storage. Existing non-Git sessions can
 continue; they no longer fail merely because the workspace lacks a repository.
 Unconfigured tests report the missing configuration; they do not claim a pass.
+
+## Role-based system access
+
+Install all six agent definitions, runtime contracts/validator, system-access.py,
+reliability-plugin.mjs and the workspace plugin together. Configure the private
+system-access.json beside the global OpenCode configuration; the portable example
+contains no real hosts or credentials. Reload OpenCode. Poseidon/Team Lead now
+have host shell; all workers have remote read-only system_access and local-write
+capabilities. Worker local commands require Linux Bubblewrap. Existing worker
+tasks need system in sourceTypes when investigating infrastructure. See
+SYSTEM_ACCESS.md for operation names, authentication prerequisites and local-only
+service profiles. No production deployment or database mutation is part of this
+configuration update.

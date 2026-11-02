@@ -49,7 +49,7 @@ test('file scope, secret/control-plane paths, shell patch escapes and external s
   const t={...task(),to:'coder'}
   await scopedPath(root,'src/a.txt',t,true)
   for(const p of ['src/escape/new.txt','../outside','.opencode/agents/poseidon.md','src/.env','src/customer.credentials.json','docs/other.md'])await assert.rejects(scopedPath(root,p,t,true))
-  await assert.rejects(scopedPath(root,'src/a.txt',task(),true),/Only Coder/)
+  await scopedPath(root,'src/a.txt',task(),true)
   assert.deepEqual(editPaths({patchText:'*** Update File: src/a\n*** Move to: src/b'}),['src/a','src/b'])
   assert.throws(()=>editPaths({command:'write anything'}),/Unknown/)
  }finally{await rm(root,{recursive:true,force:true});await rm(outside,{recursive:true,force:true})}
@@ -99,4 +99,10 @@ test('scoped discovery supports named files and nested globs without widening so
   await assert.rejects(discoverProject(root,t,{pattern:'*',path:'elsewhere'}),/outside task scope/)
   assert.equal((await discoverProject(root,t,{pattern:'**/*',limit:1})).partial,true)
  }finally{await rm(root,{recursive:true,force:true})}
+})
+
+test('host credential and agent-control roots cannot become writable source through a changed working directory',async()=>{
+ const {hostControlPath}=await import('../.opencode/runtime/agent-contracts.mjs')
+ for(const target of ['/home/test/.ssh/config','/home/test/.config/opencode/runtime/system-access.py','/home/test/.local/share/opencode/opencode.db'])assert.equal(hostControlPath(target,'/home/test'),true)
+ assert.equal(hostControlPath('/home/test/projects/application/src/main.py','/home/test'),false)
 })

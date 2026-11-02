@@ -76,7 +76,7 @@ test('rejected control submissions consume admitted budget without publishing ma
  const f=await fixture()
  try{await assert.rejects(f.contracts('submit',{taskID:'fake'}));const s=f.store.get('root/root').sessions.child;assert.equal(s.calls,1);assert.equal(s.handoff,undefined)}finally{await f.close()}
 })
-test('native read/search are visible without Code Mode while shell stays denied',async()=>{
+test('native tools expose top-level shell and keep worker host shell denied',async()=>{
  let ran=0
  const f=await fixture([{id:'read',options:{codemode:true},execute:async()=>({content:[{type:'text',text:'The text is green.\nSecond line.'}]})},{id:'shell',execute:async()=>{ran++;return {content:'checked'}}}])
  try{
@@ -86,8 +86,9 @@ test('native read/search are visible without Code Mode while shell stays denied'
   const status=await f.contracts('status',undefined,'poseidon','root')
   assert.equal(status.state.sources[0].id,'S1')
   assert.equal(status.state.sources[0].excerpt,undefined)
-  for(const role of ['poseidon','coder','reviewer','researcher'])await assert.rejects(f.call('shell',{command:'pwd'},role,role+'-session'),/Unclassified tool/)
-  assert.equal(ran,0)
+  for(const role of ['poseidon','team-lead'])await f.call('shell',{command:'pwd'},role,role+'-session')
+  for(const role of ['coder','reviewer','researcher','maintainer'])await assert.rejects(f.call('shell',{command:'pwd'},role,role+'-session'),/top-level administration/)
+  assert.equal(ran,2)
  }finally{await f.close()}
 })
 test('prompt admission preserves retrieved source IDs for later factual handoffs',async()=>{
@@ -182,5 +183,61 @@ test('scoped glob preserves native per-pattern permission decisions',async()=>{
  try{
   await assert.rejects(f.call('glob',{pattern:'a.md'}),/Native per-pattern permission denied/)
   assert.equal(checked,1)
+ }finally{await f.close()}
+})
+
+test('all worker roles can edit assigned local source while remote access needs system scope',async()=>{
+ for(const role of ['researcher','maintainer','coder','reviewer']){
+  let written=0
+  const f=await fixture([{id:'edit',execute:async()=>{written++;return {content:'local edit'}}}])
+  try{
+   await assert.rejects(f.call('edit',{path:'a.md'},role,role),/matching assigned task/)
+   await f.contracts('assign',{...assignment,to:role},'poseidon','root')
+   f.store.get('root/root').tasks.r1.status='RUNNING'
+   await f.call('edit',{path:'a.md'},role,'worker-'+role)
+   assert.equal(written,1)
+   await assert.rejects(f.call('system_access',{action:'server.status',profile:'example'},role,'worker-'+role),/source type/)
+   await assert.rejects(f.call('edit',{path:'outside.md'},role,'worker-'+role),/outside task scope/)
+  }finally{await f.close()}
+ }
+})
+test('worker model context does not expose the top-level host shell',async()=>{
+ const f=await fixture()
+ try{
+  const event={sessionID:'child',agent:'researcher',system:[],tools:{shell:{},system_access:{},read:{}},options:{}}
+  await f.hooks.get('context')(event)
+  assert.ok(!event.tools.shell)
+  assert.ok(event.tools.system_access)
+ }finally{await f.close()}
+})
+test('worker broker executes a real isolated local write without accepting forged scope',{skip:process.env.OPENCODE_TEST_ISOLATION!=='1'},async()=>{
+ const f=await fixture()
+ try{
+  await f.contracts('assign',assignment,'poseidon','root');f.store.get('root/root').tasks.r1.status='RUNNING'
+  const result=await f.call('system_access',{action:'local_command',command:'printf changed > a.md',_scope:['/tmp']})
+  assert.match(result.content,/isolated/)
+  assert.equal(await readFile(path.join(f.directory,'a.md'),'utf8'),'changed')
+ }finally{await f.close()}
+})
+test('worker native webfetch cannot bypass remote service restrictions',async()=>{
+ let nativeCalls=0
+ const f=await fixture([{id:'webfetch',execute:async()=>{nativeCalls++;return {content:'unsafe path'}}}])
+ try{
+  await assert.rejects(f.call('webfetch',{url:'http://127.0.0.1:18080/job/Oslo/build?token=fixture'}),/approved public read-only sites/)
+  assert.equal(nativeCalls,0)
+ }finally{await f.close()}
+})
+
+test('non-Coder local UI edits honor the same confirmed brief as Coder edits',async()=>{
+ let changed=0
+ const f=await fixture([{id:'edit',execute:async()=>{changed++;return {content:'local UI edit'}}}])
+ try{
+  const b={id:'ui',version:1,goals:['Repair'],preferences:[],prohibitions:[],functional:[],technical:[],accessibility:[],acceptance:['Repair'],openQuestions:[],decisions:[]}
+  const proposal=await f.contracts('propose_brief',b,'poseidon','root')
+  await f.commands.get('confirm-brief').execute({sessionID:'root',prompt:{text:'ui 1 '+proposal.hash}})
+  await f.contracts('assign',{...assignment,to:'reviewer',scope:['ui.tsx'],design:true,briefID:'ui',briefVersion:1},'poseidon','root')
+  f.store.get('root/root').tasks.r1.status='RUNNING'
+  await f.call('edit',{path:'ui.tsx'},'reviewer','reviewer-ui')
+  assert.equal(changed,1)
  }finally{await f.close()}
 })

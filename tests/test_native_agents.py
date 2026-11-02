@@ -29,7 +29,7 @@ class NativeAgentTests(unittest.TestCase):
         self.assertEqual(skillctl.permission(coder['permissions'], 'subagent', 'poseidon'), 'deny')
         reviewer, _ = skillctl.read_agent(skillctl.BUNDLE, 'reviewer')
         self.assertEqual(skillctl.permission(reviewer['permissions'], 'shell', 'bash -lc pwd'), 'deny')
-        self.assertEqual(skillctl.permission(reviewer['permissions'], 'edit', 'web/src/app.tsx'), 'deny')
+        self.assertEqual(skillctl.permission(reviewer['permissions'], 'edit', 'web/src/app.tsx'), 'allow')
 
 
 if __name__ == '__main__':

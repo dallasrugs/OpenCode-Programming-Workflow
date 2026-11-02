@@ -13,13 +13,13 @@ Models remain unchanged: OpenAI GPT-6 Sol for Team Lead/Poseidon/Maintainer/Code
 Inkling via OpenRouter for Researcher and Nemotron via OpenRouter for Reviewer.
 There are still six roles, one worker lane and no worker recursion.
 
-All agents deny host shell, Code Mode and unclassified/MCP mutation tools. Only
-Coder has native edit permission, additionally restricted at execution by a valid
-assignment, exact file/directory scope, exclusions, protected paths and symlink
-resolution. Reviewer cannot edit or invoke a host program. Researcher has no
-design/interview skills; only assigned karpathy-guidelines is available. Read-only
-MCP resource tools also require the task's approved source type. Newly registered
-unknown tools are removed from outgoing context and denied by executor wrappers.
+Poseidon and Team Lead have native host shell for authorized local/remote
+administration. All roles may edit local development source in assigned scope;
+workers use `system_access` for fixed remote read-only observations and isolated
+local commands. Researcher has the same access as the other workers. Read-only
+MCP resources still require approved source types. Unknown tools and Code Mode
+remain denied. See [system access](SYSTEM_ACCESS.md) for the capability matrix,
+connection profiles, SQL/RabbitMQ/Jenkins operations and local isolation boundary.
 The operator's `/agent-audit` inspects actual registered executor metadata.
 
 Native grep is denied because its search pattern check does not enforce secret-file
@@ -28,9 +28,11 @@ skips known protected files/directories and symlinks, caps inspected files/bytes
 and explicitly reports partial coverage. Known filename protection cannot detect
 semantic secrets hidden in arbitrary ordinary source files.
 
-The operator configures sandbox images/commands outside agent tools. Poseidon,
-Coder and Reviewer may run already configured Docker tests; only Poseidon ends
-the sandbox. Missing setup is NOT_RUN. No host-shell workaround is authorized.
+Poseidon and Team Lead configure, run and end Docker test sandboxes. Workers
+can inspect settings/status and run isolated local development commands instead.
+This prevents worker testing from accidentally mutating a configured remote Docker
+daemon. Missing Docker setup is NOT_RUN for Docker tests. Assigned local development
+checks can instead use the isolated `system_access` command runner.
 `/poseidon-logs` is an operator-owned fixed-argv log reader, not a shell instruction
 to an agent. Existing global legacy workspace infrastructure can be reused under
 the new outer guards; no second monitor or provisioning hook is needed.
@@ -43,7 +45,7 @@ Use `agent_contracts assign` as Poseidon with:
 {
   "id": "sidebar-repair", "to": "coder", "objective": "Fix mobile overlap",
   "question": "Which minimal change fixes overlap?", "purpose": "Restore journal reading",
-  "scope": ["web/styles.css"], "exclusions": [], "sourceTypes": ["local"],
+  "scope": ["web/styles.css"], "exclusions": [], "sourceTypes": ["local", "system"],
   "skills": [], "acceptance": ["No overlap at 390px; palette unchanged"],
   "nextAction": "Implement the confirmed repair", "design": true,
   "briefID": "journal", "briefVersion": 1
@@ -171,3 +173,7 @@ Each evidence retrieval begins with its actual source ID. Contract status suppli
 brief version. Its source list omits large excerpts to avoid tool-output truncation;
 the excerpts remain in stored evidence and the original retrieval output. Role,
 brief-version and citation checks are still enforced on submission.
+
+The system-access update supersedes historical statements below that deny all
+host shell or restrict local writes to Coder. The role matrix in SYSTEM_ACCESS.md
+and the installed permission definitions are authoritative.

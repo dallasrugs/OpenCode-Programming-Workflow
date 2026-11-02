@@ -1,3 +1,11 @@
+# Current system-access update
+
+[System access](SYSTEM_ACCESS.md) supersedes the historical matrices below.
+Poseidon and Team Lead can administer remote infrastructure through native shell.
+All four workers, including Researcher, have remote read-only system observations
+and scoped local development writes. Host shell remains unavailable to workers;
+local commands run with isolated networking and no host credentials.
+
 # Current authority update — November 2, 2026
 
 The historical sections below are superseded by [agent contracts](AGENT_CONTRACTS.md).

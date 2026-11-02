@@ -11,14 +11,14 @@ const matrix = JSON.parse(readFileSync(new URL('../skills/SOURCES.json', import.
 const limits = JSON.parse(readFileSync(new URL('./agent-limits.json', import.meta.url)))
 const readTools = new Set(['read','glob','grep','webfetch','websearch','skill','opencode_list_mcp_resources','opencode_read_mcp_resource'])
 const writes = new Set(['edit','write','patch','apply_patch'])
-const native = new Set([...readTools,...writes,'question','subagent','agent_contracts','project_search','poseidon_workspace'])
+const native = new Set([...readTools,...writes,'question','subagent','agent_contracts','project_search','poseidon_workspace','system_access','shell'])
 const unwrap = r => r?.data ?? r
 const runFile = promisify(execFile)
 const sourceText = r => Array.isArray(r?.content) ? r.content.filter(x=>x.type==='text').map(x=>x.text).join('\n') : typeof r?.content === 'string' ? r.content : JSON.stringify(r?.content ?? r)
 
 export default {
  id:'agent-reliability',
- async setup(ctx) {
+ async setup(ctx,governor) {
   const locks=new Map(), timers=new Map(), audit=new Map()
   const rootOf=async id=>{const seen=new Set();while(id&&!seen.has(id)&&seen.size<16){seen.add(id);const s=unwrap(await ctx.session.get({sessionID:id}));if(!s.parentID)return id;id=s.parentID}throw Error('Invalid session ancestry')}
   const transact=async(root,fn)=>{
@@ -45,7 +45,7 @@ export default {
    }
    need(d.sessions[id].role===role,'Session role changed; use a new session');return d.sessions[id]
   }
-  const taskFor=(d,s)=>d.tasks[s.taskID]??{id:'direct-'+s.role,from:'poseidon',to:s.role,objective:'Direct bounded investigation',question:'Answer the current user request',purpose:'Direct session',scope:['.'],exclusions:[],sourceTypes:['local','web'],skills:matrix[s.role],acceptance:['Return evidence within scope'],design:false,budget:limits.roles[s.role]}
+  const taskFor=(d,s)=>d.tasks[s.taskID]??{id:'direct-'+s.role,from:'poseidon',to:s.role,objective:'Direct bounded investigation',question:'Answer the current user request',purpose:'Direct session',scope:['.'],exclusions:[],sourceTypes:['local','web','system'],skills:matrix[s.role],acceptance:['Return evidence within scope'],design:false,budget:limits.roles[s.role]}
   const stopTimer=id=>{clearTimeout(timers.get(id));timers.delete(id)}
   const arm=(root,id,s,t)=>{
    if(timers.has(id)||s.closed)return
@@ -65,7 +65,7 @@ export default {
      need(role==='poseidon','Only Poseidon assigns work');need(Object.keys(d.tasks).length<128,'Task record limit reached')
      const t=assignment(input.value,limits.roles[input.value?.to]);need(!d.tasks[t.id],'Task ID already exists')
      need(!Object.values(d.tasks).some(x=>x.to===t.to&&['ASSIGNED','RUNNING'].includes(x.status)),'Recipient already owns active work')
-     if(t.design&&t.to==='coder'){const b=d.briefs[t.briefID]?.find(x=>x.version===t.briefVersion);need(b?.confirmed,'User-confirmed brief required');t.briefHash=digest(b)}
+     if(t.design&&(t.to==='coder'||t.briefID)){const b=d.briefs[t.briefID]?.find(x=>x.version===t.briefVersion);need(b?.confirmed,'User-confirmed brief required');t.briefHash=digest(b)}
      if(t.researchTaskID){const r=d.tasks[t.researchTaskID];need(r?.critique?.verdict==='PASS','Material research needs independent critique')}
      if(t.to==='coder')need(!Object.values(d.tasks).some(x=>x.to==='coder'&&['ASSIGNED','RUNNING'].includes(x.status)),'One implementation owner at a time')
      d.tasks[t.id]=t;d.events.push({type:'assigned',taskID:t.id,to:t.to});return t
@@ -94,6 +94,24 @@ export default {
   }
   await ctx.tool.transform(editor=>editor.add({name:'agent_contracts',description:'Trusted assignments, read-only evidence ledger, Poseidon brief proposals, and validated handoffs. Actions: status; assign(value=task contract, Poseidon only); propose_brief(value=brief, Poseidon only); submit(value=handoff); critique(value=research critique, assigned Reviewer only). Workers use status and submit only (assigned Reviewer may critique). submit value is a flat JSON object, never a handoff wrapper/string. Copy briefVersion (including null), scope and routing from status.submitTemplate; cite S1/S2 from retrieval receipts. No action can confirm a brief.',options:{permission:'agent_contracts',codemode:false},input:{type:'object',properties:{action:{type:'string',enum:['status','assign','propose_brief','submit','critique']},value:{type:'object',additionalProperties:true}},required:['action'],additionalProperties:false},execute:async(input,c)=>({content:JSON.stringify(await execute(input,c))})}))
   await ctx.tool.transform(editor=>editor.add({name:'project_search',description:'Bounded literal search of assigned local source paths. Does not follow symlinks or search protected files.',options:{permission:'project_search',codemode:false},input:{type:'object',properties:{query:{type:'string'}},required:['query'],additionalProperties:false},execute:async(input,c)=>{const root=await rootOf(c.sessionID);const task=await transact(root,d=>taskFor(d,getState(d,c.sessionID,c.agent)));return {content:JSON.stringify(await searchProject(ctx.location.directory,task,input.query,c.signal))}}}))
+  const systemInvoke=async(input,c)=>{
+    need(c._trustedTask,'Trusted system-access assignment missing')
+    const payload={...input,_scope:c._trustedTask.scope,_exclusions:c._trustedTask.exclusions}
+    const invoke=signal=>new Promise((resolve,reject)=>{
+     const child=execFile('python3',[fileURLToPath(new URL('./system-access.py',import.meta.url)),'--repo',ctx.location.directory,'--agent',c.agent],{signal,timeout:Math.min(330000,(input.timeout_seconds??60)*1000+40000),maxBuffer:1024*1024},(error,stdout,stderr)=>{
+      let value;try{value=JSON.parse(stdout)}catch{reject(Error(error?.message??'Invalid system access result'));return}
+      if(error||value.error)reject(Error(value.error??error.message));else resolve(value)
+     });child.stdin.on('error',()=>{});child.stdin.end(JSON.stringify(payload))
+    });const result=governor?await governor.run(input.action==='local_command'?'shell':'tool',invoke,{signal:c.signal,sessionID:await rootOf(c.sessionID),agentID:c.agent,taskID:c.id}):await invoke(c.signal)
+    const {output,stderr,...metadata}=result
+    return {content:JSON.stringify(metadata)+(typeof output==='string'?'\n'+output:'')+(stderr?'\nSTDERR:\n'+stderr:'')}
+  }
+  await ctx.tool.transform(editor=>editor.add({
+   name:'system_access',description:'Role-aware infrastructure access. connections lists configured profiles. server.*, postgres.*, mysql.*, rabbitmq.* and jenkins.* are fixed REMOTE READ-ONLY observations, never arbitrary SQL, remote commands, publishing, consuming or deployments. local_command runs a scoped local development command with no host network, HOME, SSH keys or credential environment. local_http writes only to explicitly configured development-only loopback services. Poseidon and Team Lead use native shell for full authorized remote administration.',
+   options:{permission:'system_access',codemode:false},
+   input:{type:'object',properties:{action:{type:'string',enum:['connections','public_fetch','server.status','server.processes','server.containers','server.service','server.logs','postgres.tables','postgres.columns','postgres.rows','mysql.tables','mysql.columns','mysql.rows','rabbitmq.status','rabbitmq.queues','rabbitmq.exchanges','rabbitmq.bindings','rabbitmq.vhosts','jenkins.jobs','jenkins.config','jenkins.build','jenkins.log','local_command','local_http']},profile:{type:'string'},url:{type:'string'},service:{type:'string'},schema:{type:'string'},table:{type:'string'},columns:{type:'array',items:{type:'string'}},filters:{type:'object',additionalProperties:true},limit:{type:'integer'},job:{type:'string'},build:{type:'integer'},command:{type:'string'},timeout_seconds:{type:'integer'},path:{type:'string'},method:{type:'string',enum:['GET','POST','PUT','PATCH','DELETE']},body:{type:'object',additionalProperties:true}},required:['action'],additionalProperties:false},
+   execute:systemInvoke
+  }))
   await ctx.command.transform(editor=>{
    editor.add({name:'confirm-brief',description:'Confirm an inspected proposal: ID VERSION HASH. This operator command is never an agent tool.',execute:async({sessionID,prompt})=>{
     const [id,version,hash,...extra]=prompt.text.trim().split(/\s+/);need(!extra.length,'Expected ID VERSION HASH');const root=await rootOf(sessionID)
@@ -129,7 +147,7 @@ export default {
    const {s,t}=info;arm(root,event.sessionID,s,t)
    event.options??={};event.options.maxTokens=event.agent==='researcher'||event.agent==='reviewer'?1800:4000
    const exhausted=s.closed||s.modelSteps>=t.budget.steps-1||s.calls>=t.budget.tools-1||Date.now()-s.started>=t.budget.seconds*1000
-   if(event.tools)for(const name of Object.keys(event.tools))if(!native.has(name)||(exhausted&&name!=='agent_contracts'))delete event.tools[name]
+   if(event.tools)for(const name of Object.keys(event.tools))if(!native.has(name)||(name==='shell'&&!['poseidon','team-lead'].includes(event.agent))||(exhausted&&name!=='agent_contracts'))delete event.tools[name]
    event.system.push({type:'text',text:'Trusted task contract: '+JSON.stringify(t)+'. Handoff template: '+JSON.stringify(handoffTemplate(t))+'. Allowed contract actions: '+(event.agent==='poseidon'?'status, assign, propose_brief, submit':event.agent==='reviewer'&&t.reviewOf?'status, submit, critique':'status, submit')+'. Budget includes skill loads. Read agent_contracts status for actual sources and counters. Submit the handoff through agent_contracts submit; a raw final response is not a validated handoff. '+(exhausted?'Tools exhausted: submit existing evidence as PARTIAL or INSUFFICIENT; do not retry.':'')})
   })
   await ctx.session.hook('retry',event=>{if(event.attempt>=1)event.decision={retry:false}})
@@ -153,13 +171,18 @@ export default {
        const s=getState(d,c.sessionID,role),t=taskFor(d,s)
        try{
         need(!s.closed,'Task closed');need(info.id!=='grep','Native grep cannot enforce file exclusions; use project_search');need(s.calls<t.budget.tools-1,'Final tool slot reserved for handoff');need(native.has(info.id),'Unclassified tool denied: '+info.id)
+        if(info.id==='shell')need(['poseidon','team-lead'].includes(role),'Host shell is restricted to top-level administration agents')
+        if(info.id==='system_access'){
+         if(input.action!=='connections')need(input.action==='public_fetch'?t.sourceTypes.includes('web'):input.action.startsWith('local_')?t.sourceTypes.includes('local'):t.sourceTypes.includes('system'),'Assignment must include the appropriate local/system source type')
+         if(input.action==='local_command'&&!['poseidon','team-lead'].includes(role))need(s.taskID,'Local development commands require an assigned worker task')
+        }
         if(info.id==='subagent'){
          need(role==='poseidon','Only Poseidon delegates');need(roles.includes(input.agent)&&input.agent!=='poseidon','Invalid delegation target')
          delegate=Object.values(d.tasks).find(x=>x.to===input.agent&&x.status==='ASSIGNED');need(delegate,'Validated assignment required before delegation');delegate.status='RUNNING'
          need(typeof input.prompt==='string','Unsupported subagent prompt schema');input={...input,background:false,prompt:input.prompt+'\nTrusted assignment: '+JSON.stringify(delegate)+'\nSubmit findings with agent_contracts action submit and value as this flat JSON object, replacing the example summary/nextAction: '+JSON.stringify(handoffTemplate(delegate))+'. Do not propose_brief. Use read or project_search and the actual source IDs returned with retrieved evidence.'}
         }
         if(writes.has(info.id)){
-         need(s.taskID&&t.to==='coder','Implementation requires assigned Coder task')
+         need((s.taskID||['poseidon','team-lead'].includes(role))&&t.to===role,'Local edits require a matching assigned task')
          for(const p of editPaths(input)){
           await scopedPath(ctx.location.directory,p,t,true)
           if(t.design||/\.(css|scss|sass|less|html?|tsx|jsx|vue|svelte)$/i.test(p)){
@@ -174,7 +197,7 @@ export default {
         if(info.id==='websearch'||info.id==='webfetch')need(t.sourceTypes.includes('web'),'Web sources not approved')
         if(info.id.startsWith('opencode_'))need(t.sourceTypes.includes('mcp'),'MCP sources not approved')
         if(info.id==='question')need(role==='poseidon'||role==='team-lead','Only coordinator/design owner asks user questions')
-        if(info.id==='poseidon_workspace')need(['settings','status','test'].includes(input.action)||(role==='poseidon'&&input.action==='end_sandbox'),'Operator configures sandbox; workers cannot configure it')
+        if(info.id==='poseidon_workspace')need(['settings','status'].includes(input.action)||(['poseidon','team-lead'].includes(role)&&['configure','test','end_sandbox'].includes(input.action)),'Top-level agents administer Docker tests; workers use isolated local_command and can inspect settings/status')
         spend(s,info.id,t.budget,Date.now());arm(root,c.sessionID,s,t)
         d.events.push({type:'admitted',tool:info.id,role,taskID:t.id});return {task:t,remaining:Math.max(1,t.budget.seconds*1000-(Date.now()-s.started))}
        }catch(e){d.events.push({type:'denied',tool:info.id,role});throw e}
@@ -185,7 +208,8 @@ export default {
        if(info.id==='glob'){
         await ctx.permission.assert({sessionID:c.sessionID,agent:role,source:{type:'tool',messageID:c.messageID,id:c.id},action:'glob',resources:[input.pattern],save:[input.pattern]})
         result={content:JSON.stringify(await discoverProject(ctx.location.directory,state.task,input,signal))}
-       }else result=await original(input,{...c,signal})
+       }else if(info.id==='webfetch'&&!['poseidon','team-lead'].includes(role))result=await systemInvoke({action:'public_fetch',url:input.url},{...c,agent:role,signal,_trustedTask:state.task})
+       else result=await original(input,{...c,agent:role,signal,_trustedTask:state.task})
       }catch(e){if(!delegate)throw e;result={content:'Worker stopped: '+e.message}}
       return transact(root,d=>{
        const s=getState(d,c.sessionID,role)
@@ -195,8 +219,8 @@ export default {
         for(const [id,state]of Object.entries(d.sessions))if(state.taskID===t.id){state.closed=true;stopTimer(id)}
         return {...result,content:JSON.stringify(t.handoff)}
        }
-       if(['read','project_search','webfetch','opencode_read_mcp_resource'].includes(info.id)&&s.sources.length<16){
-        const content=sourceText(result),ref=input.url??(info.id==='project_search'?'Local bounded search: '+input.query:undefined)??input.path??input.filePath??input.uri??'MCP resource';const source={id:'S'+(s.sources.length+1),ref,type:info.id==='read'?'LOCAL':'RETRIEVED',retrievedAt:new Date().toISOString(),sha256:createHash('sha256').update(content).digest('hex'),excerpt:content.slice(0,16000),truncated:content.length>16000};s.sources.push(source)
+       if(['read','project_search','webfetch','opencode_read_mcp_resource','system_access'].includes(info.id)&&s.sources.length<16){
+        const content=sourceText(result),ref=(info.id==='system_access'?'System '+input.action+' '+(input.profile??'local'):undefined)??input.url??(info.id==='project_search'?'Local bounded search: '+input.query:undefined)??input.path??input.filePath??input.uri??'MCP resource';const source={id:'S'+(s.sources.length+1),ref,type:info.id==='read'?'LOCAL':'RETRIEVED',retrievedAt:new Date().toISOString(),sha256:createHash('sha256').update(content).digest('hex'),excerpt:content.slice(0,16000),truncated:content.length>16000};s.sources.push(source)
         const receipt={type:'text',text:'Evidence source ID: '+source.id+'. Use this ID in claims.sourceIDs with an exact excerpt from this result.'}
         return {...result,content:Array.isArray(result.content)?[receipt,...result.content]:receipt.text+'\n\n'+content}
        }
