@@ -1,4 +1,6 @@
 import { reserveNvidia } from './provider-budget.mjs'
+import { execFile } from 'node:child_process'
+import { promisify } from 'node:util'
 import { readFileSync } from 'node:fs'
 import { realpath, mkdir, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
@@ -11,6 +13,7 @@ const readTools = new Set(['read','glob','grep','webfetch','websearch','skill','
 const writes = new Set(['edit','write','patch','apply_patch'])
 const native = new Set([...readTools,...writes,'question','subagent','agent_contracts','project_search','poseidon_workspace'])
 const unwrap = r => r?.data ?? r
+const runFile = promisify(execFile)
 const sourceText = r => Array.isArray(r?.content) ? r.content.filter(x=>x.type==='text').map(x=>x.text).join('\n') : typeof r?.content === 'string' ? r.content : JSON.stringify(r?.content ?? r)
 
 export default {
@@ -102,10 +105,10 @@ export default {
     console.info('agent-reliability-tool-audit',JSON.stringify(data.toolAudit))
     await ctx.session.synthetic({sessionID,text:JSON.stringify(data),resume:false})
    }})
-   editor.add({name:'agent-export',description:'Operator-only export of bounded evaluation evidence into Git-local storage.',execute:async({sessionID})=>{
+   editor.add({name:'agent-export',description:'Operator-only export of bounded evaluation evidence into workspace-local storage.',execute:async({sessionID})=>{
     const root=await rootOf(sessionID);const record=await transact(root,d=>{const s=d.sessions[sessionID];need(s,'No execution evidence');const t=taskFor(d,s);const accepted=s.handoff??d.tasks[t.id]?.handoff;
      const h=accepted??fallback(t,s,'No accepted model handoff before completion');s.closed=true;stopTimer(sessionID);return {sessionID,task:t,state:s,handoff:h,modelHandoff:Boolean(s.modelHandoff),fallback:!s.modelHandoff}
-    });const directory=path.join(ctx.location.directory,'.git/bdfl/agent-evals');await mkdir(directory,{recursive:true});await writeFile(path.join(directory,digest(sessionID)+'.json'),JSON.stringify(record,null,2));await ctx.session.synthetic({sessionID,text:'Evaluation evidence exported to Git-local storage.',resume:false})
+    });const result=await runFile('python3',[fileURLToPath(new URL('./workspace.py',import.meta.url)),'--repo',ctx.location.directory,'state-home'],{timeout:30000,maxBuffer:65536});const directory=path.join(JSON.parse(result.stdout).directory,'agent-evals');await mkdir(directory,{recursive:true});await writeFile(path.join(directory,digest(sessionID)+'.json'),JSON.stringify(record,null,2));await ctx.session.synthetic({sessionID,text:'Evaluation evidence exported to workspace-local storage.',resume:false})
    }})
    editor.add({name:'agent-evaluate',description:'Operator-only disposable evaluation assignment, JSON task contract; no model request.',execute:async({sessionID,prompt})=>{
     const root=await rootOf(sessionID);const info=unwrap(await ctx.session.get({sessionID}));const t=assignment(JSON.parse(prompt.text),limits.roles[info.agent]);need(t.to===info.agent&&root===sessionID,'Evaluation role/location mismatch')

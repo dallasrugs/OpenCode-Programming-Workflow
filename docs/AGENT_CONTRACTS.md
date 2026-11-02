@@ -134,9 +134,10 @@ General-purpose files can contain design behavior, so semantic classification st
 needs Team Lead/Poseidon review.
 
 The operator-only `/agent-evaluate` initializes a direct disposable evaluation
-contract; `/agent-export` writes bounded evaluation evidence into Git-local storage.
-These are privileged user commands, not agent tools. Test repositories use ordinary
-`.git` directories; export from worktree-style `.git` files is not verified.
+contract; `/agent-export` writes bounded evaluation evidence into workspace-local
+storage. These are privileged user commands, not agent tools. Git worktrees use
+the shared Git directory; ordinary folders use `.opencode/workspace/`. Neither
+startup nor evidence export creates a Git repository.
 
 ## November 2 tool-access repair
 

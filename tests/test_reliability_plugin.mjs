@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { mkdtemp,writeFile,rm } from 'node:fs/promises'
+import { mkdtemp,writeFile,readFile,access,rm } from 'node:fs/promises'
 import path from 'node:path'
 import { tmpdir } from 'node:os'
 import plugin from '../.opencode/runtime/reliability-plugin.mjs'
@@ -98,5 +98,18 @@ test('prompt admission preserves retrieved source IDs for later factual handoffs
   assert.equal(status.state.sources[0].id,'S1')
   const h=await f.contracts('submit',{taskID:'direct-researcher',from:'researcher',to:'poseidon',objective:'Direct bounded investigation',scope:['.'],exclusions:[],briefVersion:null,status:'COMPLETE',summary:'Read the text.',claims:[{id:'C1',type:'VERIFIED_FACT',text:'The text is green.',sourceIDs:['S1'],quote:'The text is green.'}],verification:[],uncertainty:[],nextAction:'Review the evidence.'})
   assert.equal(h.status,'COMPLETE')
+ }finally{await f.close()}
+})
+
+test('operator evidence export supports an ordinary folder without creating Git metadata',async()=>{
+ const f=await fixture([{id:'read',execute:async()=>({content:'green'})}])
+ try{
+  await f.call('read',{path:'a.md'})
+  await f.commands.get('agent-export').execute({sessionID:'child'})
+  const {digest}=await import('../.opencode/runtime/agent-contracts.mjs')
+  const exported=JSON.parse(await readFile(path.join(f.directory,'.opencode/workspace/agent-evals',digest('child')+'.json'),'utf8'))
+  assert.equal(exported.state.sources[0].excerpt,'green')
+  assert.equal(exported.handoff.status,'PARTIAL')
+  await assert.rejects(access(path.join(f.directory,'.git')))
  }finally{await f.close()}
 })

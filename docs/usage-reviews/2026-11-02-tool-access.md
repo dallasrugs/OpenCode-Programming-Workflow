@@ -35,3 +35,8 @@ This does not enable unrestricted shell, install missing services, expand task
 scope, increase Researcher budgets, or provision Docker for multi-repository
 workspace roots. The reviewed business task was not rerun against a model;
 validation uses deterministic tool tests and the real OpenCode permission API.
+
+The subsequent non-Git workspace update removes the Git prerequisite from
+sandbox settings, logs, source snapshots and test evidence. Ordinary folders
+use `.opencode/workspace/`; Docker availability and explicit test configuration
+remain separate requirements. See the README for source filtering behavior.

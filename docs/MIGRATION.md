@@ -142,3 +142,12 @@ up custom settings, and copy reviewed files together when updating a profile.
 Reload OpenCode after installation and
 select Poseidon for an existing session; changing default_agent affects new
 sessions and does not rewrite saved session selections.
+
+## Non-Git workspace support
+
+Install `runtime.py`, `sandbox.py`, `logs.py`, `workspace.py` and
+`reliability-plugin.mjs` together and reload OpenCode. Ordinary folders now store
+settings, operation logs, session state and evidence in `.opencode/workspace/`.
+Git projects retain their shared Git storage. Existing non-Git sessions can
+continue; they no longer fail merely because the workspace lacks a repository.
+Unconfigured tests report the missing configuration; they do not claim a pass.

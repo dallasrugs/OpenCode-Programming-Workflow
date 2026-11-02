@@ -8,9 +8,9 @@ import path from "node:path"
 import { execFileSync } from "node:child_process"
 import { setTimeout } from "node:timers/promises"
 
-async function fixture(prefix = "poseidon-native-", native = []) {
+async function fixture(prefix = "poseidon-native-", native = [], git = true) {
   const directory = await mkdtemp(path.join(tmpdir(), prefix))
-  execFileSync("git", ["init", "-q", directory])
+  if (git) execFileSync("git", ["init", "-q", directory])
   const hooks = new Map(), commands = new Map(), prompts = [], queue = [], synthetic = []
   const tools = new Map(native.map(t => [t.id, { ...t }]))
   let tool, stopped = false
@@ -45,7 +45,7 @@ async function fixture(prefix = "poseidon-native-", native = []) {
       stopped = true
     } },
   })
-  const marker = (id) => path.join(directory, ".git/bdfl/sessions", createHash("sha256").update(JSON.stringify(id)).digest("hex").slice(0, 24), "ended")
+  const marker = (id) => path.join(directory, git ? ".git/bdfl/sessions" : ".opencode/workspace/sessions", createHash("sha256").update(JSON.stringify(id)).digest("hex").slice(0, 24), "ended")
   const waitForMarker = async (id) => {
     for (let attempt = 0; attempt < 200; attempt++) {
       try { await access(marker(id)); return } catch { await setTimeout(10) }
@@ -164,4 +164,21 @@ test("an existing global workspace tool is reused without duplicate sandbox hook
   await assert.rejects(access(path.join(f.directory,'.git/bdfl/operations')))
   assert.ok(f.tools.has('agent_contracts'));assert.ok(f.commands.has('confirm-brief'))
  }finally{await f.cleanup()}
+})
+
+test("ordinary-folder prompt preparation and log viewing use local workspace state", async () => {
+  const f = await fixture("poseidon-non-git-", [], false)
+  try {
+    await f.hooks.get("prompt")({ sessionID: "parent" })
+    const settings = JSON.parse((await f.tool.execute({action:"settings"}, {sessionID:"child"})).content)
+    assert.equal(settings.settings, null)
+    assert.equal(settings.settings_file, path.join(f.directory,".opencode/workspace/settings.json"))
+    const operations = await readdir(path.join(f.directory,".opencode/workspace/operations"))
+    assert.equal(operations.length, 1)
+    await f.commands.get("poseidon-logs").execute({sessionID:"parent",prompt:{text:operations[0]}})
+    assert.match(f.synthetic.at(-1).text, /operation completed/)
+    await f.commands.get("poseidon-end").execute({sessionID:"parent"})
+    await access(f.marker("parent"))
+    await assert.rejects(access(path.join(f.directory,".git")))
+  } finally { await f.cleanup() }
 })

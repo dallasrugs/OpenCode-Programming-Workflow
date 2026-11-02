@@ -270,3 +270,17 @@ Resource-governor integration tests need macOS process-metric access. A restrict
 execution sandbox may block those metrics, which deliberately fails admission
 closed. Deterministic tests need no provider requests. Passing infrastructure tests
 does not establish every live agent or GUI outcome. See [validation notes](docs/validation.md).
+
+### Folders without Git
+
+The workflow also supports ordinary folders and workspace roots containing
+multiple repositories. Sandbox settings, session state, logs and test evidence
+live in `.opencode/workspace/`; no `git init` is needed. Git projects continue to
+use their shared Git directory. A new Git repository does not need a first commit.
+
+Without Git, snapshots enumerate ordinary files and exclude credentials, agent
+configuration and common dependency/build folders (`node_modules`, virtualenvs,
+cache, `dist`, `build`, `coverage`, `.next`). Symlinks are rejected rather than
+followed. Git ignore rules apply in Git projects; the ordinary-folder fallback
+uses these fixed exclusions instead. Docker and operator-configured test commands
+are still required for sandbox testing.
