@@ -4,10 +4,10 @@ import { mkdtemp,writeFile,readFile,access,rm } from 'node:fs/promises'
 import path from 'node:path'
 import { tmpdir } from 'node:os'
 import plugin from '../.opencode/runtime/reliability-plugin.mjs'
-async function fixture(native=[]) {
+async function fixture(native=[],permission=async()=>{}) {
  const directory=await mkdtemp(path.join(tmpdir(),'reliability-'));await writeFile(path.join(directory,'a.md'),'The text is green.\n')
  const store=new Map(),tools=new Map(native.map(t=>[t.id,{...t}])),hooks=new Map(),commands=new Map(),messages=[]
- const ctx={location:{directory},storage:{get:async k=>structuredClone(store.get(k)),set:async(k,v)=>store.set(k,structuredClone(v))},session:{get:async({sessionID})=>({id:sessionID,agent:sessionID==='root'?'poseidon':'researcher',...(sessionID==='root'?{}:{parentID:'root'})}),hook:async(n,f)=>hooks.set(n,f),synthetic:async x=>messages.push(x),interrupt:async x=>messages.push({interrupt:x})},tool:{transform:async f=>f({add:t=>tools.set(t.name,{...t,id:t.name}),list:()=>[...tools.values()],update:(id,f)=>f(tools.get(id))})},command:{transform:async f=>f({add:t=>commands.set(t.name,t)})}}
+ const ctx={location:{directory},permission:{assert:permission},storage:{get:async k=>structuredClone(store.get(k)),set:async(k,v)=>store.set(k,structuredClone(v))},session:{get:async({sessionID})=>({id:sessionID,agent:sessionID==='root'?'poseidon':'researcher',...(sessionID==='root'?{}:{parentID:'root'})}),hook:async(n,f)=>hooks.set(n,f),synthetic:async x=>messages.push(x),interrupt:async x=>messages.push({interrupt:x})},tool:{transform:async f=>f({add:t=>tools.set(t.name,{...t,id:t.name}),list:()=>[...tools.values()],update:(id,f)=>f(tools.get(id))})},command:{transform:async f=>f({add:t=>commands.set(t.name,t)})}}
  const close=await plugin.setup(ctx)
  const call=(id,input={},role='researcher',sessionID='child')=>tools.get(id).execute(input,{agent:role,sessionID})
  const contracts=async(action,value,role='researcher',session='child')=>JSON.parse((await call('agent_contracts',{action,value},role,session)).content)
@@ -84,7 +84,8 @@ test('native read/search are visible without Code Mode while shell stays denied'
   assert.equal(f.tools.get('project_search').options.codemode,false)
   await f.call('read',{path:'.'},'poseidon','root')
   const status=await f.contracts('status',undefined,'poseidon','root')
-  assert.equal(status.state.sources[0].excerpt,'The text is green.\nSecond line.')
+  assert.equal(status.state.sources[0].id,'S1')
+  assert.equal(status.state.sources[0].excerpt,undefined)
   for(const role of ['poseidon','coder','reviewer','researcher'])await assert.rejects(f.call('shell',{command:'pwd'},role,role+'-session'),/Unclassified tool/)
   assert.equal(ran,0)
  }finally{await f.close()}
@@ -111,5 +112,75 @@ test('operator evidence export supports an ordinary folder without creating Git 
   assert.equal(exported.state.sources[0].excerpt,'green')
   assert.equal(exported.handoff.status,'PARTIAL')
   await assert.rejects(access(path.join(f.directory,'.git')))
+ }finally{await f.close()}
+})
+
+test('background launch is awaited before task closure and worker tools remain available',async()=>{
+ let f
+ f=await fixture([{id:'read',execute:async()=>({content:'The text is green.'})},{id:'subagent',execute:async input=>{
+  assert.equal(input.background,false)
+  assert.match(input.prompt,/briefVersion.*null/)
+  const status=await f.contracts('status')
+  assert.equal(status.state.closed,false)
+  assert.equal(status.task.status,'RUNNING')
+  assert.deepEqual(status.allowedActions,['status','submit'])
+  const event={sessionID:'child',agent:'researcher',system:[],tools:{read:{},project_search:{},agent_contracts:{}},options:{}}
+  await f.hooks.get('context')(event)
+  assert.ok(event.tools.read)
+  assert.ok(event.tools.project_search)
+  const read=await f.call('read',{path:'a.md'})
+  assert.match(read.content,/Evidence source ID: S1/)
+  await f.contracts('submit',{...status.submitTemplate,status:'COMPLETE',summary:'Read the assigned text.',nextAction:'Review findings.',claims:[{id:'C1',type:'VERIFIED_FACT',text:'The text is green.',sourceIDs:['S1'],quote:'The text is green.'}]})
+  return {content:'native child completed'}
+ }}])
+ try{
+  await f.contracts('assign',assignment,'poseidon','root')
+  const result=JSON.parse((await f.call('subagent',{agent:'researcher',prompt:'Investigate',background:true},'poseidon','root')).content)
+  assert.equal(result.status,'COMPLETE')
+  assert.equal(result.claims[0].sourceIDs[0],'S1')
+  assert.equal(f.store.get('root/root').sessions.child.closed,true)
+ }finally{await f.close()}
+})
+test('scoped filename discovery works and does not enumerate excluded or external paths',async()=>{
+ const f=await fixture([{id:'glob',execute:async()=>{throw Error('Unbounded native discovery must not execute')}}])
+ try{
+  await f.contracts('assign',assignment,'poseidon','root')
+  f.store.get('root/root').tasks.r1.status='RUNNING'
+  const result=JSON.parse((await f.call('glob',{pattern:'a.md'})).content)
+  assert.deepEqual(result.files,['a.md'])
+  await assert.rejects(f.call('glob',{pattern:'../*'}),/relative/)
+  await assert.rejects(f.call('glob',{pattern:'*',path:'/tmp'}),/scope path/)
+  const status=await f.contracts('status')
+  await assert.rejects(f.contracts('submit',{handoff:JSON.stringify(status.submitTemplate)}),/flat JSON object/)
+  await assert.rejects(f.contracts('submit',{...status.submitTemplate,briefVersion:1}),/Brief version changed/)
+  const submitted=await f.contracts('submit',{...status.submitTemplate,summary:'No unsupported claims.',nextAction:'Review.'})
+  assert.equal(submitted.briefVersion,null)
+ }finally{await f.close()}
+})
+test('contract status omits large evidence excerpts while retaining retrieval IDs and templates',async()=>{
+ const f=await fixture([{id:'read',execute:async()=>({content:'evidence '.repeat(3000)})}])
+ try{
+  const result=await f.call('read',{path:'a.md'})
+  assert.match(result.content,/Evidence source ID: S1/)
+  const status=await f.contracts('status')
+  assert.equal(status.state.sources[0].id,'S1')
+  assert.ok(JSON.stringify(status).length<5000)
+  assert.equal(status.submitTemplate.briefVersion,null)
+  assert.equal(status.state.sources[0].excerpt,undefined)
+ }finally{await f.close()}
+})
+
+test('scoped glob preserves native per-pattern permission decisions',async()=>{
+ let checked=0
+ const f=await fixture([{id:'glob',execute:async()=>{throw Error('Native scan should not execute')}}],async request=>{
+  assert.equal(request.action,'glob')
+  assert.deepEqual(request.resources,['a.md'])
+  assert.equal(request.agent,'researcher')
+  checked++
+  throw Error('Native per-pattern permission denied')
+ })
+ try{
+  await assert.rejects(f.call('glob',{pattern:'a.md'}),/Native per-pattern permission denied/)
+  assert.equal(checked,1)
  }finally{await f.close()}
 })

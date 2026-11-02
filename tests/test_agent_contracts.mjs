@@ -81,3 +81,22 @@ test('project root can be read without weakening scope or external path checks',
   await assert.rejects(scopedPath(root,'..',task),/escapes project/)
  }finally{await rm(root,{recursive:true,force:true})}
 })
+
+test('scoped discovery supports named files and nested globs without widening source access',async()=>{
+ const {discoverProject}=await import('../.opencode/runtime/agent-contracts.mjs')
+ const root=await mkdtemp(path.join(tmpdir(),'scoped-discovery-'))
+ try{
+  for(const name of ['src/ui/a.tsx','src/ui/nested/b.tsx','src/ui/private.md','src/ui/.env','elsewhere/outside.tsx']){
+   await mkdir(path.dirname(path.join(root,name)),{recursive:true});await writeFile(path.join(root,name),'source')
+  }
+  await symlink(path.join(root,'elsewhere'),path.join(root,'src/ui/escape'))
+  const t={...task(),scope:['src/ui'],exclusions:['src/ui/private.md']}
+  assert.deepEqual((await discoverProject(root,t,{pattern:'src/ui/a.tsx'})).files,['src/ui/a.tsx'])
+  assert.deepEqual((await discoverProject(root,t,{pattern:'**/*.tsx'})).files.sort(),['src/ui/a.tsx','src/ui/nested/b.tsx'])
+  assert.deepEqual((await discoverProject(root,t,{pattern:'*.tsx',path:'src/ui/nested'})).files,['src/ui/nested/b.tsx'])
+  const all=(await discoverProject(root,t,{pattern:'**/*'})).files
+  assert.ok(!all.some(p=>/env|private|escape|elsewhere/.test(p)))
+  await assert.rejects(discoverProject(root,t,{pattern:'*',path:'elsewhere'}),/outside task scope/)
+  assert.equal((await discoverProject(root,t,{pattern:'**/*',limit:1})).partial,true)
+ }finally{await rm(root,{recursive:true,force:true})}
+})

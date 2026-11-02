@@ -153,3 +153,21 @@ selected agent; switch them explicitly to Poseidon after reloading configuration
 The installers preserve existing configuration by default. Use `python3 .opencode/runtime/skillctl.py compare-install DESTINATION` to
 review differences, back up custom settings, and copy the reviewed configuration,
 agent definitions and runtime files together to update a separate installation. Repository edits alone do not update global copies.
+
+## Delegation completion and scoped discovery
+
+Validated subagent calls execute in the foreground. A requested `background: true`
+is normalized to `false` so a launch acknowledgment cannot close a still-running
+assignment. Child read/search tools remain available until actual completion or
+budget exhaustion; existing cancellation and fallback rules remain in effect.
+
+`glob` now performs bounded filename discovery over assigned files/directories,
+with `*`, `**` and `?` patterns. It no longer requires a project-wide assignment.
+Protected paths, explicit exclusions and symlinks remain excluded. Results report
+partial coverage when their file/entry budget is reached.
+
+Each evidence retrieval begins with its actual source ID. Contract status supplies
+`allowedActions` and a flat `submitTemplate` with exact routing, scope and nullable
+brief version. Its source list omits large excerpts to avoid tool-output truncation;
+the excerpts remain in stored evidence and the original retrieval output. Role,
+brief-version and citation checks are still enforced on submission.

@@ -6,7 +6,7 @@ import { realpath, mkdir, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
-import { assignment, validateBrief, handoff, fallback, spend, scopedPath, editPaths, searchProject, roles, need, digest } from './agent-contracts.mjs'
+import { assignment, validateBrief, handoff, fallback, spend, scopedPath, editPaths, searchProject, discoverProject, handoffTemplate, roles, need, digest } from './agent-contracts.mjs'
 const matrix = JSON.parse(readFileSync(new URL('../skills/SOURCES.json', import.meta.url))).agents
 const limits = JSON.parse(readFileSync(new URL('./agent-limits.json', import.meta.url)))
 const readTools = new Set(['read','glob','grep','webfetch','websearch','skill','opencode_list_mcp_resources','opencode_read_mcp_resource'])
@@ -60,7 +60,7 @@ export default {
     const s=getState(d,context.sessionID,role),task=taskFor(d,s)
     if(s.calls>=task.budget.tools-1)need(input.action==='submit','Final tool slot is reserved for submit')
     spend(s,'agent_contracts',task.budget,Date.now())
-    if(input.action==='status')return {task,state:s,briefs:d.briefs,tasks:role==='poseidon'?d.tasks:undefined,reviewTarget:task.reviewOf?d.tasks[task.reviewOf]?.handoff:undefined}
+    if(input.action==='status')return {task,state:{...s,sources:s.sources.map(({excerpt,...source})=>source)},submitTemplate:handoffTemplate(task),allowedActions:role==='poseidon'?['status','assign','propose_brief','submit']:role==='reviewer'&&task.reviewOf?['status','submit','critique']:['status','submit'],briefs:d.briefs,tasks:role==='poseidon'?Object.fromEntries(Object.entries(d.tasks).map(([id,t])=>[id,{id,to:t.to,status:t.status,summary:t.handoff?.summary}])):undefined,reviewTarget:task.reviewOf?d.tasks[task.reviewOf]?.handoff:undefined}
     if(input.action==='assign') {
      need(role==='poseidon','Only Poseidon assigns work');need(Object.keys(d.tasks).length<128,'Task record limit reached')
      const t=assignment(input.value,limits.roles[input.value?.to]);need(!d.tasks[t.id],'Task ID already exists')
@@ -71,12 +71,13 @@ export default {
      d.tasks[t.id]=t;d.events.push({type:'assigned',taskID:t.id,to:t.to});return t
     }
     if(input.action==='propose_brief') {
-     need(role==='poseidon','Only Poseidon proposes design briefs');const history=d.briefs[input.value?.id]??[];need(history.length<32,'Brief revision limit reached')
+     need(role==='poseidon','Only Poseidon proposes design briefs; workers submit findings with action submit and the flat submitTemplate from status');const history=d.briefs[input.value?.id]??[];need(history.length<32,'Brief revision limit reached')
      const b=validateBrief(input.value,history.at(-1));history.push(b);d.briefs[b.id]=history
      return {brief:b,hash:digest(b),confirmationCommand:`/confirm-brief ${b.id} ${b.version} ${digest(b)}`}
     }
     if(input.action==='submit') {
-     need(!s.closed,'Task is closed');const h=handoff(input.value,task,s,task.budget.words)
+     need(!s.closed,'Task is closed');let h
+     try{h=handoff(input.value,task,s,task.budget.words)}catch(error){throw Error(error.message+'. Use action submit with value as a flat JSON object, not a handoff string/wrapper. Copy routing and briefVersion from this template: '+JSON.stringify(handoffTemplate(task))+'. Claims must cite retrieved S1/S2 source IDs and exact excerpts.')}
      if(d.tasks[task.id]){d.tasks[task.id].handoff={...h,sources:s.sources};d.tasks[task.id].status=h.status}
      s.closed=true;s.modelHandoff=true;s.handoff={...h,sources:s.sources};stopTimer(context.sessionID);return s.handoff
     }
@@ -91,7 +92,7 @@ export default {
     throw Error('Unknown contract action')
    })
   }
-  await ctx.tool.transform(editor=>editor.add({name:'agent_contracts',description:'Trusted assignments, read-only evidence ledger, Poseidon brief proposals, and validated handoffs. Actions: status; assign(value=task contract, Poseidon only); propose_brief(value=brief, Poseidon only); submit(value=handoff); critique(value=research critique, assigned Reviewer only). No action can confirm a brief.',options:{permission:'agent_contracts',codemode:false},input:{type:'object',properties:{action:{type:'string',enum:['status','assign','propose_brief','submit','critique']},value:{type:'object',additionalProperties:true}},required:['action'],additionalProperties:false},execute:async(input,c)=>({content:JSON.stringify(await execute(input,c))})}))
+  await ctx.tool.transform(editor=>editor.add({name:'agent_contracts',description:'Trusted assignments, read-only evidence ledger, Poseidon brief proposals, and validated handoffs. Actions: status; assign(value=task contract, Poseidon only); propose_brief(value=brief, Poseidon only); submit(value=handoff); critique(value=research critique, assigned Reviewer only). Workers use status and submit only (assigned Reviewer may critique). submit value is a flat JSON object, never a handoff wrapper/string. Copy briefVersion (including null), scope and routing from status.submitTemplate; cite S1/S2 from retrieval receipts. No action can confirm a brief.',options:{permission:'agent_contracts',codemode:false},input:{type:'object',properties:{action:{type:'string',enum:['status','assign','propose_brief','submit','critique']},value:{type:'object',additionalProperties:true}},required:['action'],additionalProperties:false},execute:async(input,c)=>({content:JSON.stringify(await execute(input,c))})}))
   await ctx.tool.transform(editor=>editor.add({name:'project_search',description:'Bounded literal search of assigned local source paths. Does not follow symlinks or search protected files.',options:{permission:'project_search',codemode:false},input:{type:'object',properties:{query:{type:'string'}},required:['query'],additionalProperties:false},execute:async(input,c)=>{const root=await rootOf(c.sessionID);const task=await transact(root,d=>taskFor(d,getState(d,c.sessionID,c.agent)));return {content:JSON.stringify(await searchProject(ctx.location.directory,task,input.query,c.signal))}}}))
   await ctx.command.transform(editor=>{
    editor.add({name:'confirm-brief',description:'Confirm an inspected proposal: ID VERSION HASH. This operator command is never an agent tool.',execute:async({sessionID,prompt})=>{
@@ -129,7 +130,7 @@ export default {
    event.options??={};event.options.maxTokens=event.agent==='researcher'||event.agent==='reviewer'?1800:4000
    const exhausted=s.closed||s.modelSteps>=t.budget.steps-1||s.calls>=t.budget.tools-1||Date.now()-s.started>=t.budget.seconds*1000
    if(event.tools)for(const name of Object.keys(event.tools))if(!native.has(name)||(exhausted&&name!=='agent_contracts'))delete event.tools[name]
-   event.system.push({type:'text',text:'Trusted task contract: '+JSON.stringify(t)+'. Budget includes skill loads. Read agent_contracts status for actual sources and counters. Submit the handoff through agent_contracts submit; a raw final response is not a validated handoff. '+(exhausted?'Tools exhausted: submit existing evidence as PARTIAL or INSUFFICIENT; do not retry.':'')})
+   event.system.push({type:'text',text:'Trusted task contract: '+JSON.stringify(t)+'. Handoff template: '+JSON.stringify(handoffTemplate(t))+'. Allowed contract actions: '+(event.agent==='poseidon'?'status, assign, propose_brief, submit':event.agent==='reviewer'&&t.reviewOf?'status, submit, critique':'status, submit')+'. Budget includes skill loads. Read agent_contracts status for actual sources and counters. Submit the handoff through agent_contracts submit; a raw final response is not a validated handoff. '+(exhausted?'Tools exhausted: submit existing evidence as PARTIAL or INSUFFICIENT; do not retry.':'')})
   })
   await ctx.session.hook('retry',event=>{if(event.attempt>=1)event.decision={retry:false}})
   await ctx.session.hook('model.request',async event=>{
@@ -142,6 +143,7 @@ export default {
     editor.update(info.id,tool=>{
      // Keep permitted tools on the native list when execute/Code Mode is denied.
      if(native.has(info.id))tool.options={...tool.options,codemode:false}
+     if(info.id==='glob')tool.description='Bounded filename discovery within assigned paths, including named files. Patterns support *, ** and ?. Paths are relative to the project unless path is supplied. Protected paths, excluded files and symlinks are omitted.'
      const original=tool.execute;audit.set(info.id,{id:info.id,executor:typeof original==='function',recognized:native.has(info.id)})
      if(typeof original!=='function')return
      tool.execute=async(input,c)=>{
@@ -154,7 +156,7 @@ export default {
         if(info.id==='subagent'){
          need(role==='poseidon','Only Poseidon delegates');need(roles.includes(input.agent)&&input.agent!=='poseidon','Invalid delegation target')
          delegate=Object.values(d.tasks).find(x=>x.to===input.agent&&x.status==='ASSIGNED');need(delegate,'Validated assignment required before delegation');delegate.status='RUNNING'
-         need(typeof input.prompt==='string','Unsupported subagent prompt schema');input={...input,prompt:input.prompt+'\nTrusted assignment: '+JSON.stringify(delegate)}
+         need(typeof input.prompt==='string','Unsupported subagent prompt schema');input={...input,background:false,prompt:input.prompt+'\nTrusted assignment: '+JSON.stringify(delegate)+'\nSubmit findings with agent_contracts action submit and value as this flat JSON object, replacing the example summary/nextAction: '+JSON.stringify(handoffTemplate(delegate))+'. Do not propose_brief. Use read or project_search and the actual source IDs returned with retrieved evidence.'}
         }
         if(writes.has(info.id)){
          need(s.taskID&&t.to==='coder','Implementation requires assigned Coder task')
@@ -167,7 +169,7 @@ export default {
          }
         }
         if(info.id==='read'){need(t.sourceTypes.includes('local'),'Local sources not approved');const p=input.path??input.filePath??input.file_path;let support=false;for(const skill of t.skills){try{const base=await realpath(fileURLToPath(new URL('../skills/'+skill+'/',import.meta.url)));const target=await realpath(path.resolve(ctx.location.directory,p));if(target.startsWith(base+path.sep))support=true}catch{}}if(!support)await scopedPath(ctx.location.directory,p,t)}
-        if(info.id==='glob'||info.id==='grep'){need(t.sourceTypes.includes('local')&&t.scope.includes('.'),'Discovery requires explicit project-wide source scope; read named files instead')}
+        if(info.id==='glob')need(t.sourceTypes.includes('local'),'Local sources not approved')
         if(info.id==='skill')need(t.skills.includes(input.id??input.name),'Skill not authorized by assignment')
         if(info.id==='websearch'||info.id==='webfetch')need(t.sourceTypes.includes('web'),'Web sources not approved')
         if(info.id.startsWith('opencode_'))need(t.sourceTypes.includes('mcp'),'MCP sources not approved')
@@ -179,7 +181,12 @@ export default {
       }).catch(async error=>{await transact(root,d=>{getState(d,c.sessionID,role).denied++});throw error})
       const timeout=AbortSignal.timeout(state.remaining);const signal=c.signal?AbortSignal.any([c.signal,timeout]):timeout
       let result
-      try{result=await original(input,{...c,signal})}catch(e){if(!delegate)throw e;result={content:'Worker stopped: '+e.message}}
+      try{
+       if(info.id==='glob'){
+        await ctx.permission.assert({sessionID:c.sessionID,agent:role,source:{type:'tool',messageID:c.messageID,id:c.id},action:'glob',resources:[input.pattern],save:[input.pattern]})
+        result={content:JSON.stringify(await discoverProject(ctx.location.directory,state.task,input,signal))}
+       }else result=await original(input,{...c,signal})
+      }catch(e){if(!delegate)throw e;result={content:'Worker stopped: '+e.message}}
       return transact(root,d=>{
        const s=getState(d,c.sessionID,role)
        if(delegate){
@@ -189,7 +196,9 @@ export default {
         return {...result,content:JSON.stringify(t.handoff)}
        }
        if(['read','project_search','webfetch','opencode_read_mcp_resource'].includes(info.id)&&s.sources.length<16){
-        const content=sourceText(result),ref=input.url??(info.id==='project_search'?'Local bounded search: '+input.query:undefined)??input.path??input.filePath??input.uri??'MCP resource';s.sources.push({id:'S'+(s.sources.length+1),ref,type:info.id==='read'?'LOCAL':'RETRIEVED',retrievedAt:new Date().toISOString(),sha256:createHash('sha256').update(content).digest('hex'),excerpt:content.slice(0,16000),truncated:content.length>16000})
+        const content=sourceText(result),ref=input.url??(info.id==='project_search'?'Local bounded search: '+input.query:undefined)??input.path??input.filePath??input.uri??'MCP resource';const source={id:'S'+(s.sources.length+1),ref,type:info.id==='read'?'LOCAL':'RETRIEVED',retrievedAt:new Date().toISOString(),sha256:createHash('sha256').update(content).digest('hex'),excerpt:content.slice(0,16000),truncated:content.length>16000};s.sources.push(source)
+        const receipt={type:'text',text:'Evidence source ID: '+source.id+'. Use this ID in claims.sourceIDs with an exact excerpt from this result.'}
+        return {...result,content:Array.isArray(result.content)?[receipt,...result.content]:receipt.text+'\n\n'+content}
        }
        return result
       })

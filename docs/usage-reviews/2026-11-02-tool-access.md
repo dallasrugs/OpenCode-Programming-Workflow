@@ -40,3 +40,23 @@ The subsequent non-Git workspace update removes the Git prerequisite from
 sandbox settings, logs, source snapshots and test evidence. Ordinary folders
 use `.opencode/workspace/`; Docker availability and explicit test configuration
 remain separate requirements. See the README for source filtering behavior.
+
+## Follow-up: session ses_e61ef2cf5ffe2Hu9QKypE5hPez
+
+The first Researcher was launched in the background. The wrapper treated the
+launch acknowledgment as completion, recorded a PARTIAL fallback and closed the
+worker before its first model step. Closed-state context then removed read/search
+tools. This was a lifecycle error, not a missing native read grant.
+
+A foreground follow-up read both assigned files but an exact-file glob was denied
+by the project-wide-only discovery check. Its handoff attempts then used a wrapper
+string, changed a null brief version to 1, and cited filenames instead of retrieved
+source IDs. Attempts to propose a brief as Researcher were correctly denied.
+Large coordinator status output was also truncated by OpenCode.
+
+The repair waits for validated worker completion, supports bounded glob discovery
+inside assigned scope, returns a ready-to-fill submit template and allowed actions,
+keeps status compact, and adds evidence source-ID receipts to retrievals. Tests
+replay background dispatch through a successful cited worker handoff, named-file
+and directory discovery, protected/excluded paths, and malformed handoff rejection.
+Existing role boundaries are retained.

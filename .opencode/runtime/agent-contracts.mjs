@@ -162,3 +162,53 @@ export async function searchProject(root, task, query, signal) {
   }
   return {matches,filesInspected:files,partial:truncated||queue.length>0,coverage:'Bounded local search; absence of matches does not establish absence.'}
 }
+
+/** Bounded filename discovery inside assigned paths; never follows symlinks. */
+export async function discoverProject(root, task, input, signal) {
+  const { opendir, lstat } = await import('node:fs/promises')
+  const pattern=input.pattern
+  need(typeof pattern==='string'&&pattern.length>0&&pattern.length<=256&&!/[\\\x00-\x1f{}[\]]/.test(pattern),'Use a bounded glob with *, ** or ?')
+  need(!path.isAbsolute(pattern)&&!pattern.split('/').some(p=>p==='..'||p==='.'),'Glob pattern must stay relative to its search directory')
+  const base=path.resolve(root,input.path??'.'),canonicalRoot=await realpath(root)
+  const relativeBase=path.relative(canonicalRoot,base).split(path.sep).join('/')||'.'
+  safeRelative(relativeBase)
+  const contains=(a,b)=>a==='.'||a===b||b.startsWith(a+'/')
+  const queue=task.scope.filter(p=>contains(relativeBase,p)||contains(p,relativeBase)).map(p=>contains(p,relativeBase)?relativeBase:p)
+  need(queue.length,'Search directory is outside task scope')
+  let regex=''
+  for(let i=0;i<pattern.length;i++){
+    const c=pattern[i]
+    if(c==='*'&&pattern[i+1]==='*') { i++;if(pattern[i+1]==='/'){i++;regex+='(?:.*/)?'}else regex+='.*' }
+    else regex+=c==='*'?'[^/]*':c==='?'?'[^/]':c.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')
+  }
+  const matcher=new RegExp('^'+regex+'$'),files=[],seen=new Set()
+  const limit=Math.min(Number.isInteger(input.limit)&&input.limit>0?input.limit:100,200)
+  let visited=0,entries=0,truncated=false
+  while(queue.length&&visited<512&&files.length<limit){
+    signal?.throwIfAborted();const rel=queue.shift();if(seen.has(rel))continue;seen.add(rel);visited++
+    if(rel!=='.')try{safeRelative(rel)}catch{continue}
+    if(task.exclusions.some(p=>contains(p,rel)))continue
+    if(rel!=='.')try{await scopedPath(canonicalRoot,rel,task)}catch{continue}
+    const absolute=path.join(canonicalRoot,rel),st=await lstat(absolute).catch(e=>{if(e.code==='ENOENT')return null;throw e})
+    if(!st||st.isSymbolicLink())continue
+    if(st.isDirectory()){
+      const directory=await opendir(absolute)
+      for await(const entry of directory){
+        if(++entries>4096){truncated=true;break}
+        if(entry.isSymbolicLink()||['node_modules','dist','build','coverage','__pycache__'].includes(entry.name))continue
+        const next=rel==='.'?entry.name:rel+'/'+entry.name
+        try{safeRelative(next)}catch{continue}
+        if(queue.length<512)queue.push(next);else truncated=true
+      }
+    }else if(st.isFile()&&matcher.test(path.relative(base,absolute).split(path.sep).join('/')))files.push(rel)
+  }
+  return {files,partial:truncated||queue.length>0,coverage:'Bounded filename discovery within assigned scope.'}
+}
+
+export function handoffTemplate(task) {
+  return {taskID:task.id,from:task.to,to:'poseidon',objective:task.objective,scope:task.scope,
+    exclusions:task.exclusions,briefVersion:task.briefVersion??null,status:'PARTIAL',
+    summary:'Replace with observed findings.',claims:[],verification:[],uncertainty:[],
+    nextAction:'Replace with the next evidence-backed action.',
+    ...(task.to==='reviewer'?{verdict:'INCONCLUSIVE',findings:[]}: {})}
+}

@@ -145,10 +145,10 @@ test("native tool transforms admit agent and heavy calls without holding a dispa
   }
   const dispatcher = async () => ({ content: "dispatch" })
   const f = await fixture("poseidon-governed-", [
-    {id:"glob",execute}, {id:"shell",execute}, {id:"remote_mcp",execute}, {id:"execute",execute:dispatcher},
+    {id:"read",execute}, {id:"shell",execute}, {id:"remote_mcp",execute}, {id:"execute",execute:dispatcher},
   ])
   try {
-    await Promise.all(Array.from({length:4}, () => f.tools.get("glob").execute({}, {sessionID:"parent", agent:"team-lead"})))
+    await Promise.all(Array.from({length:4}, () => f.tools.get("read").execute({path:"a.md"}, {sessionID:"parent", agent:"team-lead"})))
     assert.equal(peak,1)
     for (const id of ["shell", "remote_mcp", "execute"]) {
       await assert.rejects(f.tools.get(id).execute({}, {sessionID:"parent",agent:"team-lead"}), /Unclassified tool/)
