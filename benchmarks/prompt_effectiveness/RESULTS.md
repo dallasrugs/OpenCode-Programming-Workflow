@@ -1,5 +1,9 @@
 # Benchmark baseline — November 1, 2026
 
+Current candidate: **grilling-default-v4**, baseline **evidence-v3**. This prompt-only
+update makes Poseidon load grilling automatically for product/UI discovery,
+including repairs. No trigger phrase is needed. No scored outcomes exist yet.
+
 Latest prompt-only candidate: **evidence-v3**, with **discovery-v2** as baseline.
 Cases, rubric, scorer, harness, metadata and non-prompt configuration match.
 No v3 task outcomes have been scored; improved accuracy or efficiency is not yet

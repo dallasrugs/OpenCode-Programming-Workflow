@@ -35,24 +35,24 @@ project when replaying a task, preserving the same effective agent configuration
 
 ## Start a variant and task run
 
-The current installed prompt candidate is **evidence-v3**. Its matching baseline
-is **discovery-v2**; both have frozen v2 cases and identical non-prompt
+The current installed prompt candidate is **grilling-default-v4**. Its matching baseline
+is **evidence-v3**; both have frozen v2 cases and identical non-prompt
 configuration. Earlier snapshots are preserved as history. See the
 [evidence and efficiency update](../../docs/usage-reviews/2026-11-01-evidence-v3.md)
 and the [mini-project procedure](../../docs/usage-reviews/2026-11-01-discovery-v2.md)
-(select `evidence-v3` for the current candidate).
+(select `grilling-default-v4` for the current candidate).
 No effectiveness results have been recorded for this candidate yet.
 
 Run from the starter repository:
 
 ```sh
-python3 benchmarks/prompt_effectiveness/benchmark.py prepare evidence-v3 editor-obvious-problems \
+python3 benchmarks/prompt_effectiveness/benchmark.py prepare grilling-default-v4 editor-obvious-problems \
   --workspace '/Users/vjaiwantx/experimental/notepad++' \
   --environment 'Record exact OS, Node, browser and test setup here'
 ```
 
 A fresh mini project can use the `mini-project-discovery` case with
-`--request` pointing to its exact original user request and variant `evidence-v3`.
+`--request` pointing to its exact original user request and variant `grilling-default-v4`.
 Capture before the agent changes the project. The `clarification-recovery` case
 tests a reported invisible question followed by a chat fallback; it does not
 reproduce the native widget failure. `precise-fix-no-interview` checks that the
@@ -64,7 +64,7 @@ choose a new name after changing prompts.
 `prepare` creates:
 
 ```text
-.local/runs/evidence-v3--editor-obvious-problems--1/
+.local/runs/grilling-default-v4--editor-obvious-problems--1/
   run.json                 # frozen starting conditions and hashes
   request.txt              # send only this to the agent
   starting-workspace/      # replayable bounded application inputs
@@ -100,8 +100,8 @@ Copy `review.template.json` to `review.json`, then fill in:
 
 ```sh
 python3 benchmarks/prompt_effectiveness/benchmark.py score \
-  evidence-v3--editor-obvious-problems--1 \
-  --review benchmarks/prompt_effectiveness/.local/runs/evidence-v3--editor-obvious-problems--1/review.json
+  grilling-default-v4--editor-obvious-problems--1 \
+  --review benchmarks/prompt_effectiveness/.local/runs/grilling-default-v4--editor-obvious-problems--1/review.json
 ```
 
 Scoring creates an immutable `assessment.json`. It rejects missing evidence,
@@ -115,7 +115,7 @@ is preserved; it is not replaced by the weighted assessor score.
 After another prompt variant and matching runs have been scored:
 
 ```sh
-python3 benchmarks/prompt_effectiveness/benchmark.py compare discovery-v2 evidence-v3
+python3 benchmarks/prompt_effectiveness/benchmark.py compare evidence-v3 grilling-default-v4
 python3 benchmarks/prompt_effectiveness/benchmark.py status
 ```
 

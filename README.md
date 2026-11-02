@@ -111,7 +111,10 @@ file hashes and licenses are in [SOURCES.json](.opencode/skills/SOURCES.json).
 | Writing and discoverability | `humanizer`, `human-writing`, `seo-content`, `seo-technical` |
 | Commerce tasks | `ecommerce-brand-voice`, `ecommerce-copywriting`, `ecommerce-product-pages` |
 
-“Grill me”, “grill-me” and “grill” refer to `grilling`. `grill-with-docs` is used
+Poseidon automatically loads `grilling` for new products, UI/UX work including repairs,
+redesigns, broad audits and materially ambiguous behavior changes. No explicit
+“grill” request is needed. Settled decisions are reused; precise fixes avoid
+unnecessary interviews. “Grill me”, “grill-me” and “grill” also refer to `grilling`. `grill-with-docs` is used
 when explicitly requested. GTD helps clarify outcomes and next actions; it does
 not authorize messages, calendar events or unrelated product features.
 
@@ -243,7 +246,7 @@ or requirements invalidate a prompt-only comparison. Critical workflow failures
 block readiness even when visual scores are high. Repeats are grouped by task;
 small samples do not establish general improvement.
 
-The locally installed candidate is `evidence-v3`, with `discovery-v2` saved
+The locally installed candidate is `grilling-default-v4`, with `evidence-v3` saved
 as its matching prompt baseline. The [latest tuning](docs/usage-reviews/2026-11-01-evidence-v3.md)
 targets review accuracy, ordinary boundary states and reuse of validation evidence
 based on the calculator and editor sessions. Ten cases cover discovery, question recovery,

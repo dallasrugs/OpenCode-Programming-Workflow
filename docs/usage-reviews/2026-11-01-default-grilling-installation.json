@@ -1,0 +1,25 @@
+{
+  "version": "grilling-default-v4",
+  "date": "2026-11-01",
+  "scope": "Poseidon prompt bodies only",
+  "stage": "/private/tmp/opencode-default-grilling-wbn1j7d6",
+  "files": {
+    "project": {
+      "path": "/Users/vjaiwantx/opencode-multi-agent-starter/.opencode/agents/poseidon.md",
+      "before": "060c907040a74579c84c0ff8d765873718c535fe7fca106a15b8045cbfb4fdc8",
+      "after": "85735749755b89dad1faba0731c6ce38f911447832c9a136367e927cc3be3ebf"
+    },
+    "global": {
+      "path": "/Users/vjaiwantx/.config/opencode/agents/poseidon.md",
+      "before": "bfde28534a6764a461f3a384faff5d95cba50955930702ddbe961a2741cee4b6",
+      "after": "1efeebaf985ca97bcd44cca1f00f10ffc050a20b5d3e6874f39d2250ed6c7a3a"
+    }
+  },
+  "activeGlobalLoaded": true,
+  "model": {
+    "id": "gpt-6-sol",
+    "providerID": "openai"
+  },
+  "mode": "primary",
+  "modelRequests": 0
+}
