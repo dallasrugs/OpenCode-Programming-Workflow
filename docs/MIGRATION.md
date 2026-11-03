@@ -125,7 +125,7 @@ Review and stage the six definitions, opencode.json policies/default, skills/SOU
 
 A global legacy poseidon-workspace plugin may coexist with the local installation-specific plugin ID. The local copy detects and reuses its workspace tool and installs the new guards around it. An attempted plugin.use deny did not remove the legacy plugin from live discovery and was removed; enforcement does not rely on that ineffective policy. Check actual plugin/command discovery, not just file content. An updated global copy yields to a project-local bundle to avoid duplicate infrastructure.
 
-After choosing the reviewed installation, restart/load a fresh project and chat. Confirm Team Lead primary and the new agent_contracts/project_search tools plus confirm-brief/agent-audit commands. See AGENT_CONTRACTS.md for operator brief confirmation and evaluation-only commands.
+After choosing the reviewed installation, restart/load a fresh project and chat. Confirm Poseidon primary and the new agent_contracts/project_search tools plus confirm-brief/agent-audit commands. See AGENT_CONTRACTS.md for operator brief confirmation and evaluation-only commands.
 
 ## November 2, 2026: restore Poseidon and development tools
 

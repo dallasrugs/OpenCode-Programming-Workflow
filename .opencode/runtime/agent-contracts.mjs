@@ -28,14 +28,21 @@ export function assignment(value, limits) {
   t.scope.forEach(safeRelative); t.exclusions.forEach(safeRelative)
   need(t.sourceTypes.every(x => ['local','web','mcp','system'].includes(x)), 'Unknown source type')
   t.budget = { ...limits, ...(t.budget ?? {}) }
-  for (const [k,v] of Object.entries(t.budget)) need(k in limits && Number.isInteger(v) && v > 0 && v <= limits[k], 'Budget needs operator authorization: ' + k)
+  for (const [k,v] of Object.entries(t.budget)) {
+    need(k in limits && Number.isInteger(v) && v > 0, 'Invalid budget: ' + k)
+    t.budget[k]=Math.min(v,limits[k])
+  }
   need(t.to !== 'researcher' || t.skills.every(s => s === 'karpathy-guidelines'), 'Unauthorized research skill')
   need(typeof t.design === 'boolean', 'Explicit design classification required')
   if (t.design && t.to === 'coder') { text(t.briefID, 'brief id'); need(Number.isInteger(t.briefVersion), 'Brief version required') }
   return { ...t, from: 'poseidon', status: 'ASSIGNED' }
 }
 export function validateBrief(b, previous) {
-  need(b && typeof b === 'object', 'Brief required'); text(b.id, 'brief id')
+  need(b && typeof b === 'object', 'Brief required')
+  b={...structuredClone(b),reason:b.reason??b['reason-for-revision']??b.reasonForRevision}
+  delete b['reason-for-revision'];delete b.reasonForRevision
+  if(b.reason===undefined)delete b.reason
+  text(b.id, 'brief id')
   need(/^[\w-]{1,64}$/.test(b.id), 'Unsafe brief id')
   need(b.version === (previous?.version ?? 0) + 1, 'Brief revision must advance once')
   for (const k of ['goals','preferences','prohibitions','functional','technical','accessibility','acceptance','openQuestions']) list(b[k], k)
@@ -62,8 +69,22 @@ export function validateBrief(b, previous) {
   }
   return { ...structuredClone(b), confirmed: false, previousHash: previous ? digest(previous) : null }
 }
+export function briefHash(brief) {
+  const value=structuredClone(brief);value.confirmed=false
+  for(const key of ['confirmedBy','confirmedAt'])delete value[key]
+  return digest(value)
+}
+
 export function handoff(h, task, state, limit) {
+  if(typeof h==='string')h={summary:h}
+  if(h&&typeof h==='object'&&Object.keys(h).length===1&&'handoff'in h){h=h.handoff;if(typeof h==='string'){try{h=JSON.parse(h)}catch{h={summary:h}}}}
   need(h && typeof h === 'object', 'Handoff required')
+  const provided=structuredClone(h)
+  text(provided.summary,'summary')
+  h={...handoffTemplate(task),...provided}
+  need(Buffer.byteLength(JSON.stringify(h))<=65536,'Handoff exceeds the 64 KiB storage limit; submit a focused report')
+  const warnings=[]
+
   need(Object.keys(h).every(k=>['taskID','from','to','objective','scope','exclusions','briefVersion','status','summary','claims','verification','uncertainty','nextAction','verdict','findings'].includes(k)), 'Unknown handoff field')
   for (const k of ['taskID','from','to','objective','summary','nextAction']) text(h[k], k)
   need(h.taskID === task.id && h.from === task.to && h.to === 'poseidon', 'Unauthorized handoff routing')
@@ -72,19 +93,22 @@ export function handoff(h, task, state, limit) {
   need(h.briefVersion === (task.briefVersion ?? null), 'Brief version changed')
   list(h.uncertainty,'uncertainty'); list(h.verification,'verification')
   need(['COMPLETE','PARTIAL','INSUFFICIENT'].includes(h.status), 'Unknown handoff status')
-  need(words([h.summary, h.nextAction, ...h.uncertainty, ...h.verification, ...(h.claims??[]).map(c=>c.text), ...(h.findings??[]).flatMap(f=>Object.values(f))].join(' ')) <= limit, 'Human-readable handoff exceeds word limit')
+  if(words([h.summary,h.nextAction,...h.uncertainty,...h.verification,...(h.claims??[]).map(c=>c.text)].join(' '))>limit)warnings.push('Long report preserved; prefer a concise summary next time')
   need(Array.isArray(h.claims) && h.claims.length <= 32, 'Claims required')
   const sources = new Map(state.sources.map(s => [s.id,s]))
-  for (const c of h.claims) {
+  for (const [index,c] of h.claims.entries()) {
+    c.id??='C'+(index+1);c.type??='UNKNOWN';c.sourceIDs??=[]
     text(c.id,'claim id');text(c.text,'claim text');need(types.includes(c.type),'Unknown claim classification');list(c.sourceIDs,'source IDs')
     need(c.sourceIDs.every(id => sources.has(id)), 'Claim cites an unretrieved source')
     if (['VERIFIED_FACT','DOCUMENTED_STANDARD','OBSERVED_CONVENTION'].includes(c.type)) {
-      need(c.sourceIDs.length && typeof c.quote === 'string' && c.quote.trim(), 'Factual claim needs source and exact supporting excerpt')
-      need(c.sourceIDs.some(id => sources.get(id).excerpt.includes(c.quote)), 'Supporting excerpt not found in retrieved source')
+      const matched=c.sourceIDs.length&&typeof c.quote==='string'&&c.quote.trim()&&c.sourceIDs.some(id=>sources.get(id).excerpt.includes(c.quote))
+      c.evidenceStatus=matched?'QUOTE_MATCH_REVIEW_REQUIRED':'UNVERIFIED_REVIEW_REQUIRED'
+      if(!matched){c.requestedType=c.type;c.type='UNKNOWN';warnings.push('Claim '+c.id+': quotation not verified; retained for independent review')}
     }
   }
   need(new Set(h.claims.map(c=>c.id)).size === h.claims.length, 'Duplicate claim id')
-  need(words(JSON.stringify(h)) <= limit + 350, 'Structured handoff exceeds bounded envelope')
+  if(warnings.length)h.warnings=warnings
+  h.sourceIDs=state.sources.map(s=>s.id)
   if (h.from === 'reviewer') {
     need(['PASS','PASS_WITH_WARNINGS','FAIL','INCONCLUSIVE'].includes(h.verdict),'Reviewer verdict required')
     need(Array.isArray(h.findings), 'Review findings required')
@@ -217,6 +241,6 @@ export function handoffTemplate(task) {
   return {taskID:task.id,from:task.to,to:'poseidon',objective:task.objective,scope:task.scope,
     exclusions:task.exclusions,briefVersion:task.briefVersion??null,status:'PARTIAL',
     summary:'Replace with observed findings.',claims:[],verification:[],uncertainty:[],
-    nextAction:'Replace with the next evidence-backed action.',
+    nextAction:'Coordinator reviews findings and assigns remaining work.',
     ...(task.to==='reviewer'?{verdict:'INCONCLUSIVE',findings:[]}: {})}
 }

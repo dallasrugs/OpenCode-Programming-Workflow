@@ -21,9 +21,10 @@ test('unknown executors, shell, mutation and unauthorized design skills never ex
 test('serialized concurrent calls respect admission ceiling and reserve final handoff slot',async()=>{
  let executed=0;const f=await fixture([{id:'read',execute:async()=>{executed++;return {content:'The text is green.'}}}])
  try{
+  await f.contracts('assign',{...assignment,budget:{tools:8}},'poseidon','root');f.store.get('root/root').tasks.r1.status='RUNNING'
   const attempts=await Promise.allSettled(Array.from({length:12},()=>f.call('read',{path:'a.md'})))
   assert.equal(executed,7);assert.equal(attempts.filter(x=>x.status==='rejected').length,5)
-  const value={taskID:'direct-researcher',from:'researcher',to:'poseidon',objective:'Direct bounded investigation',scope:['.'],exclusions:[],briefVersion:null,status:'PARTIAL',summary:'Retrieved local evidence.',claims:[],verification:[],uncertainty:['Preferences unknown'],nextAction:'Ask Poseidon.'}
+  const value={taskID:'r1',from:'researcher',to:'poseidon',objective:'Check text',scope:['a.md'],exclusions:[],briefVersion:null,status:'PARTIAL',summary:'Retrieved local evidence.',claims:[],verification:[],uncertainty:['Preferences unknown'],nextAction:'Ask Poseidon.'}
   const h=await f.contracts('submit',value);assert.equal(h.status,'PARTIAL');assert.equal(f.store.get('root/root').sessions.child.calls,8)
   await assert.rejects(f.call('read',{path:'a.md'}),/Task closed/)
  }finally{await f.close()}
@@ -37,7 +38,7 @@ test('only Poseidon assigns; malformed/missing handoffs become partial before re
   await assert.rejects(f.call('subagent',{agent:'coder',prompt:'Implement'},'poseidon','root'),/Validated assignment/)
   const result=JSON.parse((await f.call('subagent',{agent:'researcher',prompt:'Read the source'},'poseidon','root')).content)
   assert.equal(delegated,1);assert.equal(result.status,'PARTIAL');assert.deepEqual(result.claims,[])
-  assert.ok(!JSON.stringify(result).includes('use red'))
+  assert.match(result.summary,/use red/);assert.match(result.uncertainty.join(' '),/not independently verified/)
  }finally{await f.close()}
 })
 test('confirmation is operator-only, version/hash bound, and needed for design implementation',async()=>{
@@ -50,6 +51,11 @@ test('confirmation is operator-only, version/hash bound, and needed for design i
   await assert.rejects(f.contracts('assign',coder,'poseidon','root'),/User-confirmed/)
   await assert.rejects(f.commands.get('confirm-brief').execute({sessionID:'root',prompt:{text:'design 1 stale'}}),/Stale/)
   await f.commands.get('confirm-brief').execute({sessionID:'root',prompt:{text:`design 1 ${proposal.hash}`}})
+  const confirmed=f.store.get('root/root').briefs.design[0].confirmedAt
+  await f.commands.get('confirm-brief').execute({sessionID:'root',prompt:{text:`design 1 ${proposal.hash}`}})
+  assert.equal(f.store.get('root/root').briefs.design[0].confirmedAt,confirmed)
+  assert.match(await readFile(proposal.file,'utf8'),/# design/)
+  assert.equal((await f.contracts('brief',{id:'design'})).confirmed,true)
   assert.equal((await f.contracts('assign',coder,'poseidon','root')).briefVersion,1)
  }finally{await f.close()}
 })
@@ -57,7 +63,7 @@ test('context strips unclassified tools before model dispatch',async()=>{
  const f=await fixture()
  try{
   const event={sessionID:'child',agent:'researcher',system:[],tools:{random_mcp:{},agent_contracts:{},read:{}},options:{}}
-  await f.hooks.get('context')(event);assert.ok(!('random_mcp'in event.tools));assert.equal(event.options.maxTokens,1800)
+  await f.hooks.get('context')(event);assert.ok(!('random_mcp'in event.tools));assert.equal(event.options.maxTokens,3000)
   assert.ok(event.system[0].text.includes('Trusted task contract'))
  }finally{await f.close()}
 })
@@ -120,11 +126,11 @@ test('background launch is awaited before task closure and worker tools remain a
  let f
  f=await fixture([{id:'read',execute:async()=>({content:'The text is green.'})},{id:'subagent',execute:async input=>{
   assert.equal(input.background,false)
-  assert.match(input.prompt,/briefVersion.*null/)
+  assert.match(input.prompt,/Routing is filled automatically/)
   const status=await f.contracts('status')
   assert.equal(status.state.closed,false)
   assert.equal(status.task.status,'RUNNING')
-  assert.deepEqual(status.allowedActions,['status','submit'])
+  assert.deepEqual(status.allowedActions,['help','brief','evidence','status','submit'])
   const event={sessionID:'child',agent:'researcher',system:[],tools:{read:{},project_search:{},agent_contracts:{}},options:{}}
   await f.hooks.get('context')(event)
   assert.ok(event.tools.read)
@@ -152,7 +158,6 @@ test('scoped filename discovery works and does not enumerate excluded or externa
   await assert.rejects(f.call('glob',{pattern:'../*'}),/relative/)
   await assert.rejects(f.call('glob',{pattern:'*',path:'/tmp'}),/scope path/)
   const status=await f.contracts('status')
-  await assert.rejects(f.contracts('submit',{handoff:JSON.stringify(status.submitTemplate)}),/flat JSON object/)
   await assert.rejects(f.contracts('submit',{...status.submitTemplate,briefVersion:1}),/Brief version changed/)
   const submitted=await f.contracts('submit',{...status.submitTemplate,summary:'No unsupported claims.',nextAction:'Review.'})
   assert.equal(submitted.briefVersion,null)
@@ -239,5 +244,42 @@ test('non-Coder local UI edits honor the same confirmed brief as Coder edits',as
   f.store.get('root/root').tasks.r1.status='RUNNING'
   await f.call('edit',{path:'ui.tsx'},'reviewer','reviewer-ui')
   assert.equal(changed,1)
+ }finally{await f.close()}
+})
+
+test('replacement tools return declared machine output for discovery, delegated prose and failures',async()=>{
+ const f=await fixture([{id:'glob',output:{type:'array'},execute:async()=>{throw Error('Native glob must not execute')}},{id:'subagent',output:{type:'object',required:['nativeField']},execute:async()=>({content:'Useful observed findings.'})}])
+ try{
+  const glob=await f.call('glob',{pattern:'a.md'});assert.deepEqual(glob.output,JSON.parse(glob.content));assert.equal(f.tools.get('glob').output.type,'object')
+  await f.contracts('assign',assignment,'poseidon','root')
+  const result=await f.call('subagent',{agent:'researcher',prompt:'Read'},'poseidon','root')
+  assert.deepEqual(result.output,JSON.parse(result.content));assert.equal(result.output.status,'PARTIAL');assert.match(result.output.summary,/Useful observed/)
+  assert.equal(f.store.get('root/root').tasks.r1.critique,undefined)
+ }finally{await f.close()}
+ const broken=await fixture([{id:'subagent',execute:async()=>{throw Error('Provider stopped')}}])
+ try{
+  await broken.contracts('assign',assignment,'poseidon','root')
+  const result=await broken.call('subagent',{agent:'researcher',prompt:'Read'},'poseidon','root')
+  assert.equal(result.output.status,'PARTIAL');assert.match(result.output.summary,/Provider stopped/)
+ }finally{await broken.close()}
+})
+test('public help and retrieved evidence remain accessible without reading protected control files',async()=>{
+ const f=await fixture([{id:'read',execute:async()=>({content:'The text is green.'})}])
+ try{
+  await f.call('read',{path:'a.md'})
+  const before=f.store.get('root/root').sessions.child.calls
+  assert.match((await f.contracts('help')).guidance,/Routing is filled automatically/)
+  assert.equal((await f.contracts('evidence')).sources[0].excerpt,'The text is green.')
+  assert.equal(f.store.get('root/root').sessions.child.calls,before)
+  await assert.rejects(f.call('read',{path:'/home/bl0nd/.config/opencode/runtime/agent-contracts.mjs'}),/Protected|scope|project/)
+ }finally{await f.close()}
+})
+test('replaced native webfetch preserves declared output and source receipts',async()=>{
+ const f=await fixture([{id:'webfetch',output:{type:'string'},execute:async()=>({content:'Public documentation text.'})}])
+ try{
+  const result=await f.call('webfetch',{url:'https://opencode.ai/docs'},'poseidon','root')
+  assert.deepEqual(result.output,{content:'Public documentation text.'})
+  assert.match(result.content,/Evidence source ID: S1/)
+  assert.equal(f.tools.get('webfetch').output.type,'object')
  }finally{await f.close()}
 })

@@ -220,7 +220,9 @@ See [settings examples](.opencode/runtime/settings.example.json).
 Default resource admission is one worker, one heavy tool and one delegation level.
 [agent-limits.json](.opencode/runtime/agent-limits.json) adds per-role step, call,
 time and output budgets. Research defaults to three searches, four retrievals,
-eight calls, eight steps, 120 seconds and a 300-word handoff. A final submission
+24 calls, 16 steps, 300 seconds and a suggested 600-word report. Reports can use
+minimal submit objects or ordinary final prose; routing is automatic and unreviewed
+reports stay PARTIAL. Public help/evidence actions avoid reading protected runtime files. A final submission
 slot is reserved. Limits do not make incomplete evidence a successful result.
 
 The provider budget guard caps observed NVIDIA/Nemotron requests at **20/minute
