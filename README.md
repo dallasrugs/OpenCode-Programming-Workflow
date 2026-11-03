@@ -26,6 +26,10 @@ desktop text editor. OpenCode agents created both from empty repositories. See
 - Provides bounded runtime tools, Docker test workspaces, skill provenance checks,
   and an offline benchmark for evaluating prompt changes against task outcomes.
 
+The coordinator and research prompts also retain selected guidance from the local
+CLI skill catalog, with fallbacks for unavailable optional skills. See the
+[adaptation review](docs/LOCAL_SKILL_ADAPTATION.md) for role mappings and limits.
+
 ## Agents and responsibilities
 
 | Agent | Responsibility | Configured model |
